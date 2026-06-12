@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدرس 08: الشمس مصدر للطاقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #0a0f1e;
+            --dark3: #1a2540;
+            --border: rgba(255,255,255,.08);
+            --card: rgba(255,255,255,.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #f97316; /* لون الظواهر الضوئية */
+            --success: #10b981;
+            --danger: #ef4444;
+            --gold2: #fbbf24;
+            --font-main: 'Cairo', sans-serif;
+            --font-text: 'Amiri', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            font-family: var(--font-main);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        .top-nav {
+            background-color: var(--dark3);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .btn-back {
+            color: var(--text);
+            text-decoration: none;
+            background: var(--card);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Tabs System */
+        .tabs-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Styles */
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .lesson-badge {
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .objectives-box {
+            background: var(--card);
+            border-right: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px 0 0 8px;
+            margin-bottom: 2rem;
+        }
+
+        .objectives-box h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .objectives-box ul {
+            list-style: none;
+            padding-right: 1rem;
+        }
+
+        .objectives-box li::before {
+            content: "🎯";
+            margin-left: 0.5rem;
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sec-title h2 {
+            color: var(--text);
+            font-size: 1.5rem;
+        }
+
+        .def-box {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .def-box::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 4px; height: 100%;
+            background: var(--gold2);
+        }
+
+        .def-content {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .def-illustration {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+
+        .def-text {
+            flex: 1;
+            font-family: var(--font-text);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .formula-box {
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px dashed var(--gold2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            color: var(--gold2);
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .info-table th, .info-table td {
+            border: 1px solid var(--border);
+            padding: 1rem;
+            text-align: right;
+        }
+
+        .info-table th {
+            background: var(--dark3);
+            color: var(--accent);
+        }
+
+        .highlight {
+            background: rgba(249, 115, 22, 0.1);
+            padding: 1rem;
+            border-radius: 6px;
+            border-right: 3px solid var(--accent);
+            margin: 1rem 0;
+        }
+
+        /* Graphics & Layout */
+        .lesson-diagram {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            aspect-ratio: 3/2;
+            margin: 1.5rem auto;
+            border-radius: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .flex-diagram-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Simulation Tab */
+        .sim-wrap {
+            background: var(--dark3);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .sim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sim-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            background: var(--card);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .control-group label {
+            min-width: 120px;
+            font-weight: 600;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            accent-color: var(--accent);
+        }
+
+        .color-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .color-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            cursor: pointer;
+        }
+        .color-btn.active { border-color: var(--accent); transform: scale(1.1); }
+
+        /* Quiz Tab */
+        .q-card {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .q-num {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .q-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-text);
+        }
+
+        .q-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+
+        .q-option {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .q-option:hover {
+            border-color: var(--muted);
+        }
+
+        .q-option.selected {
+            border-color: var(--accent);
+            background: rgba(249, 115, 22, 0.1);
+        }
+
+        .q-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .q-option.wrong {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .q-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .q-feedback.show {
+            display: block;
+        }
+
+        .btn-submit {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            font-family: var(--font-main);
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .quiz-score {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+            color: var(--gold2);
+        }
+
+        /* Summary Tab */
+        .summary-card {
+            background: linear-gradient(145deg, var(--dark3), var(--dark));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .summary-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .summary-list li {
+            margin-bottom: 1rem;
+            padding-right: 2rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .summary-list li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            top: 2px;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .btn-print {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--muted);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem auto 0;
+            font-family: var(--font-main);
+            transition: 0.3s;
+        }
+
+        .btn-print:hover {
+            background: var(--text);
+            color: var(--dark);
+        }
+
+        @media (max-width: 640px) {
+            .tabs-header { flex-wrap: nowrap; overflow-x: auto; }
+            .def-content { flex-direction: column; text-align: center; }
+            .lesson-diagram { max-width: 100%; }
+        }
+
+        @media print {
+            body { background: #fff; color: #000; }
+            .top-nav, .tabs-header, .btn-print { display: none; }
+            .tab-content { display: block !important; }
+            .summary-card { border: none; background: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="breadcrumb">السنة الأولى متوسط › المقطع 04 › الدرس 08</div>
+        <a href="../index.html" class="btn-back">← الفهرس</a>
+    </nav>
+
+    <div class="tabs-container">
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="openTab('lesson', this)">📖 الدرس</button>
+            <button class="tab-btn" onclick="openTab('sim', this)">⚗️ تجربة ومحاكاة</button>
+            <button class="tab-btn" onclick="openTab('quiz', this)">✏️ تمارين</button>
+            <button class="tab-btn" onclick="openTab('summary', this)">📋 ملخص الكراس</button>
+        </div>
+
+        <div id="lesson" class="tab-content active">
+            <div class="lesson-header">
+                <span class="lesson-badge">الظواهر الضوئية</span>
+                <h1><em>الشمس</em> مصدر للطاقة</h1>
+            </div>
+
+            <div class="objectives-box">
+                <h3>الأهداف التعلمية</h3>
+                <ul>
+                    <li>أن يدرك التلميذ أن الشمس هي المصدر الأساسي للطاقة على كوكب الأرض.</li>
+                    <li>أن يتعرف على تحولات الطاقة الشمسية (إلى طاقة حرارية وكهربائية).</li>
+                    <li>أن يفسر تأثير لون الأجسام على امتصاص الطاقة الحرارية للشمس.</li>
+                </ul>
+            </div>
+
+            <div class="sec-title">
+                <span>💡</span>
+                <h2>1. الضوء والطاقة الحرارية</h2>
+            </div>
+            
+            <div class="def-box">
+                <h3>الطاقة الشمسية (Énergie solaire)</h3>
+                <div class="def-content">
+                    <svg class="def-illustration" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="20" fill="var(--gold2)"/>
+                        <path d="M50 10 L50 20 M50 80 L50 90 M10 50 L20 50 M80 50 L90 50 M22 22 L29 29 M71 71 L78 78 M22 78 L29 71 M71 22 L78 29" stroke="var(--gold2)" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <p class="def-text">
+                        هي الطاقة الصادرة عن أشعة الشمس، وتصلنا على شكل <strong>ضوء وحرارة</strong>. تعتبر المصدر الأساسي والأول لجميع الطاقات على سطح الأرض تقريباً، وهي طاقة متجددة ونظيفة.
+                    </p>
+                </div>
+            </div>
+
+            <p>عندما تسقط أشعة الشمس على جسم ما، فإنه يسخن. وهذا يدل على أن الضوء يحمل طاقة تتحول عند اصطدامها بالأجسام إلى طاقة حرارية.</p>
+
+            <div class="sec-title">
+                <span>🔄</span>
+                <h2>2. تحويل الطاقة الشمسية إلى أشكال أخرى</h2>
+            </div>
+
+            <p>يمكننا استغلال الطاقة الشمسية وتحويلها إلى أشكال مفيدة من خلال أجهزة متخصصة:</p>
+
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>الجهاز (التكنولوجيا المستخدمة)</th>
+                        <th>شكل الطاقة الناتج</th>
+                        <th>الاستخدام اليومي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>الخلايا الكهروضوئية (Panneaux solaires)</strong></td>
+                        <td>طاقة كهربائية</td>
+                        <td>إنارة المنازل، تشغيل الآلات، حاسبات الجيب.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>السخان الشمسي (Chauffe-eau solaire)</strong></td>
+                        <td>طاقة حرارية</td>
+                        <td>تسخين المياه في المنازل والمستشفيات.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <svg class="lesson-diagram" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="600" height="400" fill="var(--card)"/>
+                <circle cx="100" cy="100" r="40" fill="#fbbf24"/>
+                <path d="M150 150 L220 220" stroke="#fbbf24" stroke-width="3" stroke-dasharray="5,5"/>
+                <path d="M160 120 L240 180" stroke="#fbbf24" stroke-width="3" stroke-dasharray="5,5"/>
+                <path d="M120 160 L180 240" stroke="#fbbf24" stroke-width="3" stroke-dasharray="5,5"/>
+                <polygon points="200,280 320,220 380,260 260,320" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2"/>
+                <line x1="230" y1="265" x2="350" y2="205" stroke="#60a5fa" stroke-width="1"/>
+                <line x1="260" y1="235" x2="320" y2="295" stroke="#60a5fa" stroke-width="1"/>
+                <line x1="290" y1="220" x2="350" y2="280" stroke="#60a5fa" stroke-width="1"/>
+                <path d="M320 300 C 400 350, 450 250, 480 280" fill="none" stroke="#ef4444" stroke-width="3"/>
+                <circle cx="500" cy="250" r="30" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+                <rect x="490" y="280" width="20" height="15" fill="#475569"/>
+                <text x="100" y="170" fill="var(--text)" font-family="Amiri" font-size="16" text-anchor="middle">طاقة شمسية</text>
+                <text x="290" y="340" fill="var(--text)" font-family="Amiri" font-size="16" text-anchor="middle">ألواح كهروضوئية</text>
+                <text x="500" y="320" fill="var(--text)" font-family="Amiri" font-size="16" text-anchor="middle">طاقة كهربائية (وضوئية)</text>
+            </svg>
+
+            <div class="sec-title">
+                <span>🎨</span>
+                <h2>3. الضوء والألوان (امتصاص الأجسام للطاقة)</h2>
+            </div>
+
+            <p>لا تمتص كل الأجسام نفس المقدار من الطاقة الحرارية للشمس، بل يعتمد ذلك على <strong>لون الجسم</strong>:</p>
+
+            <div class="flex-diagram-container">
+                <div class="highlight" style="flex:1">
+                    <h4 style="color:#ef4444; margin-bottom:0.5rem">الأجسام الداكنة (الأسود)</h4>
+                    <p>تمتص معظم أشعة الشمس الساقطة عليها، لذا ترتفع درجة حرارتها <strong>بسرعة وبشكل كبير</strong>.</p>
+                </div>
+                <div class="highlight" style="flex:1; border-color:#e2e8f0; background:rgba(255,255,255,0.05)">
+                    <h4 style="color:#e2e8f0; margin-bottom:0.5rem">الأجسام الفاتحة (الأبيض)</h4>
+                    <p>تعكس معظم أشعة الشمس ولا تمتص إلا القليل، لذا ترتفع حرارتها <strong>ببطء</strong>.</p>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                كلما كان لون الجسم أغمق ← زاد امتصاصه للطاقة الحرارية
+            </div>
+
+        </div>
+
+        <div id="sim" class="tab-content">
+            
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h3>المحاكاة 1: تحويل الطاقة الشمسية إلى كهرباء</h3>
+                    <span class="sim-badge">تفاعلي</span>
+                </div>
+                
+                <svg id="sim1-canvas" class="lesson-diagram" viewBox="0 0 600 300" style="background:#87CEEB">
+                    <rect x="0" y="200" width="600" height="100" fill="#4ade80"/>
+                    <g id="clouds" fill="#ffffff" opacity="0">
+                        <circle cx="150" cy="50" r="30"/>
+                        <circle cx="190" cy="50" r="40"/>
+                        <circle cx="230" cy="50" r="30"/>
+                    </g>
+                    <g id="sim-sun">
+                        <circle cx="100" cy="60" r="40" fill="#fbbf24"/>
+                        <circle cx="100" cy="60" r="45" fill="#fef08a" opacity="0.5"/>
+                    </g>
+                    <polygon points="250,180 350,150 380,180 280,210" fill="#1e40af" stroke="#93c5fd" stroke-width="2"/>
+                    <rect x="310" y="195" width="10" height="50" fill="#475569"/>
+                    <rect x="420" y="140" width="100" height="80" fill="#fcd34d"/>
+                    <polygon points="410,140 470,90 530,140" fill="#ef4444"/>
+                    <rect x="450" y="170" width="40" height="30" fill="#1e293b"/>
+                    <circle id="house-bulb" cx="470" cy="185" r="15" fill="#fbbf24" opacity="1"/>
+                    <path d="M330 200 L400 240 L450 200" fill="none" stroke="#1f2937" stroke-width="2"/>
+                </svg>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label>كثافة الغيوم:</label>
+                        <input type="range" id="cloud-slider" min="0" max="100" value="0" oninput="updateSim1()">
+                    </div>
+                    <div style="text-align:center; font-weight:bold; color:var(--accent)" id="power-output">
+                        الطاقة المنتجة: 100%
+                    </div>
+                </div>
+            </div>
+
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h3>المحاكاة 2: أثر اللون على امتصاص الحرارة</h3>
+                    <span class="sim-badge">تفاعلي</span>
+                </div>
+                
+                <svg id="sim2-canvas" class="lesson-diagram" viewBox="0 0 600 300">
+                    <circle cx="300" cy="40" r="30" fill="#fbbf24"/>
+                    <path id="heat-waves" d="M300 80 L300 130 M280 75 L260 120 M320 75 L340 120" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" opacity="0.8"/>
+                    
+                    <rect id="color-box" x="250" y="150" width="100" height="80" fill="#111827" stroke="#374151" stroke-width="2"/>
+                    
+                    <rect x="420" y="50" width="16" height="150" fill="#e2e8f0" rx="8"/>
+                    <rect id="mercury" x="424" y="180" width="8" height="10" fill="#ef4444" rx="4"/>
+                    <circle cx="428" cy="200" r="14" fill="#ef4444"/>
+                    
+                    <line x1="410" y1="60" x2="420" y2="60" stroke="#fff" stroke-width="1"/>
+                    <line x1="410" y1="100" x2="420" y2="100" stroke="#fff" stroke-width="1"/>
+                    <line x1="410" y1="140" x2="420" y2="140" stroke="#fff" stroke-width="1"/>
+                    <text x="380" y="65" fill="#fff" font-size="12">50°C</text>
+                    <text x="380" y="105" fill="#fff" font-size="12">30°C</text>
+                    <text x="380" y="145" fill="#fff" font-size="12">10°C</text>
+                </svg>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label>لون الجسم:</label>
+                        <div class="color-btns">
+                            <div class="color-btn active" style="background:#111827" onclick="setColor('#111827', 1.5, this)"></div>
+                            <div class="color-btn" style="background:#ef4444" onclick="setColor('#ef4444', 1.0, this)"></div>
+                            <div class="color-btn" style="background:#f8fafc" onclick="setColor('#f8fafc', 0.3, this)"></div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>مدة التعرض للشمس:</label>
+                        <input type="range" id="time-slider" min="0" max="100" value="0" oninput="updateSim2()">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="quiz" class="tab-content">
+            <div class="lesson-header">
+                <h2>اختبر معلوماتك</h2>
+                <p>أجب عن الأسئلة التالية لتقييم فهمك للدرس</p>
+            </div>
+
+            <div id="quiz-container">
+                <div class="q-card" data-correct="1">
+                    <div class="q-num">السؤال 1 / 5</div>
+                    <div class="q-text">ما هو المصدر الأساسي للطاقة على كوكب الأرض؟</div>
+                    <div class="q-options">
+                        <div class="q-option" onclick="selectOption(this, 0)">الرياح</div>
+                        <div class="q-option" onclick="selectOption(this, 1)">الشمس</div>
+                        <div class="q-option" onclick="selectOption(this, 2)">الوقود الأحفوري</div>
+                    </div>
+                    <div class="q-feedback">إجابة صحيحة! الشمس هي المصدر الأول والأهم لجميع الطاقات تقريباً.</div>
+                </div>
+
+                <div class="q-card" data-correct="2">
+                    <div class="q-num">السؤال 2 / 5</div>
+                    <div class="q-text">الخلايا الكهروضوئية (الألواح الشمسية) تقوم بتحويل الطاقة الشمسية إلى:</div>
+                    <div class="q-options">
+                        <div class="q-option" onclick="selectOption(this, 0)">طاقة حركية</div>
+                        <div class="q-option" onclick="selectOption(this, 1)">طاقة حرارية</div>
+                        <div class="q-option" onclick="selectOption(this, 2)">طاقة كهربائية</div>
+                    </div>
+                    <div class="q-feedback">صحيح. الخلايا الكهروضوئية تحول ضوء الشمس مباشرة إلى كهرباء.</div>
+                </div>
+
+                <div class="q-card" data-correct="0">
+                    <div class="q-num">السؤال 3 / 5</div>
+                    <div class="q-text">أي الألوان التالية يمتص أكبر قدر من الطاقة الحرارية للشمس؟</div>
+                    <div class="q-options">
+                        <div class="q-option" onclick="selectOption(this, 0)">الأسود</div>
+                        <div class="q-option" onclick="selectOption(this, 1)">الأبيض</div>
+                        <div class="q-option" onclick="selectOption(this, 2)">الأصفر</div>
+                    </div>
+                    <div class="q-feedback">أحسنت! الألوان الداكنة، خاصة الأسود، تمتص معظم الأشعة الساقطة عليها.</div>
+                </div>
+
+                <div class="q-card" data-correct="1">
+                    <div class="q-num">السؤال 4 / 5</div>
+                    <div class="q-text">يستخدم السخان الشمسي لتسخين المياه، فهو يحول الطاقة الشمسية إلى:</div>
+                    <div class="q-options">
+                        <div class="q-option" onclick="selectOption(this, 0)">طاقة ضوئية</div>
+                        <div class="q-option" onclick="selectOption(this, 1)">طاقة حرارية</div>
+                        <div class="q-option" onclick="selectOption(this, 2)">طاقة ميكانيكية</div>
+                    </div>
+                    <div class="q-feedback">إجابة موفقة. السخانات الشمسية تجمع الحرارة لتسخين المياه.</div>
+                </div>
+
+                <div class="q-card" data-correct="1">
+                    <div class="q-num">السؤال 5 / 5</div>
+                    <div class="q-text">في فصل الصيف الحار، يُنصح بارتداء ملابس:</div>
+                    <div class="q-options">
+                        <div class="q-option" onclick="selectOption(this, 0)">داكنة اللون</div>
+                        <div class="q-option" onclick="selectOption(this, 1)">فاتحة اللون (بيضاء)</div>
+                        <div class="q-option" onclick="selectOption(this, 2)">لا يهم لون الملابس</div>
+                    </div>
+                    <div class="q-feedback">ممتاز! الملابس الفاتحة تعكس أشعة الشمس وتقلل من الشعور بالحرارة.</div>
+                </div>
+            </div>
+
+            <button class="btn-submit" onclick="checkQuiz()">عرض النتيجة</button>
+            <div id="final-score" class="quiz-score"></div>
+        </div>
+
+        <div id="summary" class="tab-content">
+            <div class="summary-card">
+                <h2 style="text-align:center; color:var(--accent); margin-bottom:1rem">ملخص الكراس</h2>
+                <ul class="summary-list">
+                    <li><strong>الشمس:</strong> هي المصدر الأساسي والمنبع الأول للطاقة على كوكب الأرض.</li>
+                    <li><strong>الضوء والطاقة:</strong> الضوء الصادر من الشمس يحمل طاقة تتحول إلى طاقة حرارية عند سقوطها على الأجسام.</li>
+                    <li><strong>التحولات الطاقوية:</strong>
+                        <ul style="margin-right:2rem; margin-top:0.5rem; list-style-type:circle;">
+                            <li>تتحول الطاقة الشمسية إلى <em>طاقة كهربائية</em> بواسطة الخلايا الكهروضوئية.</li>
+                            <li>تتحول الطاقة الشمسية إلى <em>طاقة حرارية</em> بواسطة السخانات الشمسية.</li>
+                        </ul>
+                    </li>
+                    <li><strong>اللون والامتصاص:</strong> يختلف امتصاص الأجسام للحرارة باختلاف ألوانها:
+                        <ul style="margin-right:2rem; margin-top:0.5rem; list-style-type:circle;">
+                            <li>الأجسام الداكنة (كالأسود) تمتص حرارة أكبر وتسخن بسرعة.</li>
+                            <li>الأجسام الفاتحة (كالأبيض) تعكس الأشعة وتسخن ببطء.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <button class="btn-print" onclick="window.print()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+                طباعة الملخص
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // تبديل التبويبات
+        function openTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // محاكاة 1
+        function updateSim1() {
+            const cloudsVal = document.getElementById('cloud-slider').value;
+            const clouds = document.getElementById('clouds');
+            const bulb = document.getElementById('house-bulb');
+            const outputText = document.getElementById('power-output');
+            
+            // حسابات
+            const cloudOpacity = cloudsVal / 100;
+            const powerPercent = 100 - cloudsVal;
+            const bulbOpacity = powerPercent / 100;
+
+            // تحديث العرض
+            clouds.setAttribute('opacity', cloudOpacity);
+            bulb.setAttribute('opacity', Math.max(0.2, bulbOpacity)); // يبقى قليل من التوهج
+            
+            if(powerPercent < 30) bulb.setAttribute('fill', '#475569'); // مطفأ
+            else bulb.setAttribute('fill', '#fbbf24');
+
+            outputText.textContent = `الطاقة المنتجة: ${powerPercent}%`;
+        }
+
+        // محاكاة 2
+        let currentColorFactor = 1.5; // أسود افتراضي
+        function setColor(color, factor, btn) {
+            document.getElementById('color-box').setAttribute('fill', color);
+            currentColorFactor = factor;
+            
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            updateSim2();
+        }
+
+        function updateSim2() {
+            const timeVal = document.getElementById('time-slider').value;
+            const mercury = document.getElementById('mercury');
+            
+            // الحساب: أقصى ارتفاع 130px. الارتفاع الابتدائي 10px
+            // الارتفاع يعتمد على الوقت وعامل اللون
+            const maxRise = 120;
+            const currentRise = (timeVal / 100) * maxRise * (currentColorFactor / 1.5);
+            
+            const newHeight = 10 + currentRise;
+            const newY = 190 - currentRise; // 190 is base Y line (180+10)
+
+            mercury.setAttribute('height', newHeight);
+            mercury.setAttribute('y', newY);
+            
+            // تغيير شكل أشعة الحرارة
+            const heatWaves = document.getElementById('heat-waves');
+            if(timeVal > 0) {
+                heatWaves.setAttribute('opacity', (timeVal/100));
+            } else {
+                heatWaves.setAttribute('opacity', '0');
+            }
+        }
+
+        // التمارين
+        let userAnswers = {};
+        function selectOption(el, optionIndex) {
+            const card = el.closest('.q-card');
+            const cardId = Array.from(document.querySelectorAll('.q-card')).indexOf(card);
+            
+            card.querySelectorAll('.q-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            
+            userAnswers[cardId] = optionIndex;
+        }
+
+        function checkQuiz() {
+            const cards = document.querySelectorAll('.q-card');
+            let score = 0;
+            let answered = 0;
+
+            cards.forEach((card, index) => {
+                const correctAns = parseInt(card.getAttribute('data-correct'));
+                const options = card.querySelectorAll('.q-option');
+                const feedback = card.querySelector('.q-feedback');
+                
+                if (userAnswers[index] !== undefined) {
+                    answered++;
+                    options.forEach((opt, optIdx) => {
+                        opt.classList.remove('correct', 'wrong');
+                        if (optIdx === correctAns) {
+                            opt.classList.add('correct');
+                        } else if (optIdx === userAnswers[index]) {
+                            opt.classList.add('wrong');
+                        }
+                    });
+
+                    if (userAnswers[index] === correctAns) {
+                        score++;
+                        feedback.style.color = 'var(--success)';
+                        feedback.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+                    } else {
+                        feedback.style.color = 'var(--danger)';
+                        feedback.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                    }
+                    feedback.classList.add('show');
+                }
+            });
+
+            if (answered < 5) {
+                alert('الرجاء الإجابة على جميع الأسئلة أولاً.');
+                return;
+            }
+
+            const scoreDiv = document.getElementById('final-score');
+            scoreDiv.style.display = 'block';
+            scoreDiv.innerHTML = `نتيجتك: ${score} من 5 <br> ${score >= 4 ? '🌟 ممتاز!' : (score >= 3 ? '👍 جيد' : '📚 راجع الدرس وحاول مجدداً')}`;
+        }
+
+        // تهيئة مبدئية
+        updateSim1();
+        updateSim2();
+    </script>
+</body>
+</html>

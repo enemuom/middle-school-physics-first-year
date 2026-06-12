@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الفيزياء التفاعلية - السنة الأولى متوسط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .field-section {
+            margin-bottom: 4rem;
+        }
+
+        .field-title {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #666;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>بوابة الفيزياء التفاعلية</h1>
+        <p>فضاء العبقري الصغير للسنة الأولى متوسط - تعلم، اكتشف، وتفاعل</p>
+    </header>
+
+    <div class="container">
+        
+        <section class="field-section">
+            <h2 class="field-title">⚡ الظواهر الكهربائية</h2>
+            <div class="cards-grid">
+                <a href="electricity/lesson1.html" class="card">
+                    <div class="card-icon">🔋</div>
+                    <h3>ما هي الدارة الكهربائية؟</h3>
+                    <p>التعرف على مفهوم الدارة وعناصرها الأساسية ودور كل عنصر فيها.</p>
+                </a>
+                <a href="electricity/lesson2.html" class="card">
+                    <div class="card-icon">📝</div>
+                    <h3>مخطط دارة كهربائية</h3>
+                    <p>استعمال الرموز النظامية لرسم المخططات الكهربائية بدقة.</p>
+                </a>
+                <a href="electricity/lesson3.html" class="card">
+                    <div class="card-icon">➡️</div>
+                    <h3>التيار الكهربائي</h3>
+                    <p>فهم جهة مرور التيار الكهربائي في الدارة المغلقة.</p>
+                </a>
+                <a href="electricity/lesson4.html" class="card">
+                    <div class="card-icon">💡</div>
+                    <h3>اشتعال مصباح التوهج</h3>
+                    <p>دراسة شروط توهج المصباح ودلالاته ومطابقتها مع المولد.</p>
+                </a>
+                <a href="electricity/lesson5.html" class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3>التركيبات الكهربائية</h3>
+                    <p>التمييز بين الربط على التسلسل والربط على التفرع والربط المختلط.</p>
+                </a>
+                <a href="electricity/lesson6.html" class="card">
+                    <div class="card-icon">🔄</div>
+                    <h3>الدارة من نوع ذهاب وإياب</h3>
+                    <p>كيفية التحكم في مصباح من مكانين مختلفين وتطبيقاتها.</p>
+                </a>
+                <a href="electricity/lesson7.html" class="card">
+                    <div class="card-icon">⚠️</div>
+                    <h3>الدارة المستقصرة والحماية</h3>
+                    <p>أخطار الاستقصار وكيفية حماية الأجهزة والأشخاص باستخدام المنصهرة.</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="field-section">
+            <h2 class="field-title">🧪 المادة وتحولاتها</h2>
+            <div class="cards-grid">
+                <a href="matter/lesson1.html" class="card">
+                    <div class="card-icon">📏</div>
+                    <h3>قياس الأطوال</h3>
+                    <p>استخدام أدوات القياس المناسبة (المسطرة، القدم القنوية) وتحديد الوحدات.</p>
+                </a>
+                <a href="matter/lesson2.html" class="card">
+                    <div class="card-icon">🧊</div>
+                    <h3>الحجم</h3>
+                    <p>طرق قياس حجم جسم صلب منتظم وغير منتظم وحجم السوائل.</p>
+                </a>
+                <a href="matter/lesson3.html" class="card">
+                    <div class="card-icon">⚖️</div>
+                    <h3>الكتلة</h3>
+                    <p>استعمال الميزان لقياس كتلة الأجسام الصلبة والسائلة.</p>
+                </a>
+                <a href="matter/lesson4.html" class="card">
+                    <div class="card-icon">🌡️</div>
+                    <h3>الحرارة</h3>
+                    <p>قياس درجة الحرارة باستخدام المحرار وتحديد وحداتها.</p>
+                </a>
+                <a href="matter/lesson5.html" class="card">
+                    <div class="card-icon">💧</div>
+                    <h3>الكتلة الحجمية</h3>
+                    <p>العلاقة بين الكتلة والحجم ومفهوم الكثافة والطفو.</p>
+                </a>
+                <a href="matter/lesson6.html" class="card">
+                    <div class="card-icon">❄️</div>
+                    <h3>حالات المادة</h3>
+                    <p>الخصائص الفيزيائية للحالة الصلبة، السائلة، والغازية والنموذج الحبيبي.</p>
+                </a>
+                <a href="matter/lesson7.html" class="card">
+                    <div class="card-icon">🔥</div>
+                    <h3>تغير حالات المادة</h3>
+                    <p>الانصهار، التجمد، التبخر، والتكاثف وتأثير درجة الحرارة والضغط.</p>
+                </a>
+                <a href="matter/lesson8.html" class="card">
+                    <div class="card-icon">🥣</div>
+                    <h3>الخلائط 1</h3>
+                    <p>التمييز بين الخلائط المتجانسة والغير متجانسة.</p>
+                </a>
+                <a href="matter/lesson9.html" class="card">
+                    <div class="card-icon">⚗️</div>
+                    <h3>الخلائط 2</h3>
+                    <p>طرق فصل مكونات الخليط (التركيد، الترشيح، التقطير).</p>
+                </a>
+                <a href="matter/lesson10.html" class="card">
+                    <div class="card-icon">🧂</div>
+                    <h3>المحلول المائي 1</h3>
+                    <p>مكونات المحلول (المذيب والمذاب) ومفهوم التركيز.</p>
+                </a>
+                <a href="matter/lesson11.html" class="card">
+                    <div class="card-icon">📉</div>
+                    <h3>المحلول المائي 2</h3>
+                    <p>انحفاظ الكتلة أثناء عملية الانحلال وتمديد المحاليل.</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="field-section">
+            <h2 class="field-title">🔭 الظواهر الضوئية والفلكية</h2>
+            <div class="cards-grid">
+                <a href="optics/lesson1.html" class="card">
+                    <div class="card-icon">☀️</div>
+                    <h3>المنابع الضوئية</h3>
+                    <p>تصنيف الأجسام إلى مضيئة ومضاءة، طبيعية واصطناعية، وشفافة وعاتمة.</p>
+                </a>
+                <a href="optics/lesson2.html" class="card">
+                    <div class="card-icon">🔦</div>
+                    <h3>الانتشار المستقيم للضوء</h3>
+                    <p>كيفية انتقال الضوء في الأوساط الشفافة والمتجانسة والشعاع الضوئي.</p>
+                </a>
+                <a href="optics/lesson3.html" class="card">
+                    <div class="card-icon">🌑</div>
+                    <h3>الظل والظليل</h3>
+                    <p>تشكل الظل ومخروط الظل وتأثير حجم المنبع الضوئي.</p>
+                </a>
+                <a href="optics/lesson4.html" class="card">
+                    <div class="card-icon">🪐</div>
+                    <h3>المجموعة الشمسية</h3>
+                    <p>مكونات النظام الشمسي وترتيب الكواكب حول الشمس.</p>
+                </a>
+                <a href="optics/lesson5.html" class="card">
+                    <div class="card-icon">🌍</div>
+                    <h3>دوران الأرض</h3>
+                    <p>حركة الأرض حول نفسها (تعاقب الليل والنهار) وحول الشمس (الفصول).</p>
+                </a>
+                <a href="optics/lesson6.html" class="card">
+                    <div class="card-icon">🌙</div>
+                    <h3>أطوار القمر</h3>
+                    <p>كيفية تغير المظهر المضاء للقمر خلال الشهر القمري.</p>
+                </a>
+                <a href="optics/lesson7.html" class="card">
+                    <div class="card-icon">🌒</div>
+                    <h3>الكسوف والخسوف</h3>
+                    <p>تفسير ظاهرتي كسوف الشمس وخسوف القمر ومواقع الأجرام الثلاثة.</p>
+                </a>
+                <a href="optics/lesson8.html" class="card">
+                    <div class="card-icon">🌞</div>
+                    <h3>الشمس مصدر للطاقة</h3>
+                    <p>أهمية الطاقة الشمسية في الحياة وإمكانية استغلالها كطاقة نظيفة.</p>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>تم إعداد هذا المحتوى لتقديم أفضل تجربة تعليمية تفاعلية لمادة الفيزياء</p>
+    </footer>
+
+</body>
+</html>

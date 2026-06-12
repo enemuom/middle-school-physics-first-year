@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخلائط (2) - فصل المكونات</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap');
+
+        :root {
+            --dark: #0a0f1e;
+            --dark2: #121b2f;
+            --dark3: #1a2540;
+            --border: rgba(255, 255, 255, .08);
+            --card: rgba(255, 255, 255, .04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #14b8a6; /* لون المادة وتحولاتها */
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #eab308;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header Navigation */
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .header {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; left: 0;
+            height: 4px;
+            background: var(--accent);
+        }
+        .lesson-badge {
+            display: inline-block;
+            background: rgba(20, 184, 166, 0.2);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .header h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--accent);
+            color: var(--dark);
+            border-color: var(--accent);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Elements */
+        .objectives-box {
+            background: var(--card);
+            border-right: 4px solid var(--accent);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .objectives-box h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .objectives-box ul {
+            list-style-position: inside;
+            padding-right: 1rem;
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 2.5rem 0 1.5rem;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        .sec-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .sec-icon {
+            color: var(--accent);
+        }
+
+        .def-box {
+            background: var(--dark2);
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--warning);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .def-box h3 {
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+        }
+        .def-content {
+            flex-grow: 1;
+        }
+        
+        /* Diagrams */
+        .lesson-diagram {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .diagram-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .diagram-caption {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-family: 'Amiri', serif;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--dark3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .info-table th, .info-table td {
+            padding: 1rem;
+            border: 1px solid var(--border);
+            text-align: right;
+        }
+        .info-table th {
+            background: rgba(20, 184, 166, 0.1);
+            color: var(--accent);
+        }
+
+        .highlight {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            color: #fff;
+        }
+
+        /* Simulations */
+        .sim-wrap {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .sim-head {
+            margin-bottom: 1.5rem;
+        }
+        .sim-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .controls {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        input[type=range] {
+            accent-color: var(--accent);
+            width: 200px;
+        }
+
+        /* Quiz */
+        .q-card {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .q-num {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+        .q-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .q-options {
+            display: grid;
+            gap: 0.5rem;
+        }
+        .q-option {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .q-option:hover {
+            background: rgba(20, 184, 166, 0.1);
+        }
+        .q-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: var(--success);
+        }
+        .q-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+        }
+        .q-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        .btn-submit {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Summary */
+        .summary-card {
+            background: linear-gradient(145deg, var(--dark3), var(--dark2));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        .summary-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        .summary-list li {
+            position: relative;
+            padding-right: 2rem;
+            margin-bottom: 1rem;
+        }
+        .summary-list li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .btn-print {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .def-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            .lesson-diagram {
+                max-width: 100%;
+            }
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: #fff; color: #000; }
+            .tabs, .btn-print, .breadcrumb { display: none; }
+            .tab-content { display: block; }
+            .summary-card, .header { border: 1px solid #000; box-shadow: none; background: #fff;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../index.html">← الفهرس</a>
+        <span>› السنة الأولى متوسط › المقطع 3: المادة وتحولاتها › الدرس 04</span>
+    </div>
+
+    <header class="header">
+        <div class="lesson-badge">الدرس 04</div>
+        <h1><em>الخلائط (2)</em> - فصل مكونات الخليط</h1>
+        <p style="color: var(--muted);">من الماء الطبيعي غير المتجانس إلى الماء النقي</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('lesson')">📖 الدرس</button>
+        <button class="tab-btn" onclick="openTab('sim')">⚗️ تجارب ومحاكاة</button>
+        <button class="tab-btn" onclick="openTab('quiz')">✏️ تمارين</button>
+        <button class="tab-btn" onclick="openTab('summary')">📋 ملخص الكراس</button>
+    </div>
+
+    <div id="lesson" class="tab-content active">
+        <div class="objectives-box">
+            <h3>🎯 الأهداف التعلمية</h3>
+            <ul>
+                <li>التعرف على طرق فصل مكونات الخليط غير المتجانس (التركيد، الإبانة، الترشيح).</li>
+                <li>فهم عملية فصل مكونات الخليط المتجانس (التقطير).</li>
+                <li>استنتاج معايير نقاوة الماء النقي.</li>
+            </ul>
+        </div>
+
+        <h2 class="sec-title"><span class="sec-icon">1.</span> فصل مكونات الخليط غير المتجانس</h2>
+        <p>الماء الطبيعي (مثل ماء الوادي) هو خليط غير متجانس يحتوي على مواد صلبة عالقة (أتربة، رمال). لفصل هذه المكونات نتبع العمليات التالية:</p>
+
+        <div class="def-box">
+            <svg class="lesson-diagram" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect x="100" y="40" width="100" height="130" rx="5" fill="none" stroke="var(--muted)" stroke-width="3"/>
+                <path d="M102 90 L198 90 L198 168 Q150 168 102 168 Z" fill="rgba(20, 184, 166, 0.4)"/>
+                <path d="M102 140 L198 140 L198 168 Q150 168 102 168 Z" fill="#8B4513" opacity="0.8"/>
+                <text x="150" y="190" text-anchor="middle" fill="var(--text)" font-family="Amiri" font-size="14">عملية التركيد</text>
+                <text x="210" y="115" fill="var(--text)" font-family="Amiri" font-size="12">← ماء (سائل)</text>
+                <text x="210" y="155" fill="var(--text)" font-family="Amiri" font-size="12">← تراب (صلب)</text>
+            </svg>
+            <div class="def-content">
+                <h3>أ. التركيد (Décantation) والإبانة (Séparation)</h3>
+                <p><strong>التركيد:</strong> هو ترك الخليط غير المتجانس (صلب+سائل) في حالة راحة لمدة زمنية حتى تترسب المواد الصلبة الثقيلة في القاع بفعل الجاذبية.</p>
+                <p><strong>الإبانة:</strong> هي عملية سكب السائل الطافي بحذر لفصله عن الراسب الصلب الموجود في قاع الإناء. (تستعمل الإبانة أيضاً لفصل سائلين غير قابلين للامتزاج كالماء والزيت بواسطة حبابة الإبانة).</p>
+            </div>
+        </div>
+
+        <div class="def-box">
+            <svg class="lesson-diagram" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
+                <path d="M130 180 L110 230 L190 230 L170 180 L170 140 L130 140 Z" fill="none" stroke="var(--muted)" stroke-width="3"/>
+                <path d="M100 60 L200 60 L160 120 L160 160 L140 160 L140 120 Z" fill="none" stroke="var(--text)" stroke-width="2"/>
+                <path d="M110 65 L190 65 L150 115 Z" fill="#fde047" opacity="0.6"/>
+                <circle cx="150" cy="170" r="3" fill="var(--accent)"/>
+                <circle cx="150" cy="185" r="3" fill="var(--accent)"/>
+                <path d="M115 215 L185 215 L188 228 L112 228 Z" fill="rgba(20, 184, 166, 0.6)"/>
+                
+                <text x="80" y="90" fill="var(--text)" font-family="Amiri" font-size="12">ورق ترشيح →</text>
+                <text x="210" y="220" fill="var(--text)" font-family="Amiri" font-size="12">← الرشاحة</text>
+            </svg>
+            <div class="def-content">
+                <h3>ب. الترشيح (Filtration)</h3>
+                <p>عملية تستعمل لفصل المواد الصلبة الدقيقة جداً العالقة في السائل والتي لا يمكن فصلها بالتركيد. نستخدم فيها <strong>ورق الترشيح</strong> الذي يحتوي على مسامات دقيقة تسمح بمرور السائل وتحتجز المواد الصلبة.</p>
+                <div class="highlight">
+                    السائل المتحصل عليه بعد عملية الترشيح يسمى <strong>الرشاحة (Filtrat)</strong>، وهو عبارة عن <strong>خليط متجانس</strong> (ماء صافي).
+                </div>
+            </div>
+        </div>
+
+        <h2 class="sec-title"><span class="sec-icon">2.</span> فصل مكونات الخليط المتجانس</h2>
+        <p>الماء الصافي المتحصل عليه من الترشيح هو خليط متجانس يحتوي على أملاح معدنية منحلة. للحصول على ماء نقي تماماً، نلجأ إلى عملية التقطير.</p>
+
+        <div class="def-box">
+            <svg class="lesson-diagram" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                <rect x="40" y="200" width="60" height="20" fill="#ef4444" rx="3"/>
+                <circle cx="70" cy="160" r="40" fill="none" stroke="var(--muted)" stroke-width="3"/>
+                <path d="M35 175 Q70 160 105 175 A40 40 0 0 0 35 175" fill="rgba(20, 184, 166, 0.4)"/>
+                <circle cx="60" cy="180" r="3" fill="#fff"/> <circle cx="80" cy="185" r="4" fill="#fff"/>
+                <path d="M60 125 L60 50 L200 80 L200 90 L70 60 L70 125" fill="none" stroke="var(--muted)" stroke-width="3"/>
+                <rect x="100" y="55" width="80" height="30" transform="rotate(12 100 55)" fill="rgba(255,255,255,0.1)" stroke="#3b82f6" stroke-width="2"/>
+                <path d="M230 180 L210 230 L270 230 L250 180 L250 130 L230 130 Z" fill="none" stroke="var(--muted)" stroke-width="3"/>
+                <path d="M215 215 L265 215 L268 228 L212 228 Z" fill="rgba(20, 184, 166, 0.8)"/>
+                <circle cx="240" cy="100" r="3" fill="var(--accent)"/>
+                <circle cx="240" cy="115" r="3" fill="var(--accent)"/>
+                
+                <text x="70" y="235" text-anchor="middle" fill="var(--text)" font-family="Amiri" font-size="12">موقد حراري</text>
+                <text x="140" y="45" fill="var(--text)" font-family="Amiri" font-size="12">مكثف (تبريد)</text>
+                <text x="320" y="220" fill="var(--text)" font-family="Amiri" font-size="12">← ماء مقطر</text>
+            </svg>
+            <div class="def-content">
+                <h3>التقطير (Distillation)</h3>
+                <p>عملية يتم فيها تسخين الماء الصافي حتى الغليان، فيتبخر الماء (يتحول إلى غاز) تاركاً الأملاح المعدنية في الدورق. يُمرر البخار عبر <strong>مكثف</strong> ليبرد ويتحول مجدداً إلى حالة سائلة.</p>
+                <p>السائل المتجمع يسمى <strong>الماء المقطر (الماء النقي)</strong>، وهو جسم نقي لا يحتوي على أي مواد أخرى.</p>
+            </div>
+        </div>
+
+        <h2 class="sec-title"><span class="sec-icon">3.</span> مميزات الماء النقي (معايير النقاوة)</h2>
+        <p>للجسم النقي خصائص فيزيائية ثابتة تميزه عن الخلائط. بالنسبة للماء النقي (تحت ضغط جوي عادي 1atm):</p>
+        
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>الخاصية الفيزيائية</th>
+                    <th>القيمة بالنسبة للماء النقي</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>درجة التجمد (التحول إلى جليد)</td>
+                    <td><strong>0°C</strong></td>
+                </tr>
+                <tr>
+                    <td>درجة الغليان (التبخر)</td>
+                    <td><strong>100°C</strong></td>
+                </tr>
+                <tr>
+                    <td>الكتلة الحجمية (ρ)</td>
+                    <td><strong>1 kg/L</strong> (أو 1 g/cm³)</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="highlight">
+            <strong>ملاحظة:</strong> إذا قمنا بغلي ماء مالح، فإن درجة الغليان ستكون أكبر من 100°C ولا تثبت، مما يدل على أنه خليط وليس جسماً نقياً.
+        </div>
+    </div>
+
+    <div id="sim" class="tab-content">
+        
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <span class="sim-badge">محاكاة 1</span>
+                <h2>عملية الترشيح</h2>
+                <p>قم بتحريك المنزلق لسكب الماء العكر عبر ورق الترشيح ومراقبة النتيجة.</p>
+            </div>
+            
+            <svg id="filtrationSim" viewBox="0 0 400 300" style="width:100%; max-width:400px; background:var(--card); border-radius:8px;">
+                <path d="M150 150 L100 250 L300 250 L250 150 L250 100 L150 100 Z" fill="none" stroke="var(--muted)" stroke-width="4"/>
+                <path d="M120 40 L280 40 L200 120 Z" fill="none" stroke="#fff" stroke-width="3"/>
+                <path d="M130 50 L270 50 L200 110 Z" fill="#fde047" opacity="0.6"/>
+                
+                <path id="muddyWater" d="M150 70 L250 70 L200 110 Z" fill="#8B4513" opacity="0"/>
+                <circle id="drop1" cx="200" cy="120" r="4" fill="var(--accent)" opacity="0"/>
+                <circle id="drop2" cx="200" cy="140" r="4" fill="var(--accent)" opacity="0"/>
+                <path id="filtrate" d="M110 245 L290 245 L290 245 L110 245 Z" fill="rgba(20, 184, 166, 0.8)"/>
+            </svg>
+
+            <div class="controls">
+                <span>ماء عكر</span>
+                <input type="range" id="filterSlider" min="0" max="100" value="0" oninput="updateFiltration(this.value)">
+                <span>الرشاحة</span>
+            </div>
+        </div>
+
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <span class="sim-badge">محاكاة 2</span>
+                <h2>عملية التقطير والتبخر</h2>
+                <p>ارفع درجة الحرارة ولاحظ متى يبدأ الماء النقي بالغليان.</p>
+            </div>
+            
+            <svg id="distillSim" viewBox="0 0 400 250" style="width:100%; max-width:400px; background:var(--card); border-radius:8px;">
+                <circle cx="200" cy="150" r="60" fill="none" stroke="var(--muted)" stroke-width="4"/>
+                <path d="M180 90 L180 20 L220 20 L220 90" fill="none" stroke="var(--muted)" stroke-width="4"/>
+                <path d="M143 170 Q200 150 257 170 A60 60 0 0 0 143 170" fill="rgba(20, 184, 166, 0.5)"/>
+                
+                <g id="bubbles" opacity="0" fill="#fff">
+                    <circle cx="180" cy="190" r="4"/>
+                    <circle cx="210" cy="180" r="5"/>
+                    <circle cx="190" cy="170" r="3"/>
+                </g>
+                <g id="vapor" opacity="0" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3">
+                    <path d="M190 140 Q180 120 190 100"/>
+                    <path d="M210 130 Q220 110 210 90"/>
+                </g>
+                
+                <rect x="50" y="40" width="20" height="150" rx="10" fill="none" stroke="#fff" stroke-width="2"/>
+                <circle cx="60" cy="180" r="15" fill="#ef4444"/>
+                <rect id="thermoLiquid" x="55" y="150" width="10" height="30" fill="#ef4444"/>
+                <text id="tempText" x="90" y="185" fill="#fff" font-family="Cairo" font-size="20">0°C</text>
+            </svg>
+
+            <div class="controls">
+                <span>تسخين الموقد:</span>
+                <input type="range" id="heatSlider" min="0" max="120" value="0" oninput="updateDistillation(this.value)">
+            </div>
+        </div>
+
+    </div>
+
+    <div id="quiz" class="tab-content">
+        <div class="objectives-box">
+            <h3>اختبر معلوماتك</h3>
+            <p>أجب عن الأسئلة التالية لتقييم فهمك للدرس.</p>
+        </div>
+
+        <div id="quiz-container">
+            </div>
+
+        <button class="btn-submit" onclick="checkQuiz()">عرض النتيجة 📊</button>
+        <div id="quiz-score" style="text-align: center; font-size: 1.5rem; margin-top: 1rem; color: var(--accent); font-weight: bold;"></div>
+    </div>
+
+    <div id="summary" class="tab-content">
+        <div class="summary-card">
+            <h2 style="color: var(--accent); border-bottom: 2px solid var(--border); padding-bottom: 1rem; text-align: center;">ملخص: الخلائط 2 - فصل المكونات</h2>
+            
+            <ul class="summary-list">
+                <li><strong>الماء الطبيعي:</strong> خليط غير متجانس يحتوي على مواد عالقة وأملاح منحلة.</li>
+                <li><strong>التركيد:</strong> عملية ترك الخليط للراحة لتترسب المواد الصلبة في القاع بفعل الجاذبية.</li>
+                <li><strong>الإبانة:</strong> سكب السائل بحذر لفصله عن الراسب (أو فصل سائلين لا يمتزجان).</li>
+                <li><strong>الترشيح:</strong> استخدام ورق الترشيح لفصل المواد الصلبة الدقيقة جداً. السائل الناتج يسمى <strong>الرشاحة</strong> وهو خليط متجانس (ماء صافي).</li>
+                <li><strong>التقطير:</strong> عملية تبخير الماء الصافي ثم تكثيف بخاره للحصول على <strong>الماء المقطر</strong> (ماء نقي خالي من الأملاح).</li>
+                <li><strong>معايير نقاوة الماء:</strong>
+                    <ul style="list-style: circle; margin-right: 2rem; margin-top: 0.5rem; color: var(--text);">
+                        <li>يغلي عند 100°C تحت ضغط جوي عادي.</li>
+                        <li>يتجمد عند 0°C.</li>
+                        <li>الكتلة الحجمية للماء النقي هي 1 kg/L.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <button class="btn-print" onclick="window.print()">🖨️ طباعة الملخص</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Tab Switching Logic
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Filtration Simulation
+    function updateFiltration(val) {
+        const opacity = val / 100;
+        const fillHeight = 245 - (val * 0.9); // max height is 155
+        
+        document.getElementById('muddyWater').setAttribute('opacity', opacity > 0.1 ? 0.8 : 0);
+        document.getElementById('filtrate').setAttribute('d', `M110 245 L290 245 L280 ${fillHeight} L120 ${fillHeight} Z`);
+        
+        if (val > 10 && val < 90) {
+            document.getElementById('drop1').setAttribute('opacity', (val % 20 < 10) ? 1 : 0);
+            document.getElementById('drop2').setAttribute('opacity', (val % 20 >= 10) ? 1 : 0);
+        } else {
+            document.getElementById('drop1').setAttribute('opacity', 0);
+            document.getElementById('drop2').setAttribute('opacity', 0);
+        }
+    }
+
+    // Distillation Simulation
+    function updateDistillation(val) {
+        document.getElementById('tempText').textContent = val + '°C';
+        
+        // Thermometer liquid height (max 150)
+        const thHeight = 30 + (val * 1.0);
+        const thY = 180 - thHeight;
+        document.getElementById('thermoLiquid').setAttribute('height', thHeight);
+        document.getElementById('thermoLiquid').setAttribute('y', thY);
+
+        // Boiling effect
+        if (val >= 100) {
+            document.getElementById('bubbles').setAttribute('opacity', 1);
+            document.getElementById('vapor').setAttribute('opacity', 0.8);
+            document.getElementById('vapor').setAttribute('transform', `translate(0, ${Math.random() * -5})`);
+        } else {
+            document.getElementById('bubbles').setAttribute('opacity', 0);
+            document.getElementById('vapor').setAttribute('opacity', 0);
+        }
+    }
+
+    // Quiz Data
+    const quizData = [
+        {
+            q: "ما هي العملية المناسبة لفصل الماء عن الرمل؟",
+            options: ["التقطير", "الترشيح", "الانصهار", "التكاثف"],
+            ans: 1,
+            feedback: "صحيح! الترشيح يفصل المواد الصلبة الدقيقة العالقة في السائل."
+        },
+        {
+            q: "ما طبيعة السائل المتحصل عليه بعد عملية الترشيح (الرشاحة)؟",
+            options: ["خليط غير متجانس", "جسم نقي", "خليط متجانس", "محلول صلب"],
+            ans: 2,
+            feedback: "صحيح. الرشاحة هي ماء صافي (خليط متجانس) لا يزال يحتوي على أملاح منحلة."
+        },
+        {
+            q: "للحصول على ماء نقي من الماء الصافي، نلجأ إلى عملية:",
+            options: ["التقطير", "الترشيح", "التركيد", "الإبانة"],
+            ans: 0,
+            feedback: "ممتاز! التقطير يبخر الماء ويفصله عن الأملاح المنحلة فيه."
+        },
+        {
+            q: "ما هي درجة غليان الماء النقي تحت الضغط الجوي العادي؟",
+            options: ["0°C", "50°C", "100°C", "120°C"],
+            ans: 2,
+            feedback: "صحيح! يغلي الماء النقي عند درجة حرارة ثابتة هي 100°C."
+        },
+        {
+            q: "ما هي الكتلة الحجمية للماء النقي؟",
+            options: ["1 kg/L", "2 kg/L", "0.5 kg/L", "10 kg/L"],
+            ans: 0,
+            feedback: "صحيح! لتر واحد من الماء النقي يزن 1 كيلوغرام."
+        }
+    ];
+
+    // Build Quiz
+    const quizContainer = document.getElementById('quiz-container');
+    quizData.forEach((item, index) => {
+        let optionsHTML = '';
+        item.options.forEach((opt, optIndex) => {
+            optionsHTML += `<div class="q-option" onclick="selectOption(${index}, ${optIndex}, this)">${opt}</div>`;
+        });
+
+        quizContainer.innerHTML += `
+            <div class="q-card" id="q${index}">
+                <span class="q-num">السؤال ${index + 1}</span>
+                <div class="q-text">${item.q}</div>
+                <div class="q-options">
+                    ${optionsHTML}
+                </div>
+                <div class="q-feedback" id="feedback${index}">${item.feedback}</div>
+            </div>
+        `;
+    });
+
+    let userAnswers = new Array(quizData.length).fill(null);
+
+    function selectOption(qIndex, optIndex, el) {
+        const options = el.parentElement.children;
+        for (let i=0; i<options.length; i++) {
+            options[i].style.borderColor = "var(--border)";
+            options[i].style.background = "var(--card)";
+        }
+        el.style.borderColor = "var(--accent)";
+        el.style.background = "rgba(20, 184, 166, 0.1)";
+        userAnswers[qIndex] = optIndex;
+    }
+
+    function checkQuiz() {
+        let score = 0;
+        quizData.forEach((item, index) => {
+            const feedback = document.getElementById(`feedback${index}`);
+            const options = document.getElementById(`q${index}`).querySelectorAll('.q-option');
+            
+            if (userAnswers[index] === null) {
+                feedback.style.display = "block";
+                feedback.style.background = "rgba(234, 179, 8, 0.2)";
+                feedback.style.color = "var(--warning)";
+                feedback.innerText = "الرجاء اختيار إجابة.";
+                return;
+            }
+
+            // Reset classes
+            options.forEach(opt => { opt.classList.remove('correct', 'incorrect'); });
+
+            if (userAnswers[index] === item.ans) {
+                score++;
+                options[item.ans].classList.add('correct');
+                feedback.style.display = "block";
+                feedback.style.background = "rgba(34, 197, 94, 0.1)";
+                feedback.style.color = "var(--success)";
+                feedback.innerText = item.feedback;
+            } else {
+                options[userAnswers[index]].classList.add('incorrect');
+                options[item.ans].classList.add('correct');
+                feedback.style.display = "block";
+                feedback.style.background = "rgba(239, 68, 68, 0.1)";
+                feedback.style.color = "var(--danger)";
+                feedback.innerText = `خطأ. الإجابة الصحيحة هي: ${item.options[item.ans]}`;
+            }
+        });
+
+        if (!userAnswers.includes(null)) {
+            document.getElementById('quiz-score').innerText = `نتيجتك: ${score} من ${quizData.length}`;
+        }
+    }
+</script>
+
+</body>
+</html>

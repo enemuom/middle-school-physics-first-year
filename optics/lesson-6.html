@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس أطوار القمر - الظواهر الضوئية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap');
+
+        :root {
+            --dark: #0a0f1e;      /* خلفية رئيسية */
+            --dark3: #1a2540;     /* خلفية البطاقات */
+            --border: rgba(255,255,255,.08);
+            --card: rgba(255,255,255,.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #f97316;    /* الظواهر الضوئية */
+            --success: #22c55e;
+            --danger: #ef4444;
+            
+            --font-main: 'Cairo', sans-serif;
+            --font-serif: 'Amiri', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            font-family: var(--font-main);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--dark3);
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid var(--accent);
+            text-align: center;
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .lesson-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--text);
+        }
+
+        h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        /* Tabs */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            background: var(--dark3);
+            border-bottom: 1px solid var(--border);
+            padding: 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            padding: 1rem 2rem;
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Content Structures */
+        .objectives-box {
+            background: var(--card);
+            border-right: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .objectives-box h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .def-box {
+            border: 1px solid #fbbf24;
+            background: rgba(251, 191, 36, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .def-box h3 {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .def-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .def-content p {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th, .info-table td {
+            padding: 1rem;
+            text-align: right;
+            border: 1px solid var(--border);
+        }
+
+        .info-table th {
+            background: var(--dark3);
+            color: var(--accent);
+        }
+
+        .highlight {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--accent);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Illustrations & SVGs */
+        .lesson-diagram, .def-illustration {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 1rem auto;
+            display: block;
+            background: #ffffff; /* White background for technical SVGs as requested */
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 10px;
+        }
+
+        /* Simulation Tab */
+        .sim-wrap {
+            background: var(--dark3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .sim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .sim-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        canvas {
+            background: #000;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            cursor: crosshair;
+        }
+
+        .controls {
+            margin-top: 1.5rem;
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent);
+            margin: 1rem 0;
+        }
+
+        /* Quiz Tab */
+        .q-card {
+            background: var(--dark3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .q-num {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .q-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .q-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .q-option {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .q-option:hover {
+            border-color: var(--accent);
+            background: rgba(249, 115, 22, 0.05);
+        }
+
+        .q-option.correct {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .q-option.wrong {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .q-feedback {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .quiz-score-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: var(--font-main);
+            display: block;
+            margin: 2rem auto;
+        }
+
+        #quiz-score {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            color: var(--success);
+            display: none;
+        }
+
+        /* Summary Tab */
+        .summary-card {
+            background: linear-gradient(145deg, var(--dark3), var(--dark));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .summary-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .summary-list li {
+            position: relative;
+            padding-right: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-list li::before {
+            content: "💡";
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .btn-print {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--accent);
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 auto;
+        }
+        .btn-print:hover {
+            background: var(--accent);
+        }
+
+        @media (max-width: 640px) {
+            .tab-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+            .def-content { flex-direction: column; }
+        }
+
+        @media print {
+            body { background: #fff; color: #000; }
+            .tabs-nav, .btn-print, header .breadcrumb { display: none; }
+            .tab-content { display: block !important; padding: 0; }
+            .summary-card { background: none; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="breadcrumb">
+            <a href="../index.html" style="color:var(--muted); text-decoration:none;">← الفهرس</a>
+            <span>/</span>
+            <span>السنة الأولى متوسط</span>
+            <span>/</span>
+            <span>المقطع 4: الظواهر الضوئية</span>
+        </div>
+        <span class="lesson-badge">الدرس 06</span>
+        <h1><em>أطوار القمر</em> (Phases de la lune)</h1>
+    </header>
+
+    <nav class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab('tab-lesson')">📖 الدرس</button>
+        <button class="tab-btn" onclick="openTab('tab-sim')">⚗️ تجربة ومحاكاة</button>
+        <button class="tab-btn" onclick="openTab('tab-quiz')">✏️ تمارين</button>
+        <button class="tab-btn" onclick="openTab('tab-summary')">📋 ملخص الكراس</button>
+    </nav>
+
+    <div id="tab-lesson" class="tab-content active">
+        
+        <div class="objectives-box">
+            <h3>🎯 الأهداف التعلمية</h3>
+            <ul>
+                <li>أن يتعرف التلميذ على أن القمر جسم معتم يستمد نوره من الشمس.</li>
+                <li>أن يفسر التلميذ اختلاف أوجه القمر (أطواره) حسب موقعه بالنسبة للأرض والشمس.</li>
+                <li>أن يربط التلميذ بين أطوار القمر وتحديد الشهر القمري.</li>
+            </ul>
+        </div>
+
+        <h2 class="sec-title">1. حقيقة إضاءة القمر</h2>
+        <div class="def-box">
+            <h3>تعريف القمر (La Lune)</h3>
+            <div class="def-content">
+                <svg class="def-illustration" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,5">
+                        <line x1="380" y1="50" x2="270" y2="85" />
+                        <line x1="380" y1="100" x2="280" y2="100" />
+                        <line x1="380" y1="150" x2="270" y2="115" />
+                    </g>
+                    <circle cx="400" cy="100" r="40" fill="#fbbf24" />
+                    <text x="375" y="105" font-family="Amiri" font-size="16" fill="#000">الشمس</text>
+                    
+                    <circle cx="200" cy="100" r="30" fill="#e2e8f0" stroke="#333" stroke-width="2"/>
+                    <path d="M 200 70 A 30 30 0 0 0 200 130 Z" fill="#94a3b8" /> <text x="200" y="150" font-family="Amiri" font-size="14" fill="#333" text-anchor="middle">القمر</text>
+                    
+                    <g stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,4">
+                        <line x1="170" y1="100" x2="80" y2="100" />
+                    </g>
+
+                    <circle cx="40" cy="100" r="40" fill="#3b82f6" stroke="#333" stroke-width="2"/>
+                    <path d="M 40 60 A 40 40 0 0 1 40 140 A 20 40 0 0 0 40 60" fill="#22c55e" /> <text x="40" y="160" font-family="Amiri" font-size="14" fill="#333" text-anchor="middle">الأرض</text>
+                </svg>
+                <p>
+                    القمر هو التابع الطبيعي الوحيد للأرض. هو <span class="highlight">جسم عاتم (معتم)</span> لا يصدر الضوء من تلقاء نفسه، بل يعكس ضوء الشمس الساقط عليه، ولذلك نراه مضيئاً في سماء الليل.
+                </p>
+            </div>
+        </div>
+
+        <h2 class="sec-title">2. أطوار القمر (Phases de la lune)</h2>
+        <p>أثناء دوران القمر حول الأرض، يتغير موقعه بالنسبة للشمس والأرض، مما يؤدي إلى تغير الجزء المضاء الذي نراه منه. تسمى هذه الأشكال المختلفة بـ <strong>أطوار القمر</strong>.</p>
+        
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>الطور (المرحلة)</th>
+                    <th>الاسم بالفرنسية</th>
+                    <th>الوصف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>المحاق</strong></td>
+                    <td>Nouvelle lune</td>
+                    <td>يقع القمر بين الأرض والشمس، فيكون وجهه المقابل للأرض مظلماً تماماً ولا يرى.</td>
+                </tr>
+                <tr>
+                    <td><strong>الهلال</strong></td>
+                    <td>Croissant</td>
+                    <td>يظهر جزء صغير مضاء من القمر على شكل قوس (هلال متزايد أو متناقص).</td>
+                </tr>
+                <tr>
+                    <td><strong>التربيع</strong></td>
+                    <td>Quartier</td>
+                    <td>نرى نصف وجه القمر مضاءً (التربيع الأول أو التربيع الأخير).</td>
+                </tr>
+                <tr>
+                    <td><strong>البدر</strong></td>
+                    <td>Pleine lune</td>
+                    <td>تكون الأرض بين القمر والشمس، فيظهر وجه القمر المقابل للأرض مضاءً بالكامل (دائرة مكتملة).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="sec-title">3. الشهر القمري</h2>
+        <div class="def-box" style="border-color: var(--accent); background: rgba(249,115,22,0.05);">
+            <h3 style="color: var(--accent);">الشهر القمري (Le mois lunaire)</h3>
+            <p>هو المدة الزمنية التي يستغرقها القمر ليكمل دورة كاملة حول الأرض ويمر بجميع أطواره. تقدر هذه المدة بحوالي <span class="highlight">29.5 يوماً</span> (29 يوماً و12 ساعة)، وهو الأساس الذي يعتمد عليه التقويم الهجري (الإسلامي).</p>
+        </div>
+
+    </div>
+
+    <div id="tab-sim" class="tab-content">
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <h2>محاكاة ديناميكية: حركة القمر وأطواره</h2>
+                <span class="sim-badge">Canvas + JS</span>
+            </div>
+            
+            <canvas id="lunarCanvas" width="800" height="400"></canvas>
+            
+            <div class="controls">
+                <label for="daySlider">اليوم من الشهر القمري: <strong id="dayDisplay" style="color:var(--accent);">0</strong> يوم</label>
+                <input type="range" id="daySlider" min="0" max="29.5" step="0.5" value="0">
+                <p style="color: var(--muted); margin-top: 10px;">حرك المنزلق لملاحظة دوران القمر حول الأرض وتغير الطور (الوجه الذي نراه).</p>
+                <h3 id="phaseName" style="color: var(--text); margin-top: 15px; font-size: 1.5rem;">المحاق</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-quiz" class="tab-content">
+        
+        <div class="q-card" data-answer="1">
+            <span class="q-num">السؤال 1</span>
+            <div class="q-text">ما هو الطور الذي يكون فيه وجه القمر المقابل للأرض مضاءً بالكامل؟</div>
+            <div class="q-options">
+                <div class="q-option" data-opt="0">أ) المحاق (Nouvelle lune)</div>
+                <div class="q-option" data-opt="1">ب) البدر (Pleine lune)</div>
+                <div class="q-option" data-opt="2">ج) التربيع الأول (Premier quartier)</div>
+            </div>
+            <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-card" data-answer="2">
+            <span class="q-num">السؤال 2</span>
+            <div class="q-text">كم تبلغ مدة الشهر القمري تقريباً؟</div>
+            <div class="q-options">
+                <div class="q-option" data-opt="0">أ) 365 يوماً</div>
+                <div class="q-option" data-opt="1">ب) 24 ساعة</div>
+                <div class="q-option" data-opt="2">ج) 29.5 يوماً</div>
+            </div>
+            <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-card" data-answer="0">
+            <span class="q-num">السؤال 3</span>
+            <div class="q-text">عندما يقع القمر بين الأرض والشمس على استقامة واحدة، فإن الطور الذي نلاحظه هو:</div>
+            <div class="q-options">
+                <div class="q-option" data-opt="0">أ) المحاق</div>
+                <div class="q-option" data-opt="1">ب) البدر</div>
+                <div class="q-option" data-opt="2">ج) الهلال</div>
+            </div>
+            <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-card" data-answer="2">
+            <span class="q-num">السؤال 4</span>
+            <div class="q-text">لماذا نرى القمر مضيئاً في السماء رغم أنه جسم معتم؟</div>
+            <div class="q-options">
+                <div class="q-option" data-opt="0">أ) لأنه يحتوي على غازات مشتعلة.</div>
+                <div class="q-option" data-opt="1">ب) لأنه يعكس ضوء الأرض.</div>
+                <div class="q-option" data-opt="2">ج) لأنه يعكس ضوء الشمس الساقط عليه.</div>
+            </div>
+            <div class="q-feedback"></div>
+        </div>
+
+        <div class="q-card" data-answer="1">
+            <span class="q-num">السؤال 5</span>
+            <div class="q-text">بعد مرور أسبوع (7 أيام) تقريباً من بداية الشهر القمري، ما هو الطور الذي نراه؟</div>
+            <div class="q-options">
+                <div class="q-option" data-opt="0">أ) البدر</div>
+                <div class="q-option" data-opt="1">ب) التربيع الأول</div>
+                <div class="q-option" data-opt="2">ج) التربيع الأخير</div>
+            </div>
+            <div class="q-feedback"></div>
+        </div>
+
+        <button class="quiz-score-btn" onclick="calculateScore()">عرض النتيجة</button>
+        <div id="quiz-score"></div>
+
+    </div>
+
+    <div id="tab-summary" class="tab-content">
+        <div class="summary-card">
+            <h2 class="sec-title" style="margin-top:0; border-bottom:none;">📝 ملخص درس: أطوار القمر</h2>
+            <ul class="summary-list">
+                <li><strong>حقيقة القمر:</strong> القمر جسم عاتم (معتم) يستمد نوره من الشمس، ويعكسه نحو الأرض.</li>
+                <li><strong>أطوار القمر:</strong> هي الأشكال المختلفة للجزء المضاء من القمر والتي نراها من الأرض خلال الشهر.</li>
+                <li><strong>تغير الأطوار:</strong> تنتج أطوار القمر بسبب دوران القمر حول الأرض وتغير موقعه بالنسبة للشمس والأرض.</li>
+                <li><strong>المراحل الأساسية:</strong> المحاق (مظلم)، الهلال (قوس)، التربيع (نصف مضاء)، البدر (مضاء كلياً).</li>
+                <li><strong>الشهر القمري:</strong> دورة كاملة للقمر حول الأرض تستغرق 29.5 يوماً، ويعتمد عليه التقويم الهجري.</li>
+            </ul>
+            <button class="btn-print" onclick="window.print()">🖨️ طباعة الملخص</button>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            // Trigger canvas redraw when simulation tab is opened to ensure it renders correctly
+            if(tabId === 'tab-sim') {
+                drawSimulation();
+            }
+        }
+
+        // Quiz Logic
+        let userAnswers = {};
+        
+        document.querySelectorAll('.q-card').forEach((card, index) => {
+            const options = card.querySelectorAll('.q-option');
+            options.forEach(opt => {
+                opt.addEventListener('click', function() {
+                    // Reset others
+                    options.forEach(o => {
+                        o.classList.remove('correct', 'wrong');
+                        o.style.background = 'var(--card)';
+                    });
+                    
+                    userAnswers[index] = this.getAttribute('data-opt');
+                    this.style.background = 'rgba(255,255,255,0.1)';
+                });
+            });
+        });
+
+        function calculateScore() {
+            let score = 0;
+            const cards = document.querySelectorAll('.q-card');
+            
+            cards.forEach((card, index) => {
+                const correctAns = card.getAttribute('data-answer');
+                const userAns = userAnswers[index];
+                const feedback = card.querySelector('.q-feedback');
+                const options = card.querySelectorAll('.q-option');
+                
+                feedback.style.display = 'block';
+
+                if (userAns === correctAns) {
+                    score++;
+                    feedback.innerHTML = '✅ إجابة صحيحة!';
+                    feedback.style.color = 'var(--success)';
+                    feedback.style.background = 'rgba(34, 197, 94, 0.1)';
+                    options[userAns].classList.add('correct');
+                } else {
+                    feedback.innerHTML = `❌ إجابة خاطئة. الإجابة الصحيحة هي الخيار رقم ${parseInt(correctAns) + 1}.`;
+                    feedback.style.color = 'var(--danger)';
+                    feedback.style.background = 'rgba(239, 68, 68, 0.1)';
+                    
+                    if(userAns !== undefined) {
+                        options[userAns].classList.add('wrong');
+                    }
+                    options[correctAns].classList.add('correct');
+                }
+            });
+
+            const scoreDisplay = document.getElementById('quiz-score');
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.innerHTML = `النتيجة: ${score} من ${cards.length}`;
+        }
+
+        // Canvas Simulation Logic
+        const canvas = document.getElementById('lunarCanvas');
+        const ctx = canvas.getContext('2d');
+        const slider = document.getElementById('daySlider');
+        const dayDisplay = document.getElementById('dayDisplay');
+        const phaseName = document.getElementById('phaseName');
+
+        function drawSimulation() {
+            const day = parseFloat(slider.value);
+            dayDisplay.innerText = day;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const centerX = 350;
+            const centerY = 200;
+            const orbitRadius = 130;
+
+            // 1. Draw Sun Rays (from right)
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 2;
+            for(let y = 50; y <= 350; y+= 30) {
+                ctx.beginPath();
+                ctx.moveTo(800, y);
+                ctx.lineTo(600, y);
+                ctx.stroke();
+            }
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = "20px Cairo";
+            ctx.fillText("أشعة الشمس", 650, 40);
+
+            // 2. Draw Orbit Path
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, orbitRadius, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+            ctx.setLineDash([5, 5]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 3. Draw Earth
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+            ctx.fillStyle = '#3b82f6';
+            ctx.fill();
+            // Earth dark side (left side since sun is on right)
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 30, Math.PI/2, Math.PI*1.5);
+            ctx.fillStyle = 'rgba(0,0,0,0.6)';
+            ctx.fill();
+            ctx.fillStyle = '#fff';
+            ctx.font = "14px Cairo";
+            ctx.textAlign = "center";
+            ctx.fillText("الأرض", centerX, centerY + 45);
+
+            // 4. Calculate Moon Position
+            // Day 0: Moon is between Earth and Sun (angle 0 relative to positive X which is right)
+            const angle = (day / 29.5) * Math.PI * 2;
+            const moonX = centerX + orbitRadius * Math.cos(angle);
+            const moonY = centerY - orbitRadius * Math.sin(angle); // Subtract because canvas Y goes down
+
+            // Draw Moon
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, 15, 0, Math.PI * 2);
+            ctx.fillStyle = '#e2e8f0'; // lit part
+            ctx.fill();
+            
+            // Moon dark side (left side is always dark because sun is on right)
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, 15, Math.PI/2, Math.PI*1.5);
+            ctx.fillStyle = '#1e293b'; // dark part
+            ctx.fill();
+
+            // 5. Determine Phase Name
+            let phase = "";
+            if(day < 1 || day > 28.5) phase = "المحاق (Nouvelle lune)";
+            else if(day >= 1 && day < 6.5) phase = "هلال متزايد (Premier croissant)";
+            else if(day >= 6.5 && day < 8.5) phase = "التربيع الأول (Premier quartier)";
+            else if(day >= 8.5 && day < 14) phase = "أحدب متزايد (Lune gibbeuse croissante)";
+            else if(day >= 14 && day < 16) phase = "البدر (Pleine lune)";
+            else if(day >= 16 && day < 21) phase = "أحدب متناقص (Lune gibbeuse décroissante)";
+            else if(day >= 21 && day < 23) phase = "التربيع الأخير (Dernier quartier)";
+            else phase = "هلال متناقص (Dernier croissant)";
+            
+            phaseName.innerText = phase;
+
+            // 6. Draw "What we see from Earth" Box
+            ctx.fillStyle = 'var(--dark3)';
+            ctx.fillRect(20, 20, 160, 160);
+            ctx.strokeStyle = 'var(--border)';
+            ctx.strokeRect(20, 20, 160, 160);
+            ctx.fillStyle = 'var(--text)';
+            ctx.font = "16px Cairo";
+            ctx.fillText("الرؤية من الأرض:", 100, 45);
+
+            const phaseCenterX = 100;
+            const phaseCenterY = 110;
+            const phaseRadius = 40;
+
+            // Draw base dark moon
+            ctx.beginPath();
+            ctx.arc(phaseCenterX, phaseCenterY, phaseRadius, 0, Math.PI * 2);
+            ctx.fillStyle = '#1e293b';
+            ctx.fill();
+
+            // Calculate lit illumination width based on angle
+            // When angle=0 (new moon), illumination=0. When angle=PI (full moon), illumination=100%
+            // We use cosine to draw the phase illusion
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(phaseCenterX, phaseCenterY, phaseRadius, 0, Math.PI * 2);
+            ctx.clip();
+
+            // Drawing the lit portion requires some logic to simulate the 3D sphere
+            // For simplicity, we create a shape that represents the lit area
+            const illuminationOffset = Math.cos(angle) * phaseRadius;
+            
+            if (angle < Math.PI) {
+                // Waxing (right side lit)
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.arc(phaseCenterX, phaseCenterY, phaseRadius, -Math.PI/2, Math.PI/2); // right half
+                ctx.fill();
+                
+                if (angle < Math.PI/2) {
+                    // New to First quarter: cover right half with ellipse
+                    ctx.fillStyle = '#1e293b';
+                    ctx.beginPath();
+                    ctx.ellipse(phaseCenterX, phaseCenterY, Math.abs(illuminationOffset), phaseRadius, 0, -Math.PI/2, Math.PI/2);
+                    ctx.fill();
+                } else {
+                    // First quarter to Full: fill left half with ellipse
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.beginPath();
+                    ctx.ellipse(phaseCenterX, phaseCenterY, Math.abs(illuminationOffset), phaseRadius, 0, Math.PI/2, -Math.PI/2);
+                    ctx.fill();
+                }
+            } else {
+                // Waning (left side lit)
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.arc(phaseCenterX, phaseCenterY, phaseRadius, Math.PI/2, -Math.PI/2); // left half
+                ctx.fill();
+                
+                if (angle < Math.PI * 1.5) {
+                    // Full to Last Quarter: fill right half with ellipse
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.beginPath();
+                    ctx.ellipse(phaseCenterX, phaseCenterY, Math.abs(illuminationOffset), phaseRadius, 0, -Math.PI/2, Math.PI/2);
+                    ctx.fill();
+                } else {
+                    // Last quarter to New: cover left half with ellipse
+                    ctx.fillStyle = '#1e293b';
+                    ctx.beginPath();
+                    ctx.ellipse(phaseCenterX, phaseCenterY, Math.abs(illuminationOffset), phaseRadius, 0, Math.PI/2, -Math.PI/2);
+                    ctx.fill();
+                }
+            }
+            ctx.restore();
+            
+            // Moon border in phase box
+            ctx.beginPath();
+            ctx.arc(phaseCenterX, phaseCenterY, phaseRadius, 0, Math.PI * 2);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        slider.addEventListener('input', drawSimulation);
+        
+        // Initial render
+        window.onload = () => {
+            drawSimulation();
+        };
+    </script>
+</body>
+</html>

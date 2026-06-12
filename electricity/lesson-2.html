@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مخطط دارة كهربائية | السنة 1 متوسط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark: #0a0f1e;
+            --dark3: #1a2540;
+            --border: rgba(255,255,255,.08);
+            --card: rgba(255,255,255,.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #6366f1; /* لون المقطع: الظواهر الكهربائية */
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        .top-nav {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--dark3);
+        }
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        .lesson-badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .back-btn {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Tabs System */
+        .tabs-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .tabs-header {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Content Styles */
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .lesson-header h1 {
+            font-size: 2.2rem;
+            margin-top: 0.5rem;
+        }
+        .lesson-header em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .objectives-box {
+            background: var(--card);
+            border-right: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .objectives-box h3 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .objectives-box ul {
+            list-style-type: square;
+            padding-right: 1.5rem;
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .sec-title i {
+            color: var(--accent);
+        }
+
+        .def-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            background: var(--dark3);
+            border: 1px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        .def-content {
+            flex: 1;
+            min-width: 250px;
+        }
+        .def-box h3 {
+            color: var(--warning);
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+        }
+        .info-table th, .info-table td {
+            padding: 1rem;
+            border: 1px solid var(--border);
+        }
+        .info-table th {
+            background: var(--dark3);
+            color: var(--accent);
+        }
+        .table-svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .highlight {
+            background: rgba(99, 102, 241, 0.1);
+            border-right: 3px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        /* Interactive Simulation Styles */
+        .sim-wrap {
+            background: var(--dark3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        .sim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .sim-badge {
+            background: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        .sim-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .lesson-diagram {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            aspect-ratio: 3/2;
+            margin: 1.5rem auto;
+            display: block;
+            border-radius: 8px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+        }
+
+        canvas.lesson-diagram {
+            background: #ffffff; /* خلفية بيضاء لتوضيح الرسم */
+        }
+
+        /* Quiz Styles */
+        .q-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .q-num {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .q-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .q-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+        .q-option {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .q-option input {
+            margin-left: 1rem;
+        }
+        .q-option:hover {
+            border-color: var(--accent);
+        }
+        .q-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            font-weight: bold;
+        }
+        .q-option.correct-ans {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+        }
+        .q-option.wrong-ans {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+        }
+
+        /* Summary Styles */
+        .summary-card {
+            background: linear-gradient(145deg, var(--dark3), var(--dark));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        .summary-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        .summary-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .summary-list li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 640px) {
+            .tabs-header { flex-wrap: nowrap; }
+            .lesson-diagram { max-width: 100%; }
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .top-nav, .tabs-header, .sim-wrap, #tab-3 { display: none; }
+            #tab-4 { display: block !important; }
+            .summary-card { border: 1px solid #000; background: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <a href="../index.html" class="back-btn">← الفهرس</a>
+        <div class="breadcrumb">السنة 1 متوسط › المقطع 1 › الدرس 02</div>
+        <div class="lesson-badge">الظواهر الكهربائية</div>
+    </nav>
+
+    <main class="tabs-container">
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="openTab(1)">📖 الدرس</button>
+            <button class="tab-btn" onclick="openTab(2)">⚗️ تجربة ومحاكاة</button>
+            <button class="tab-btn" onclick="openTab(3)">✏️ تمارين</button>
+            <button class="tab-btn" onclick="openTab(4)">📋 ملخص الكراس</button>
+        </div>
+
+        <div id="tab-1" class="tab-content active">
+            <div class="lesson-header">
+                <div>الدرس 02</div>
+                <h1><em>مخطط دارة كهربائية</em></h1>
+            </div>
+
+            <div class="objectives-box">
+                <h3>الأهداف التعلمية</h3>
+                <ul>
+                    <li>التعرف على الرموز النظامية للعناصر الكهربائية.</li>
+                    <li>تمثيل دارة كهربائية بسيطة بمخطط نظامي باستخدام المسطرة.</li>
+                    <li>إدراك أهمية توحيد الرموز عالمياً لتسهيل قراءة المخططات.</li>
+                </ul>
+            </div>
+
+            <h2 class="sec-title">1. الرموز النظامية للعناصر الكهربائية</h2>
+            
+            <div class="def-box">
+                <h3>ما هو الرمز النظامي؟</h3>
+                <div class="def-content">
+                    <p>الرمز النظامي (Symbole normalisé) هو رسم متفق عليه عالمياً لتمثيل عنصر كهربائي محدد، بهدف تسهيل رسم وقراءة الدارات الكهربائية مهما كان الاختلاف في اللغات.</p>
+                </div>
+                <svg class="def-illustration" width="150" height="100" viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="50" r="25" fill="#f59e0b" stroke="#e2e8f0" stroke-width="2" opacity="0.3"/>
+                    <path d="M40 75 V85" stroke="#e2e8f0" stroke-width="4"/>
+                    <path d="M80 50 L100 50 M95 45 L100 50 L95 55" stroke="#6366f1" stroke-width="2" fill="none"/>
+                    <circle cx="125" cy="50" r="15" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+                    <line x1="115" y1="40" x2="135" y2="60" stroke="#e2e8f0" stroke-width="2"/>
+                    <line x1="135" y1="40" x2="115" y2="60" stroke="#e2e8f0" stroke-width="2"/>
+                </svg>
+            </div>
+
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>العنصر الكهربائي (بالعربية/الفرنسية)</th>
+                        <th>الرمز النظامي</th>
+                        <th>دوره في الدارة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>مولد / بطارية<br><small class="muted">Générateur / Pile</small></td>
+                        <td>
+                            <svg class="table-svg" viewBox="0 0 100 60">
+                                <line x1="10" y1="30" x2="40" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                                <line x1="40" y1="15" x2="40" y2="45" stroke="#e2e8f0" stroke-width="1.5"/> <line x1="60" y1="22" x2="60" y2="38" stroke="#e2e8f0" stroke-width="4"/> <line x1="60" y1="30" x2="90" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                                <text x="30" y="12" fill="#e2e8f0" font-family="Amiri" font-size="14">+</text>
+                                <text x="65" y="12" fill="#e2e8f0" font-family="Amiri" font-size="14">-</text>
+                            </svg>
+                        </td>
+                        <td>تغذية الدارة بالكهرباء</td>
+                    </tr>
+                    <tr>
+                        <td>مصباح توهج<br><small class="muted">Lampe</small></td>
+                        <td>
+                            <svg class="table-svg" viewBox="0 0 100 60">
+                                <line x1="10" y1="30" x2="35" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                                <circle cx="50" cy="30" r="15" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+                                <line x1="40" y1="20" x2="60" y2="40" stroke="#e2e8f0" stroke-width="2"/>
+                                <line x1="60" y1="20" x2="40" y2="40" stroke="#e2e8f0" stroke-width="2"/>
+                                <line x1="65" y1="30" x2="90" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                            </svg>
+                        </td>
+                        <td>الإضاءة والتوهج</td>
+                    </tr>
+                    <tr>
+                        <td>قاطعة بسيطة (مفتوحة)<br><small class="muted">Interrupteur ouvert</small></td>
+                        <td>
+                            <svg class="table-svg" viewBox="0 0 100 60">
+                                <line x1="10" y1="30" x2="35" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                                <circle cx="37" cy="30" r="2" fill="#e2e8f0"/>
+                                <line x1="37" y1="30" x2="60" y2="15" stroke="#e2e8f0" stroke-width="2"/>
+                                <circle cx="63" cy="30" r="2" fill="#e2e8f0"/>
+                                <line x1="65" y1="30" x2="90" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                            </svg>
+                        </td>
+                        <td>التحكم في مرور التيار</td>
+                    </tr>
+                    <tr>
+                        <td>سلك توصيل<br><small class="muted">Fil de connexion</small></td>
+                        <td>
+                            <svg class="table-svg" viewBox="0 0 100 60">
+                                <line x1="10" y1="30" x2="90" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                            </svg>
+                        </td>
+                        <td>توصيل وربط العناصر</td>
+                    </tr>
+                    <tr>
+                        <td>محرك كهربائي<br><small class="muted">Moteur</small></td>
+                        <td>
+                            <svg class="table-svg" viewBox="0 0 100 60">
+                                <line x1="10" y1="30" x2="35" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                                <circle cx="50" cy="30" r="15" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+                                <text x="50" y="35" fill="#e2e8f0" font-family="Arial" font-size="14" text-anchor="middle">M</text>
+                                <line x1="65" y1="30" x2="90" y2="30" stroke="#e2e8f0" stroke-width="2"/>
+                            </svg>
+                        </td>
+                        <td>تحويل الكهرباء لحركة</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="sec-title">2. مخطط الدارة الكهربائية</h2>
+            <div class="highlight">
+                <strong>القاعدة الأساسية:</strong> لرسم مخطط دارة كهربائية، نستخدم <em>الرموز النظامية</em> ونربط بينها بخطوط مستقيمة تمثل أسلاك التوصيل، بحيث يأخذ المخطط <strong>شكلاً مستطيلاً</strong> باستخدام المسطرة.
+            </div>
+
+        </div>
+
+        <div id="tab-2" class="tab-content">
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h2>المحاكاة الأولى: تحويل التركيب إلى مخطط</h2>
+                    <span class="sim-badge">SVG تفاعلي</span>
+                </div>
+                <p style="margin-bottom: 1rem; color: var(--muted);">اضغط على القاطعة لفتح وغلق الدارة، ولاحظ حالة المصباح في المخطط.</p>
+                
+                <svg id="circuitSim" class="lesson-diagram" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                    <polyline points="150,100 450,100 450,300 150,300 150,100" fill="none" stroke="var(--text)" stroke-width="3" stroke-linejoin="miter"/>
+                    
+                    <rect x="280" y="90" width="40" height="20" fill="var(--dark)"/>
+                    <line x1="285" y1="80" x2="285" y2="120" stroke="var(--text)" stroke-width="2"/> <line x1="315" y1="90" x2="315" y2="110" stroke="var(--text)" stroke-width="6"/> <text x="270" y="75" fill="var(--text)" font-family="Amiri" font-size="20">+</text>
+                    <text x="325" y="75" fill="var(--text)" font-family="Amiri" font-size="24">-</text>
+
+                    <rect x="280" y="290" width="40" height="20" fill="var(--dark)"/>
+                    <circle id="lampGlow" cx="300" cy="300" r="25" fill="transparent" stroke="var(--text)" stroke-width="2"/>
+                    <line x1="285" y1="285" x2="315" y2="315" stroke="var(--text)" stroke-width="2"/>
+                    <line x1="315" y1="285" x2="285" y2="315" stroke="var(--text)" stroke-width="2"/>
+
+                    <rect x="140" y="180" width="20" height="40" fill="var(--dark)"/>
+                    <circle cx="150" cy="180" r="4" fill="var(--text)"/>
+                    <circle cx="150" cy="220" r="4" fill="var(--text)"/>
+                    <line id="switchArm" x1="150" y1="220" x2="180" y2="180" stroke="var(--text)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+
+                <div class="sim-controls">
+                    <button class="btn" id="toggleBtn" onclick="toggleCircuit()">غلق الدارة الكهربائية</button>
+                </div>
+            </div>
+
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h2>المحاكاة الثانية: الرسام الديناميكي للرموز</h2>
+                    <span class="sim-badge">Canvas حي</span>
+                </div>
+                <p style="margin-bottom: 1rem; color: var(--muted);">اختر العنصر الكهربائي ليتم رسم رمزه النظامي مباشرة على اللوحة البيضاء.</p>
+                
+                <canvas id="symbolCanvas" class="lesson-diagram" width="600" height="300"></canvas>
+                
+                <div class="sim-controls">
+                    <button class="btn" onclick="drawSymbol('battery')">مولد (+ -)</button>
+                    <button class="btn" onclick="drawSymbol('lamp')">مصباح (X)</button>
+                    <button class="btn" onclick="drawSymbol('motor')">محرك (M)</button>
+                    <button class="btn" onclick="drawSymbol('diode')">صمام ضوئي</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-3" class="tab-content">
+            <h2 class="sec-title">اختبر مكتسباتك</h2>
+            
+            <form id="quizForm">
+                <div class="q-card">
+                    <span class="q-num">السؤال 1</span>
+                    <div class="q-text">ما هو الرمز النظامي للمولد (البطارية)؟</div>
+                    <div class="q-options">
+                        <label class="q-option"><input type="radio" name="q1" value="wrong"> دائرة بداخلها حرف M</label>
+                        <label class="q-option"><input type="radio" name="q1" value="correct"> خط طويل (+) وخط قصير سميك (-)</label>
+                        <label class="q-option"><input type="radio" name="q1" value="wrong"> دائرة بداخلها علامة X</label>
+                    </div>
+                    <div class="q-feedback">إجابة صحيحة! المولد يُميز بقطبين غير متماثلين (+ و -).</div>
+                </div>
+
+                <div class="q-card">
+                    <span class="q-num">السؤال 2</span>
+                    <div class="q-text">الشكل الهندسي الذي يفضّل أن يتخذه مخطط الدارة الكهربائية هو:</div>
+                    <div class="q-options">
+                        <label class="q-option"><input type="radio" name="q2" value="wrong"> دائري</label>
+                        <label class="q-option"><input type="radio" name="q2" value="wrong"> عشوائي</label>
+                        <label class="q-option"><input type="radio" name="q2" value="correct"> مستطيل</label>
+                    </div>
+                    <div class="q-feedback">أحسنت! نستخدم المسطرة ليكون المخطط مستطيلاً وواضحاً.</div>
+                </div>
+
+                <div class="q-card">
+                    <span class="q-num">السؤال 3</span>
+                    <div class="q-text">عندما تكون القاطعة في حالة "مفتوحة"، ماذا يحدث للمصباح؟</div>
+                    <div class="q-options">
+                        <label class="q-option"><input type="radio" name="q3" value="correct"> لا يتوهج لأن الدارة مقطوعة</label>
+                        <label class="q-option"><input type="radio" name="q3" value="wrong"> يتوهج بشكل عادي</label>
+                        <label class="q-option"><input type="radio" name="q3" value="wrong"> يحترق المصباح</label>
+                    </div>
+                    <div class="q-feedback">صحيح. القاطعة المفتوحة تمنع مرور التيار الكهربائي.</div>
+                </div>
+
+                <div class="q-card">
+                    <span class="q-num">السؤال 4</span>
+                    <div class="q-text">كيف نرمز لأسلاك التوصيل في المخطط؟</div>
+                    <div class="q-options">
+                        <label class="q-option"><input type="radio" name="q4" value="correct"> بخطوط مستقيمة</label>
+                        <label class="q-option"><input type="radio" name="q4" value="wrong"> بخطوط متعرجة</label>
+                        <label class="q-option"><input type="radio" name="q4" value="wrong"> لا نرمز لها أبداً</label>
+                    </div>
+                    <div class="q-feedback">ممتاز! أسلاك التوصيل تُرسم كخطوط مستقيمة.</div>
+                </div>
+
+                <div class="q-card">
+                    <span class="q-num">السؤال 5</span>
+                    <div class="q-text">العنصر الذي رمزه النظامي دائرة بداخلها حرف (M) هو:</div>
+                    <div class="q-options">
+                        <label class="q-option"><input type="radio" name="q5" value="wrong"> المصباح</label>
+                        <label class="q-option"><input type="radio" name="q5" value="correct"> المحرك الكهربائي</label>
+                        <label class="q-option"><input type="radio" name="q5" value="wrong"> القاطعة</label>
+                    </div>
+                    <div class="q-feedback">إجابة صحيحة! حرف M مشتق من كلمة Moteur.</div>
+                </div>
+
+                <button type="button" class="btn" onclick="checkQuiz()">عرض النتيجة</button>
+                <h3 id="quizScore" style="margin-top: 1rem; color: var(--warning);"></h3>
+            </form>
+        </div>
+
+        <div id="tab-4" class="tab-content">
+            <div class="summary-card">
+                <h2 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent);">ملخص: مخطط الدارة الكهربائية</h2>
+                <ul class="summary-list">
+                    <li><strong>الرموز النظامية:</strong> هي أشكال موحدة عالمياً لتمثيل العناصر الكهربائية بهدف تسهيل رسم وقراءة الدارات.</li>
+                    <li><strong>المولد (البطارية):</strong> يتميز بقطبين مختلفين، خط طويل يمثل الموجب (+) وخط قصير وسميك يمثل السالب (-).</li>
+                    <li><strong>المصباح:</strong> رمزه دائرة بداخلها علامة (X).</li>
+                    <li><strong>القاطعة:</strong> هي أداة التحكم، ترسم مغلقة لمرور التيار، ومفتوحة لقطع التيار.</li>
+                    <li><strong>قاعدة الرسم:</strong> يرسم مخطط الدارة الكهربائية دائماً بشكل هندسي <em>مستطيل</em> باستخدام المسطرة.</li>
+                </ul>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // نظام التبويبات
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // محاكاة الدارة الكهربائية (SVG)
+        let isCircuitClosed = false;
+        function toggleCircuit() {
+            const switchArm = document.getElementById('switchArm');
+            const lampGlow = document.getElementById('lampGlow');
+            const btn = document.getElementById('toggleBtn');
+
+            isCircuitClosed = !isCircuitClosed;
+
+            if (isCircuitClosed) {
+                // غلق الدارة
+                switchArm.setAttribute('x2', '150'); // تحريك الذراع ليغلق التلامس
+                lampGlow.setAttribute('fill', 'rgba(245, 158, 11, 0.4)'); // لون أصفر متوهج
+                lampGlow.setAttribute('stroke', '#f59e0b');
+                btn.textContent = 'فتح الدارة الكهربائية';
+                btn.style.backgroundColor = 'var(--danger)';
+            } else {
+                // فتح الدارة
+                switchArm.setAttribute('x2', '180'); // إبعاد الذراع
+                lampGlow.setAttribute('fill', 'transparent');
+                lampGlow.setAttribute('stroke', 'var(--text)');
+                btn.textContent = 'غلق الدارة الكهربائية';
+                btn.style.backgroundColor = 'var(--accent)';
+            }
+        }
+
+        // محاكاة الرسام الديناميكي (Canvas)
+        const canvas = document.getElementById('symbolCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+            // رسم شبكة خفيفة
+            for(let x=0; x<canvas.width; x+=20) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+            }
+            for(let y=0; y<canvas.height; y+=20) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            }
+        }
+
+        function drawSymbol(type) {
+            drawGrid();
+            ctx.strokeStyle = '#000000'; // خطوط سوداء غامقة للوضوح
+            ctx.lineWidth = 4;
+            ctx.fillStyle = '#000000';
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+
+            ctx.beginPath();
+            
+            if (type === 'battery') {
+                // سلك أيسر
+                ctx.moveTo(cx - 100, cy); ctx.lineTo(cx - 20, cy);
+                // القطب الموجب
+                ctx.moveTo(cx - 20, cy - 40); ctx.lineTo(cx - 20, cy + 40);
+                // القطب السالب
+                ctx.lineWidth = 8;
+                ctx.moveTo(cx + 20, cy - 20); ctx.lineTo(cx + 20, cy + 20);
+                ctx.lineWidth = 4;
+                // سلك أيمن
+                ctx.moveTo(cx + 20, cy); ctx.lineTo(cx + 100, cy);
+                ctx.stroke();
+                // علامات
+                ctx.font = '24px Arial';
+                ctx.fillText('+', cx - 40, cy - 25);
+                ctx.fillText('-', cx + 30, cy - 25);
+            } 
+            else if (type === 'lamp') {
+                // سلك أيسر وأيمن
+                ctx.moveTo(cx - 100, cy); ctx.lineTo(cx - 40, cy);
+                ctx.moveTo(cx + 40, cy); ctx.lineTo(cx + 100, cy);
+                ctx.stroke();
+                // الدائرة
+                ctx.beginPath();
+                ctx.arc(cx, cy, 40, 0, 2 * Math.PI);
+                ctx.stroke();
+                // علامة X
+                ctx.beginPath();
+                ctx.moveTo(cx - 25, cy - 25); ctx.lineTo(cx + 25, cy + 25);
+                ctx.moveTo(cx + 25, cy - 25); ctx.lineTo(cx - 25, cy + 25);
+                ctx.stroke();
+            }
+            else if (type === 'motor') {
+                // سلك
+                ctx.moveTo(cx - 100, cy); ctx.lineTo(cx - 40, cy);
+                ctx.moveTo(cx + 40, cy); ctx.lineTo(cx + 100, cy);
+                ctx.stroke();
+                // الدائرة
+                ctx.beginPath();
+                ctx.arc(cx, cy, 40, 0, 2 * Math.PI);
+                ctx.stroke();
+                // حرف M
+                ctx.font = 'bold 30px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('M', cx, cy);
+            }
+            else if (type === 'diode') {
+                // سلك
+                ctx.moveTo(cx - 100, cy); ctx.lineTo(cx - 30, cy);
+                ctx.moveTo(cx + 30, cy); ctx.lineTo(cx + 100, cy);
+                ctx.stroke();
+                // مثلث
+                ctx.beginPath();
+                ctx.moveTo(cx - 30, cy - 30);
+                ctx.lineTo(cx - 30, cy + 30);
+                ctx.lineTo(cx + 30, cy);
+                ctx.closePath();
+                ctx.stroke();
+                // خط عمودي
+                ctx.beginPath();
+                ctx.moveTo(cx + 30, cy - 30);
+                ctx.lineTo(cx + 30, cy + 30);
+                ctx.stroke();
+            }
+        }
+        
+        // رسم الشبكة الافتراضية عند تحميل الصفحة
+        window.onload = drawGrid;
+
+        // تصحيح التمارين
+        function checkQuiz() {
+            let score = 0;
+            const total = 5;
+
+            for (let i = 1; i <= total; i++) {
+                const options = document.getElementsByName('q' + i);
+                let answered = false;
+                
+                // تصفير التنسيقات
+                document.querySelectorAll(`input[name="q${i}"]`).forEach(input => {
+                    input.parentElement.classList.remove('correct-ans', 'wrong-ans');
+                });
+
+                for (let opt of options) {
+                    if (opt.checked) {
+                        answered = true;
+                        const feedback = opt.closest('.q-card').querySelector('.q-feedback');
+                        feedback.style.display = 'block';
+
+                        if (opt.value === 'correct') {
+                            score++;
+                            opt.parentElement.classList.add('correct-ans');
+                            feedback.style.color = 'var(--success)';
+                        } else {
+                            opt.parentElement.classList.add('wrong-ans');
+                            feedback.style.color = 'var(--danger)';
+                            feedback.innerHTML += ' (إجابتك خاطئة)';
+                        }
+                    }
+                }
+            }
+
+            document.getElementById('quizScore').textContent = `النتيجة النهائية: ${score} من ${total}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدرس 04: درجة الحرارة - العلوم الفيزيائية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap');
+
+        :root {
+            --dark: #0a0f1e;
+            --dark3: #1a2540;
+            --border: rgba(255, 255, 255, 0.08);
+            --card: rgba(255, 255, 255, 0.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #14b8a6; /* لون المقطع: المادة وتحولاتها / القياسات */
+            --accent-glow: rgba(20, 184, 166, 0.2);
+            --success: #22c55e;
+            --danger: #ef4444;
+            --gold: #fbbf24;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Header & Breadcrumb */
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .lesson-badge {
+            background-color: var(--accent);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+        header h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn:hover {
+            background: var(--card);
+        }
+        
+        .tab-btn.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Elements */
+        .objectives-box {
+            background: var(--dark3);
+            border-right: 4px solid var(--accent);
+            padding: 15px 20px;
+            border-radius: 4px 8px 8px 4px;
+            margin-bottom: 25px;
+        }
+
+        .objectives-box h3 {
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 15px 0;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+        
+        .sec-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border);
+            margin-right: 15px;
+        }
+
+        .def-box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--card);
+            border: 1px solid var(--gold);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.05);
+        }
+
+        .def-content {
+            flex-grow: 1;
+        }
+
+        .def-illustration, .tools-illustration {
+            width: 120px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .formula-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .formula-box {
+            background: rgba(20, 184, 166, 0.1);
+            border: 1px dashed var(--accent);
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            text-align: center;
+            flex-grow: 1;
+            font-family: 'Amiri', serif;
+        }
+
+        .law-diagram {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            background: var(--dark3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: var(--dark3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th, .info-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            text-align: right;
+        }
+
+        .info-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+        }
+
+        .highlight {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--gold);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Simulation Elements */
+        .sim-wrap {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .sim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sim-badge {
+            background: var(--accent);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .sim-controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        input[type=range] {
+            width: 60%;
+            accent-color: var(--accent);
+        }
+
+        .lesson-diagram {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        /* Exercises Elements */
+        .q-card {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .q-num {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .q-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .q-option {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .q-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .q-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .q-option.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .q-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-check {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .quiz-score {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            display: none;
+            color: var(--accent);
+        }
+
+        /* Summary Elements */
+        .summary-card {
+            background: linear-gradient(135deg, var(--dark3), rgba(20, 184, 166, 0.1));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .summary-list {
+            list-style: none;
+        }
+
+        .summary-list li {
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .summary-list li::before {
+            content: '📌';
+            position: absolute;
+            right: 0;
+            top: 2px;
+        }
+
+        .btn-print {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media print {
+            body { background: #fff; color: #000; }
+            .tabs, .btn-print, .breadcrumb { display: none !important; }
+            .tab-content { display: none; }
+            #summary { display: block !important; }
+            .summary-card { border: 1px solid #000; background: #fff; }
+        }
+
+        @media (max-width: 640px) {
+            .def-box { flex-direction: column; text-align: center; }
+            .sec-title { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="breadcrumb">
+        <a href="../index.html" style="color:var(--accent); text-decoration:none;">← الفهرس</a>
+        <span>›</span>
+        <span>السنة الأولى متوسط</span>
+        <span>›</span>
+        <span class="lesson-badge">المقطع 2: بعض القياسات</span>
+    </div>
+
+    <header>
+        <h1>الدرس 04: <em>درجة الحرارة</em></h1>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('lesson', this)">📖 الدرس</button>
+        <button class="tab-btn" onclick="openTab('simulation', this)">⚗️ محاكاة تفاعلية</button>
+        <button class="tab-btn" onclick="openTab('exercises', this)">✏️ تمارين</button>
+        <button class="tab-btn" onclick="openTab('summary', this)">📋 ملخص الكراس</button>
+    </div>
+
+    <div id="lesson" class="tab-content active">
+        <div class="objectives-box">
+            <h3>🎯 الأهداف التعلمية</h3>
+            <p>في نهاية هذا الدرس، ستكون قادراً على مفهوم درجة الحرارة، معرفة أداة القياس والوحدة المستعملة، وتحديد الطريقة الصحيحة لقراءة درجة الحرارة على المحرار.</p>
+        </div>
+
+        <h2 class="sec-title">1. مفهوم درجة الحرارة</h2>
+        <div class="def-box">
+            <svg class="def-illustration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="var(--dark)" stroke="var(--accent)" stroke-width="2"/>
+                <path d="M45,20 L55,20 L55,60 A15,15 0 1,1 45,60 Z" fill="none" stroke="var(--text)" stroke-width="3"/>
+                <circle cx="50" cy="70" r="8" fill="var(--danger)"/>
+                <rect x="48" y="45" width="4" height="25" fill="var(--danger)"/>
+                <path d="M20,50 Q35,30 50,50 T80,50" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="4"/>
+            </svg>
+            <div class="def-content">
+                <h3>تعريف درجة الحرارة (Température)</h3>
+                <p>هي مقدار فيزيائي قابل للقياس، يعبر عن حالة الجسم من حيث السخونة أو البرودة.</p>
+                <ul style="margin-top:10px; margin-right:20px; color:var(--muted)">
+                    <li>نرمز لدرجة الحرارة بالرمز <strong style="color:#fff; font-family:'Amiri'">T</strong> أو <strong style="color:#fff; font-family:'Amiri'">&theta;</strong> (ثيتا).</li>
+                    <li>الوحدة الدولية المستعملة في الحياة اليومية هي: <strong class="highlight">الدرجة المئوية (°C)</strong> (Degré Celsius).</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="sec-title">2. قياس درجة الحرارة</h2>
+        <p>لقياس درجة حرارة جسم ما، نستعمل أداة تسمى <strong class="highlight">المحرار (Thermomètre)</strong>.</p>
+        
+        <table class="info-table" style="margin-top: 15px;">
+            <thead>
+                <tr>
+                    <th>أنواع المحارير</th>
+                    <th>الاستعمال</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>المحرار الطبي (Thermomètre médical)</td>
+                    <td>قياس درجة حرارة جسم الإنسان (مدرج عادة بين 35°C و 42°C).</td>
+                </tr>
+                <tr>
+                    <td>المحرار السائلي (Thermomètre à liquide)</td>
+                    <td>قياس درجة حرارة السوائل والمحيط (يحتوي على كحول ملون أو زئبق).</td>
+                </tr>
+                <tr>
+                    <td>المحرار الرقمي (Thermomètre numérique)</td>
+                    <td>يعطي القراءة مباشرة على شاشة إلكترونية، سريع ودقيق.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="formula-section">
+            <svg class="law-diagram" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="180" height="130" rx="8" fill="var(--card)" stroke="var(--border)"/>
+                <line x1="100" y1="30" x2="100" y2="120" stroke="var(--text)" stroke-width="4"/>
+                <line x1="90" y1="30" x2="110" y2="30" stroke="var(--text)" stroke-width="2"/>
+                <text x="70" y="35" fill="var(--text)" font-family="Amiri" font-size="14">20°C</text>
+                <line x1="95" y1="52.5" x2="105" y2="52.5" stroke="var(--muted)" stroke-width="1"/>
+                <line x1="95" y1="75" x2="105" y2="75" stroke="var(--muted)" stroke-width="1"/>
+                <line x1="95" y1="97.5" x2="105" y2="97.5" stroke="var(--muted)" stroke-width="1"/>
+                <line x1="90" y1="120" x2="110" y2="120" stroke="var(--text)" stroke-width="2"/>
+                <text x="70" y="125" fill="var(--text)" font-family="Amiri" font-size="14">10°C</text>
+                <path d="M120,30 Q140,75 120,120" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4"/>
+                <text x="145" y="80" fill="var(--accent)" font-size="12" font-family="Amiri">4 تدريجات</text>
+            </svg>
+            <div class="formula-box">
+                <p style="margin-bottom: 10px; font-weight:bold;">كيفية حساب قيمة التدريجة الواحدة للمحرار:</p>
+                <p dir="ltr" style="color: var(--gold); font-size: 1.4rem;">
+                    (Valeur Max - Valeur Min) / Nombre de divisions
+                </p>
+                <p style="margin-top: 10px; font-size:1rem; color:var(--text)">
+                    قيمة التدريجة = (الدرجة الكبرى - الدرجة الصغرى) ÷ عدد التدريجات بينهما
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="simulation" class="tab-content">
+        
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <h3>المحاكاة 1: عمل المحرار السائلي</h3>
+                <span class="sim-badge">محاكاة حية</span>
+            </div>
+            <p style="margin-bottom:15px; color:var(--muted)">حرّك المنزلق لتغيير درجة الحرارة ولاحظ تمدد وتقلص السائل المحراري.</p>
+            
+            <svg class="lesson-diagram" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="background:var(--dark); border-radius:12px;">
+                <rect x="85" y="40" width="30" height="280" rx="15" fill="rgba(255,255,255,0.1)" stroke="var(--border)" stroke-width="2"/>
+                <circle cx="100" cy="320" r="25" fill="rgba(255,255,255,0.1)" stroke="var(--border)" stroke-width="2"/>
+                
+                <circle cx="100" cy="320" r="21" fill="var(--danger)"/>
+                <rect id="simLiquid" x="89" y="150" width="22" height="170" fill="var(--danger)"/>
+                
+                <g stroke="var(--text)" stroke-width="2">
+                    <line x1="70" y1="50" x2="85" y2="50"/> <text x="40" y="55" fill="var(--text)">100</text>
+                    <line x1="75" y1="90" x2="85" y2="90"/> <text x="50" y="95" fill="var(--text)">80</text>
+                    <line x1="75" y1="130" x2="85" y2="130"/> <text x="50" y="135" fill="var(--text)">60</text>
+                    <line x1="75" y1="170" x2="85" y2="170"/> <text x="50" y="175" fill="var(--text)">40</text>
+                    <line x1="75" y1="210" x2="85" y2="210"/> <text x="50" y="215" fill="var(--text)">20</text>
+                    <line x1="70" y1="250" x2="85" y2="250"/> <text x="50" y="255" fill="var(--text)">0</text>
+                    <line x1="75" y1="290" x2="85" y2="290"/> <text x="40" y="295" fill="var(--text)">-20</text>
+                </g>
+                <text x="130" y="55" fill="var(--accent)" font-weight="bold">°C</text>
+            </svg>
+
+            <div class="sim-controls">
+                <span dir="ltr">-20 °C</span>
+                <input type="range" id="tempSlider" min="-20" max="100" value="50">
+                <span dir="ltr">100 °C</span>
+            </div>
+            <h2 id="tempValueText" style="color:var(--accent); font-family:'Amiri', serif;" dir="ltr">50 °C</h2>
+        </div>
+
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <h3>المحاكاة 2: زاوية النظر الصحيحة</h3>
+                <span class="sim-badge">تفاعلي</span>
+            </div>
+            <p style="margin-bottom:15px; color:var(--muted)">انقر على الأزرار لتحديد موضع العين ومعرفة تأثيره على القراءة (القراءة الحقيقية هي 40°C).</p>
+            
+            <svg class="lesson-diagram" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" style="background:var(--dark); border-radius:12px;">
+                <rect x="50" y="100" width="200" height="40" rx="10" fill="rgba(255,255,255,0.1)" stroke="var(--border)" stroke-width="2"/>
+                <circle cx="50" cy="120" r="25" fill="var(--danger)"/>
+                <rect x="50" y="105" width="120" height="30" fill="var(--danger)"/>
+                <line x1="170" y1="100" x2="170" y2="110" stroke="#fff" stroke-width="2"/>
+                <text x="165" y="90" fill="#fff" font-size="12">40</text>
+                
+                <line x1="130" y1="100" x2="130" y2="110" stroke="#fff" stroke-width="2"/>
+                <text x="125" y="90" fill="#fff" font-size="12">30</text>
+                
+                <g id="sightLines">
+                    <line id="lineAbove" x1="180" y1="100" x2="300" y2="40" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5"/>
+                    <line id="lineCenter" x1="170" y1="120" x2="300" y2="120" stroke="var(--accent)" stroke-width="3"/>
+                    <line id="lineBelow" x1="160" y1="140" x2="300" y2="200" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5"/>
+                </g>
+                
+                <g id="eyeObj" transform="translate(300, 120)">
+                    <path d="M0,0 Q15,-15 30,0 Q15,15 0,0 Z" fill="none" stroke="#fff" stroke-width="2"/>
+                    <circle cx="15" cy="0" r="5" fill="#fff"/>
+                </g>
+            </svg>
+            
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+                <button class="tab-btn" onclick="setView('above')">من الأعلى</button>
+                <button class="tab-btn active" id="btnCenter" onclick="setView('center')">أفقياً (الصحيح)</button>
+                <button class="tab-btn" onclick="setView('below')">من الأسفل</button>
+            </div>
+            <p id="viewResult" style="margin-top: 15px; font-weight: bold; color: var(--success);">قراءة صحيحة: 40°C</p>
+        </div>
+    </div>
+
+    <div id="exercises" class="tab-content">
+        <p style="margin-bottom: 20px; color: var(--muted);">اختر الإجابة الصحيحة لكل سؤال ثم اضغط على زر التحقق لمعرفة نتيجتك.</p>
+        
+        <div id="quiz-container">
+            <div class="q-card" data-answer="1">
+                <span class="q-num">السؤال 1 / 5</span>
+                <div class="q-text">ما هو الرمز النظامي لدرجة الحرارة في الفيزياء؟</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">m (الكتلة)</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">T أو &theta; (درجة الحرارة)</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">V (الحجم)</div>
+                </div>
+                <div class="q-feedback">الرمز الصحيح هو T (من Température) أو الحرف اليوناني &theta; (ثيتا).</div>
+            </div>
+
+            <div class="q-card" data-answer="0">
+                <span class="q-num">السؤال 2 / 5</span>
+                <div class="q-text">ما هي وحدة القياس الدولية المستعملة في الحياة اليومية لدرجة الحرارة؟</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">الدرجة المئوية (°C)</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">الكيلوغرام (kg)</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">اللتر (L)</div>
+                </div>
+                <div class="q-feedback">وحدة قياس درجة الحرارة المتداولة هي الدرجة المئوية (°C).</div>
+            </div>
+
+            <div class="q-card" data-answer="1">
+                <span class="q-num">السؤال 3 / 5</span>
+                <div class="q-text">ما هو الجهاز المستعمل لقياس درجة حرارة جسم الإنسان؟</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">الميزان الإلكتروني</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">المحرار الطبي</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">الربيعة (الدينامومتر)</div>
+                </div>
+                <div class="q-feedback">نستعمل المحرار الطبي (Thermomètre médical) لمعرفة درجة حرارة الجسم ومراقبة الحمى.</div>
+            </div>
+
+            <div class="q-card" data-answer="1">
+                <span class="q-num">السؤال 4 / 5</span>
+                <div class="q-text">كيف يجب أن يكون مستوى النظر عند قراءة درجة الحرارة على المحرار السائلي؟</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">مائلاً من الأعلى</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">أفقياً وفي نفس مستوى سطح السائل</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">مائلاً من الأسفل</div>
+                </div>
+                <div class="q-feedback">لتجنب أخطاء القياس (اختلاف المنظر)، يجب أن تكون العين أفقية تماماً مع مستوى السائل.</div>
+            </div>
+
+            <div class="q-card" data-answer="1">
+                <span class="q-num">السؤال 5 / 5</span>
+                <div class="q-text">لحساب قيمة التدريجة الواحدة في المحرار نقوم بـ:</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">جمع الدرجتين وقسمتهما على 2</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">قسمة الفرق بين درجتين على عدد التدريجات بينهما</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">ضرب الدرجة الكبرى في عدد التدريجات</div>
+                </div>
+                <div class="q-feedback">القاعدة: (القيمة الكبرى - القيمة الصغرى) / عدد التدريجات.</div>
+            </div>
+        </div>
+
+        <button class="btn-check" onclick="checkAnswers()">عرض النتيجة ✔️</button>
+        <div id="final-score" class="quiz-score">النتيجة: 0 / 5</div>
+    </div>
+
+    <div id="summary" class="tab-content">
+        <div class="summary-card">
+            <h2 style="margin-bottom: 20px; color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 10px;">
+                ملخص: درجة الحرارة
+            </h2>
+            <ul class="summary-list">
+                <li><strong>التعريف:</strong> درجة الحرارة مقدار فيزيائي يعبر عن سخونة أو برودة الجسم.</li>
+                <li><strong>الرمز:</strong> نرمز لدرجة الحرارة بالرمز T أو &theta;.</li>
+                <li><strong>الوحدة:</strong> الدرجة المئوية (Celsius) ونرمز لها بـ °C.</li>
+                <li><strong>أداة القياس:</strong> المحرار (Thermomètre)، وأنواعه: طبي، سائلي، ورقمي.</li>
+                <li><strong>خطوات القياس الصحيحة:</strong> 
+                    <ul style="margin-top: 5px; margin-right: 20px; list-style-type: circle; color: var(--text);">
+                        <li>غمر خزان المحرار كلياً في السائل دون ملامسة الجدران.</li>
+                        <li>الانتظار حتى يستقر السائل المحراري (يتوقف عن التمدد أو التقلص).</li>
+                        <li>توجيه النظر بشكل أفقي موازٍ لمستوى سطح السائل لأخذ القراءة الصحيحة.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <button class="btn-print" onclick="window.print()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            طباعة الملخص
+        </button>
+    </div>
+
+    <script>
+        // نظام التبويبات
+        function openTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // محاكاة 1: المحرار السائلي
+        const tempSlider = document.getElementById('tempSlider');
+        const simLiquid = document.getElementById('simLiquid');
+        const tempValueText = document.getElementById('tempValueText');
+
+        tempSlider.addEventListener('input', function() {
+            let val = parseInt(this.value);
+            tempValueText.textContent = val + " °C";
+            
+            // حساب الإحداثيات (من -20 إلى 100) -> نطاق 120 درجة
+            // أقصى ارتفاع y=50, أدنى ارتفاع y=290 (النطاق 240 بكسل)
+            // كل درجة = 240 / 120 = 2 بكسل
+            let height = (val + 20) * 2;
+            let yPos = 290 - height;
+            
+            // لتغطية الخزان في الأسفل نضيف 30 للارتفاع
+            simLiquid.setAttribute('y', yPos);
+            simLiquid.setAttribute('height', height + 30);
+        });
+
+        // محاكاة 2: زاوية النظر
+        function setView(position) {
+            const eye = document.getElementById('eyeObj');
+            const res = document.getElementById('viewResult');
+            
+            // إعادة ضبط الخطوط
+            document.getElementById('lineAbove').setAttribute('stroke', 'var(--muted)');
+            document.getElementById('lineAbove').setAttribute('stroke-width', '2');
+            document.getElementById('lineCenter').setAttribute('stroke', 'var(--muted)');
+            document.getElementById('lineCenter').setAttribute('stroke-width', '2');
+            document.getElementById('lineBelow').setAttribute('stroke', 'var(--muted)');
+            document.getElementById('lineBelow').setAttribute('stroke-width', '2');
+
+            // تغيير الأزرار
+            document.querySelectorAll('#simulation .tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if(position === 'above') {
+                eye.setAttribute('transform', 'translate(300, 40)');
+                document.getElementById('lineAbove').setAttribute('stroke', 'var(--danger)');
+                document.getElementById('lineAbove').setAttribute('stroke-width', '3');
+                res.textContent = 'قراءة خاطئة (أكبر من الحقيقة): 42°C';
+                res.style.color = 'var(--danger)';
+            } else if(position === 'center') {
+                eye.setAttribute('transform', 'translate(300, 120)');
+                document.getElementById('lineCenter').setAttribute('stroke', 'var(--success)');
+                document.getElementById('lineCenter').setAttribute('stroke-width', '3');
+                res.textContent = 'قراءة صحيحة: 40°C';
+                res.style.color = 'var(--success)';
+            } else {
+                eye.setAttribute('transform', 'translate(300, 200)');
+                document.getElementById('lineBelow').setAttribute('stroke', 'var(--danger)');
+                document.getElementById('lineBelow').setAttribute('stroke-width', '3');
+                res.textContent = 'قراءة خاطئة (أصغر من الحقيقة): 38°C';
+                res.style.color = 'var(--danger)';
+            }
+        }
+
+        // نظام التمارين
+        function selectOption(el, index) {
+            let options = el.parentElement.querySelectorAll('.q-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.style.border = '1px solid var(--border)';
+                opt.style.background = 'var(--card)';
+            });
+            el.classList.add('selected');
+            el.style.border = '1px solid var(--accent)';
+            el.style.background = 'rgba(20, 184, 166, 0.1)';
+            el.parentElement.parentElement.dataset.userAnswer = index;
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            let cards = document.querySelectorAll('.q-card');
+            
+            cards.forEach(card => {
+                let correctAns = parseInt(card.dataset.answer);
+                let userAns = card.dataset.userAnswer;
+                let options = card.querySelectorAll('.q-option');
+                let feedback = card.querySelector('.q-feedback');
+                
+                feedback.style.display = 'block';
+
+                if(userAns !== undefined) {
+                    if(parseInt(userAns) === correctAns) {
+                        score++;
+                        options[userAns].classList.add('correct');
+                        feedback.style.color = 'var(--success)';
+                        feedback.innerHTML = '✔️ إجابة صحيحة: ' + feedback.innerHTML.replace('✔️ إجابة صحيحة: ', '').replace('❌ إجابة خاطئة: ', '');
+                    } else {
+                        options[userAns].classList.add('wrong');
+                        options[correctAns].classList.add('correct');
+                        feedback.style.color = 'var(--danger)';
+                        feedback.innerHTML = '❌ إجابة خاطئة: ' + feedback.innerHTML.replace('✔️ إجابة صحيحة: ', '').replace('❌ إجابة خاطئة: ', '');
+                    }
+                } else {
+                    feedback.style.color = 'var(--gold)';
+                    feedback.innerHTML = '⚠️ لم تقم بالإجابة على هذا السؤال.';
+                }
+            });
+
+            let scoreDiv = document.getElementById('final-score');
+            scoreDiv.style.display = 'block';
+            scoreDiv.textContent = `النتيجة النهائية: ${score} / 5`;
+            if(score === 5) {
+                scoreDiv.style.color = 'var(--success)';
+            } else if (score >= 3) {
+                scoreDiv.style.color = 'var(--gold)';
+            } else {
+                scoreDiv.style.color = 'var(--danger)';
+            }
+        }
+        
+        // تهيئة مبدئية
+        document.getElementById('tempSlider').dispatchEvent(new Event('input'));
+        setView('center');
+    </script>
+</body>
+</html>

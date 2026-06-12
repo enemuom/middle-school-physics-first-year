@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدرس 03: الخلائط (1) - الفيزياء للأولى متوسط</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;600;700;900&display=swap');
+
+        :root {
+            --dark: #0a0f1e;
+            --dark2: #111827;
+            --dark3: #1a2540;
+            --border: rgba(255, 255, 255, .08);
+            --card: rgba(255, 255, 255, .04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #14b8a6; /* لون المادة وتحولاتها - Teal */
+            --gold: #fbbf24;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gradient: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Nav and Header */
+        .top-navbar {
+            background-color: var(--dark3);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--card);
+            border-color: var(--accent);
+        }
+
+        .lesson-badge {
+            background-color: rgba(20, 184, 166, 0.15);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(20, 184, 166, 0.3);
+        }
+
+        /* App Tabs Navigation */
+        .tabs-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .tabs-menu {
+            display: flex;
+            background: var(--dark3);
+            border-radius: 12px;
+            padding: 6px;
+            gap: 5px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn i {
+            font-size: 1.1rem;
+        }
+
+        .tab-btn.active {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Tab Styles */
+        .main-header {
+            background: var(--dark3);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .main-header .meta-info {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .main-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .main-header h1 em {
+            font-style: normal;
+            color: var(--accent);
+            position: relative;
+        }
+
+        /* Objectives Box */
+        .objectives-box {
+            background: rgba(20, 184, 166, 0.03);
+            border-right: 4px solid var(--accent);
+            border-left: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .objectives-box h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+
+        .objectives-box ul {
+            list-style-position: inside;
+            padding-right: 10px;
+            color: var(--text);
+        }
+
+        .objectives-box li {
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        /* Theoretical Content Sections */
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 35px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sec-title .icon-wrap {
+            background: var(--gradient);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .sec-title h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        /* Definition Box & Diagram Integration */
+        .def-box {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .def-box h3 {
+            color: var(--gold);
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .def-content {
+            display: block;
+        }
+
+        .def-box p {
+            font-size: 1.05rem;
+            color: var(--text);
+            text-align: justify;
+        }
+
+        /* Diagram Component styling */
+        .lesson-diagram {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            aspect-ratio: 3/2;
+            margin: 1.5rem auto;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95); /* خلفية فاتحة للرسوم العلمية لضمان الوضوح التام */
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .diagram-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        /* Formula / Laws box */
+        .formula-section {
+            margin: 25px 0;
+        }
+
+        .formula-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px dashed var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin: 15px 0;
+        }
+
+        /* Info Comparison Tables */
+        .info-table-wrapper {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+
+        .info-table th {
+            background-color: var(--dark3);
+            color: var(--accent);
+            padding: 14px 16px;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .info-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table tr:nth-child(even) {
+            background-color: rgba(255,255,255,0.01);
+        }
+
+        /* Highlight Boxes */
+        .highlight {
+            background: rgba(251, 191, 36, 0.05);
+            border-right: 4px solid var(--gold);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        /* Simulation Tab Styles */
+        .sim-wrap {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .sim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sim-head h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .sim-badge {
+            background: var(--gradient);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .sim-viewport {
+            background: #fff; /* خلفية بيضاء للمحاكاة لتشبه بيئة المختبر الحقيقية */
+            border-radius: 12px;
+            min-height: 250px;
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sim-controls {
+            background: rgba(255,255,255,0.02);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .sim-btn {
+            flex: 1;
+            min-width: 120px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .sim-btn:hover {
+            border-color: var(--accent);
+            background: rgba(20, 184, 166, 0.05);
+        }
+
+        .sim-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .sim-result {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background: rgba(20, 184, 166, 0.08);
+            border-right: 4px solid var(--accent);
+            font-size: 0.95rem;
+        }
+
+        /* Range slider styling */
+        .sim-slider {
+            width: 100%;
+            height: 6px;
+            background: var(--dark);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .sim-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .sim-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Quiz Tab Styles */
+        .q-card {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .q-num {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .q-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .q-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: right;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--muted);
+        }
+
+        .option-btn.selected-correct {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: var(--success) !important;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .option-btn.selected-wrong {
+            background: rgba(239, 68, 68, 0.15) !important;
+            border-color: var(--danger) !important;
+            color: var(--danger);
+        }
+
+        .option-btn.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        .option-btn.disabled.selected-correct {
+            opacity: 1;
+        }
+
+        .q-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .q-feedback.show-correct {
+            display: block;
+            background: rgba(16, 185, 129, 0.08);
+            border-right: 4px solid var(--success);
+            color: #a7f3d0;
+        }
+
+        .q-feedback.show-wrong {
+            display: block;
+            background: rgba(239, 68, 68, 0.08);
+            border-right: 4px solid var(--danger);
+            color: #fca5a5;
+        }
+
+        .quiz-submit-wrap {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .submit-quiz-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .submit-quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+        }
+
+        .quiz-score {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--dark3);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .quiz-score h4 {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .quiz-score .score-val {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        /* Summary Tab Styles */
+        .summary-card {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .summary-card h2 {
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .summary-list {
+            list-style: none;
+        }
+
+        .summary-list li {
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .summary-list li::before {
+            content: "📌";
+            position: absolute;
+            right: 0;
+            top: 2px;
+            font-size: 1.1rem;
+        }
+
+        .summary-list ul {
+            list-style: circle;
+            margin-top: 8px;
+            margin-right: 20px;
+            color: var(--muted);
+        }
+
+        .summary-list ul li {
+            padding-right: 0;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .summary-list ul li::before {
+            content: none;
+        }
+
+        .print-btn-wrap {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .print-btn {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .print-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-header h1 { font-size: 1.7rem; }
+            .tabs-menu { padding: 4px; }
+            .tab-btn { padding: 10px; font-size: 0.85rem; }
+            .sec-title h2 { font-size: 1.2rem; }
+            .def-box { padding: 16px; }
+            .summary-card { padding: 20px; }
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0;
+            }
+            .top-navbar, .tabs-menu, .print-btn-wrap, .back-btn, .sim-controls, .quiz-submit-wrap, .q-options {
+                display: none !important;
+            }
+            .tabs-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .tab-content {
+                display: none !important;
+            }
+            #summary-tab {
+                display: block !important;
+            }
+            .summary-card {
+                background: white !important;
+                color: black !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0;
+            }
+            .summary-card h2 {
+                color: black !important;
+                border-bottom: 2px solid #000 !important;
+            }
+            .summary-list li {
+                color: black !important;
+            }
+            .summary-list ul li {
+                color: #333 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة العلوية ومسار التنقل -->
+    <nav class="top-navbar">
+        <div class="breadcrumb">
+            السنة الأولى متوسط &rsaquo; <a href="#">المادة وتحولاتها</a> &rsaquo; <span class="lesson-badge">الدرس 03: الخلائط (1)</span>
+        </div>
+        <a href="../index.html" class="back-btn">&larr; الفهرس</a>
+    </nav>
+
+    <div class="tabs-container">
+        <!-- التبويبات الأربعة الإلزامية -->
+        <div class="tabs-menu">
+            <button class="tab-btn active" onclick="switchTab('lesson-tab')">📖 الدرس</button>
+            <button class="tab-btn" onclick="switchTab('sim-tab')">⚗️ تجربة تفاعلية</button>
+            <button class="tab-btn" onclick="switchTab('quiz-tab')">✏️ تمارين</button>
+            <button class="tab-btn" onclick="switchTab('summary-tab')">📋 ملخص الكراس</button>
+        </div>
+
+        <!-- ==================== التبويب 1 — 📖 الدرس ==================== -->
+        <div id="lesson-tab" class="tab-content active">
+            <div class="main-header">
+                <div class="meta-info">السنة الأولى متوسط - المقطع 3: المادة وتحولاتها</div>
+                <h1>الدرس 03: <em>الخلائط (1)</em></h1>
+                <p style="color: var(--muted); font-size: 1rem;">التمييز بين الجسم النقي والخليط، واستكشاف أنواع الخلائط في محيطنا اليومي.</p>
+            </div>
+
+            <div class="objectives-box">
+                <h3>🎯 الأهداف التعلمية:</h3>
+                <ul>
+                    <li>التمييز بين الجسم النقي والجسم الخليط.</li>
+                    <li>التعرف على الخليط المتجانس والخليط غير المتجانس بناءً على معيار الرؤية العينية.</li>
+                    <li>إعطاء أمثلة من الواقع الجزائري لكل نوع من أنواع الخلائط.</li>
+                </ul>
+            </div>
+
+            <!-- المحور الأول -->
+            <div class="sec-title">
+                <div class="icon-wrap">1</div>
+                <h2>الجسم النقي والجسم الخليط</h2>
+            </div>
+
+            <div class="def-box">
+                <h3>✨ الجسم النقي (Corps pur)</h3>
+                <div class="def-content">
+                    <p>هو كل مادة تتكون من <strong>نوع واحد</strong> من الحبيبات المتماثلة، وتكون لها خصائص فيزيائية ثابتة (مثل درجة الغليان والذوبان). مثال: الماء المقطر (Eau distillée).</p>
+                    
+                    <!-- رسم توضيحي للنموذج الحبيبي للجسم النقي -->
+                    <svg class="lesson-diagram" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="10" width="580" height="330" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                        <!-- حبيبات متماثلة اللون والحجم -->
+                        <circle cx="100" cy="80" r="16" fill="#14b8a6"/>
+                        <circle cx="220" cy="90" r="16" fill="#14b8a6"/>
+                        <circle cx="360" cy="70" r="16" fill="#14b8a6"/>
+                        <circle cx="480" cy="100" r="16" fill="#14b8a6"/>
+                        <circle cx="150" cy="180" r="16" fill="#14b8a6"/>
+                        <circle cx="290" cy="200" r="16" fill="#14b8a6"/>
+                        <circle cx="420" cy="190" r="16" fill="#14b8a6"/>
+                        <circle cx="110" cy="280" r="16" fill="#14b8a6"/>
+                        <circle cx="240" cy="290" r="16" fill="#14b8a6"/>
+                        <circle cx="380" cy="270" r="16" fill="#14b8a6"/>
+                        <circle cx="500" cy="260" r="16" fill="#14b8a6"/>
+                        
+                        <text x="300" y="325" text-anchor="middle" font-family="Cairo" font-weight="bold" font-size="16" fill="#334155">النموذج الحبيبي للجسم النقي (حبيبات متماثلة تماماً)</text>
+                    </svg>
+                    <div class="diagram-caption">رسم 1: ذرات أو حبيبات مادة نقية كالماء المقطر</div>
+                </div>
+            </div>
+
+            <div class="def-box">
+                <h3>🧪 الجسم الخليط (Mélange)</h3>
+                <div class="def-content">
+                    <p>هو مادة تتكون من <strong>مزج مادتين أو أكثر</strong> (أي نوعين أو أكثر من الحبيبات المختلفة)، دون أن يحدث بينها تفاعل كيميائي، ويمكن الفصل بين مكوناتها بطرق فيزيائية.</p>
+                    
+                    <!-- رسم توضيحي للنموذج الحبيبي للخليط -->
+                    <svg class="lesson-diagram" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="10" width="580" height="330" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                        <!-- حبيبات مختلفة النوع -->
+                        <circle cx="90" cy="70" r="16" fill="#14b8a6"/>
+                        <circle cx="150" cy="100" r="12" fill="#fbbf24"/>
+                        <circle cx="230" cy="70" r="16" fill="#14b8a6"/>
+                        <circle cx="320" cy="110" r="12" fill="#fbbf24"/>
+                        <circle cx="400" cy="80" r="16" fill="#14b8a6"/>
+                        <circle cx="490" cy="90" r="12" fill="#fbbf24"/>
+                        
+                        <circle cx="110" cy="190" r="12" fill="#fbbf24"/>
+                        <circle cx="200" cy="180" r="16" fill="#14b8a6"/>
+                        <circle cx="280" cy="210" r="12" fill="#fbbf24"/>
+                        <circle cx="370" cy="170" r="16" fill="#14b8a6"/>
+                        <circle cx="460" cy="200" r="12" fill="#fbbf24"/>
+                        
+                        <circle cx="80" cy="270" r="16" fill="#14b8a6"/>
+                        <circle cx="170" cy="280" r="12" fill="#fbbf24"/>
+                        <circle cx="260" cy="270" r="16" fill="#14b8a6"/>
+                        <circle cx="350" cy="290" r="12" fill="#fbbf24"/>
+                        <circle cx="440" cy="260" r="16" fill="#14b8a6"/>
+                        <circle cx="520" cy="280" r="12" fill="#fbbf24"/>
+                        
+                        <text x="300" y="325" text-anchor="middle" font-family="Cairo" font-weight="bold" font-size="16" fill="#334155">النموذج الحبيبي للخليط (أنواع مختلفة من الحبيبات)</text>
+                    </svg>
+                    <div class="diagram-caption">رسم 2: امتزاج نوعين مختلفين من الحبيبات</div>
+                </div>
+            </div>
+
+            <!-- المحور الثاني -->
+            <div class="sec-title">
+                <div class="icon-wrap">2</div>
+                <h2>تصنيف الخلائط (Types de Mélanges)</h2>
+            </div>
+
+            <p style="margin-bottom: 20px;">تنقسم الخلائط حسب إمكانية رؤية وتمييز مكوناتها بالعين المجردة إلى قسمين رئيسيين:</p>
+
+            <div class="def-box">
+                <h3>🔍 1. الخليط غير المتجانس (Mélange hétérogène)</h3>
+                <div class="def-content">
+                    <p>هو الخليط الذي <strong>يمكننا التمييز</strong> بين مكوّنين منه على الأقل بالعين المجردة. تظهر مكوناته منفصلة أو تتشكل طبقات واضحة.</p>
+                    <div class="highlight">💡 <strong>أمثلة من البيئة الجزائرية:</strong> خليط الماء والزيت، خليط الماء والرمل، صحن الغرانتيكا قبل الطهي، أو سلطة الخضار.</div>
+                    
+                    <!-- رسم توضيحي لخليط غير متجانس -->
+                    <svg class="lesson-diagram" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="10" width="580" height="380" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                        
+                        <!-- بيشر مخبري -->
+                        <path d="M 200,80 L 200,300 Q 200,320 220,320 L 380,320 Q 400,320 400,300 L 400,80" fill="none" stroke="#475569" stroke-width="4"/>
+                        
+                        <!-- طبقة الزيت في الأعلى -->
+                        <path d="M 202,150 L 398,150 L 398,200 L 202,200 Z" fill="#fef08a" opacity="0.8"/>
+                        <!-- طبقة الماء في الأسفل -->
+                        <path d="M 202,200 L 398,200 L 398,316 L 202,316 Z" fill="#38bdf8" opacity="0.5"/>
+                        
+                        <!-- خط الفصل الواضح -->
+                        <line x1="202" y1="200" x2="398" y2="200" stroke="#ca8a04" stroke-width="2" stroke-dasharray="4"/>
+                        
+                        <!-- تسميات -->
+                        <text x="420" y="175" font-family="Cairo" font-size="14" font-weight="bold" fill="#334155">← طبقة الزيت (Huile)</text>
+                        <text x="420" y="260" font-family="Cairo" font-size="14" font-weight="bold" fill="#334155">← طبقة الماء (Eau)</text>
+                        <text x="140" y="205" font-family="Cairo" font-size="13" font-weight="bold" fill="#b45309">حد فاصل مرئي</text>
+                        
+                        <text x="300" y="365" text-anchor="middle" font-family="Cairo" font-weight="bold" font-size="16" fill="#1e293b">خليط غير متجانس: ماء + زيت (انفصال تام)</text>
+                    </svg>
+                    <div class="diagram-caption">رسم 3: تجربة فصل مادتين لا تندمجان بالعين المجردة</div>
+                </div>
+            </div>
+
+            <div class="def-box">
+                <h3>🧪 2. الخليط المتجانس (Mélange homogène)</h3>
+                <div class="def-content">
+                    <p>هو الخليط الذي <strong>لا يمكننا التمييز</strong> بين مكوناته بالعين المجردة، حيث تتداخل الحبيبات تماماً وتظهر المادتان كمادة واحدة متسقة.</p>
+                    <div class="highlight">💡 <strong>أمثلة من البيئة الجزائرية:</strong> الماء المعدني (مثل ماء سعيدة أو لالا خديجة يحتوي أملاحاً مذابة ولا نراها)، الخل، الحليب، المشروبات الغازية المصفاة.</div>
+                    
+                    <!-- رسم توضيحي لخليط متجانس -->
+                    <svg class="lesson-diagram" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="10" width="580" height="380" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                        
+                        <!-- بيشر مخبري -->
+                        <path d="M 200,80 L 200,300 Q 200,320 220,320 L 380,320 Q 400,320 400,300 L 400,80" fill="none" stroke="#475569" stroke-width="4"/>
+                        
+                        <!-- محلول متجانس بلون واحد موحد -->
+                        <path d="M 202,160 L 398,160 L 398,316 L 202,316 Z" fill="#0ea5e9" opacity="0.35"/>
+                        
+                        <!-- نقاط صغيرة تدل على توزع الأملاح/السكر بانتظام تام -->
+                        <circle cx="230" cy="190" r="3" fill="#0284c7"/>
+                        <circle cx="280" cy="180" r="3" fill="#0284c7"/>
+                        <circle cx="340" cy="200" r="3" fill="#0284c7"/>
+                        <circle cx="310" cy="230" r="3" fill="#0284c7"/>
+                        <circle cx="250" cy="250" r="3" fill="#0284c7"/>
+                        <circle cx="370" cy="240" r="3" fill="#0284c7"/>
+                        <circle cx="220" cy="290" r="3" fill="#0284c7"/>
+                        <circle cx="290" cy="280" r="3" fill="#0284c7"/>
+                        <circle cx="350" cy="280" r="3" fill="#0284c7"/>
+                        
+                        <text x="420" y="230" font-family="Cairo" font-size="14" font-weight="bold" fill="#334155">← محلول مائي متجانس</text>
+                        <text x="420" y="255" font-family="Cairo" font-size="12" fill="#64748b">(مثل ماء مالح أو ماء سكري)</text>
+                        
+                        <text x="300" y="365" text-anchor="middle" font-family="Cairo" font-weight="bold" font-size="16" fill="#1e293b">خليط متجانس: يبدو كطور سائل واحد واكتساء منتظم</text>
+                    </svg>
+                    <div class="diagram-caption">رسم 4: ذوبان كلي يعطي مظهراً موحداً</div>
+                </div>
+            </div>
+
+            <!-- جدول مقارنة للمراجعة السريعة -->
+            <div class="sec-title">
+                <div class="icon-wrap">📊</div>
+                <h2>جدول مقارنة تلخيصي</h2>
+            </div>
+            
+            <div class="info-table-wrapper">
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th>وجه المقارنة</th>
+                            <th>الخليط المتجانس (Homogène)</th>
+                            <th>الخليط غير المتجانس (Hétérogène)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>الرؤية بالعين المجردة</strong></td>
+                            <td>لا يمكن التمييز بين مكوناته.</td>
+                            <td>يمكن التمييز بين مكوناته بوضوح.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>توزع الحبيبات</strong></td>
+                            <td>ممتزجة ومنتظمة بشكل كلي ومتساوٍ.</td>
+                            <td>غير منتظمة، متجمعة في طبقات أو أجزاء.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>أمثلة شهيرة</strong></td>
+                            <td>الماء الشروب، المشروب الغازي بدون غاز، الخل.</td>
+                            <td>ماء + رمل، ماء + زيت، صحن عدس.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== التبويب 2 — ⚗️ تجربة تفاعلية / محاكاة ==================== -->
+        <div id="sim-tab" class="tab-content">
+            <div class="main-header">
+                <div class="meta-info">مختبر الفيزياء الافتراضي</div>
+                <h1>المحاكاة والتحقق البصري التفاعلي</h1>
+                <p style="color: var(--muted);">اختبر بنفسك النماذج الحبيبية وتفاعل تركيب المكونات في الكأس المخبري.</p>
+            </div>
+
+            <!-- المحاكاة 1: النموذج الحبيبي الديناميكي -->
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h3>⚗️ المحاكاة 1: مجهر النموذج الحبيبي</h3>
+                    <span class="sim-badge">تحديث فوري للجسيمات</span>
+                </div>
+                <p style="font-size:0.9rem; color:var(--muted); margin-bottom:15px;">اختر الحالة لتشاهد كيف تترتب حبيبات المادة في المجهر الافتراضي وعلاقتها بالتجانس الكيميائي الفيزيائي:</p>
+                
+                <div class="sim-viewport">
+                    <canvas id="canvasMicroscope" width="500" height="250" style="background:#0f172a; border-radius: 8px;"></canvas>
+                </div>
+
+                <div class="sim-controls">
+                    <div class="control-group">
+                        <label>اختر طبيعة المادة المعروضة:</label>
+                        <div class="btn-group">
+                            <button class="sim-btn active" id="btn-pure" onclick="setMicroMode('pure')">جسم نقي (ماء مقطر)</button>
+                            <button class="sim-btn" id="btn-homo" onclick="setMicroMode('homo')">خليط متجانس (ماء + ملح)</button>
+                            <button class="sim-btn" id="btn-hetero" onclick="setMicroMode('hetero')">خليط غير متجانس (ماء + رمل)</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sim-result" id="micro-desc">
+                    <strong>الحالة الحالية (جسم نقي):</strong> يتكون من نوع واحد فقط من الحبيبات (الدوائر الزرقاء الممثلة لجزيئات الماء). متماثلة في الحجم والخصائص.
+                </div>
+            </div>
+
+            <!-- المحاكاة 2: كاس المزج والمخلوط المخبري -->
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h3>🧪 المحاكاة 2: كأس الخلط المخبري الافتراضي</h3>
+                    <span class="sim-badge">محاكاة ماكروسكوبية بالعين المجردة</span>
+                </div>
+                <p style="font-size:0.9rem; color:var(--muted); margin-bottom:15px;">قم بإضافة مادة معينة إلى الكأس المملوء بالماء، وحرّك منزلق المزيج لتكتشف طبيعة الخليط الناتج وفصله عيانياً:</p>
+                
+                <div class="sim-viewport">
+                    <canvas id="canvasBeaker" width="500" height="260" style="background:#f8fafc; border-radius: 8px;"></canvas>
+                </div>
+
+                <div class="sim-controls">
+                    <div class="control-group">
+                        <label>1. اختر المادة المضافة للماء:</label>
+                        <div class="btn-group">
+                            <button class="sim-btn active" id="add-salt" onclick="setBeakerSubstance('salt')">مسحوق الملح (Sel)</button>
+                            <button class="sim-btn" id="add-oil" onclick="setBeakerSubstance('oil')">زيت الطعام (Huile)</button>
+                            <button class="sim-btn" id="add-sand" onclick="setBeakerSubstance('sand')">تراب الرمل (Sable)</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label id="slider-label">2. تحريك وخض الخليط (نسبة الامتزاج): 0%</label>
+                        <input type="range" min="0" max="100" value="0" class="sim-slider" id="mixSlider" oninput="updateMixFactor(this.value)">
+                    </div>
+                </div>
+                <div class="sim-result" id="beaker-desc">
+                    <strong>النتيجة المرئية:</strong> الملح مستقر في القاع قبل الخلط. حرك المنزلق لإذابته وملاحظة ما يحدث.
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== التبويب 3 — ✏️ تمارين ==================== -->
+        <div id="quiz-tab" class="tab-content">
+            <div class="main-header">
+                <div class="meta-info">تقييم تكويني فوري</div>
+                <h1>اختبر مكتسباتك (5 أسئلة MCQ)</h1>
+                <p style="color: var(--muted);">أجب عن الأسئلة بدقة للحصول على تقييمك الفوري وتصحيح الخطأ مدعوماً بالشرح الفيداغوجي.</p>
+            </div>
+
+            <div id="quiz-container">
+                <!-- سؤال 1 -->
+                <div class="q-card" data-q="0">
+                    <div class="q-meta"><span class="q-num">السؤال 1 من 5</span></div>
+                    <div class="q-text">الماء المقطر (Eau distillée) الخالي تماماً من الأملاح يعتبر في الفيزياء:</div>
+                    <div class="q-options">
+                        <button class="option-btn" onclick="checkAnswer(0, 0)">أ) خليطاً متجانساً</button>
+                        <button class="option-btn" onclick="checkAnswer(0, 1)">ب) جسماً نقياً</button>
+                        <button class="option-btn" onclick="checkAnswer(0, 2)">ج) خليطاً غير متجانس</button>
+                    </div>
+                    <div class="q-feedback"></div>
+                </div>
+
+                <!-- سؤال 2 -->
+                <div class="q-card" data-q="1">
+                    <div class="q-meta"><span class="q-num">السؤال 2 من 5</span></div>
+                    <div class="q-text">أي من الخلائط التالية يمكن التمييز بين مكوناتها بالعين المجردة؟</div>
+                    <div class="q-options">
+                        <button class="option-btn" onclick="checkAnswer(1, 0)">أ) ماء الحنفية</button>
+                        <button class="option-btn" onclick="checkAnswer(1, 1)">ب) الخل الأبيض</button>
+                        <button class="option-btn" onclick="checkAnswer(1, 2)">ج) خليط الماء وزيت الزيتون</button>
+                    </div>
+                    <div class="q-feedback"></div>
+                </div>
+
+                <!-- سؤال 3 -->
+                <div class="q-card" data-q="2">
+                    <div class="q-meta"><span class="q-num">السؤال 3 من 5</span></div>
+                    <div class="q-text">الماء المعدني التجاري المعبأ في القارورات بالجزائر يمثل:</div>
+                    <div class="q-options">
+                        <button class="option-btn" onclick="checkAnswer(2, 0)">أ) جسماً نقياً لصفائه ونقاوته</button>
+                        <button class="option-btn" onclick="checkAnswer(2, 1)">ب) خليطاً متجانساً لاحتوائه على أملاح معدنية غير مرئية</button>
+                        <button class="option-btn" onclick="checkAnswer(2, 2)">ج) خليطاً غير متجانس</button>
+                    </div>
+                    <div class="q-feedback"></div>
+                </div>
+
+                <!-- سؤال 4 -->
+                <div class="q-card" data-q="3">
+                    <div class="q-meta"><span class="q-num">السؤال 4 من 5</span></div>
+                    <div class="q-text">تتميز حبيبات المادة في "الجسم النقي" بأنها:</div>
+                    <div class="q-options">
+                        <button class="option-btn" onclick="checkAnswer(3, 0)">أ) متماثلة تماماً في الحجم والنوع</button>
+                        <button class="option-btn" onclick="checkAnswer(3, 1)">ب) مختلفة الأشكال والألوان وموزعة عشوائياً</button>
+                        <button class="option-btn" onclick="checkAnswer(3, 2)">ج) تختفي وتظهر عند التسخين</button>
+                    </div>
+                    <div class="q-feedback"></div>
+                </div>
+
+                <!-- سؤال 5 -->
+                <div class="q-card" data-q="4">
+                    <div class="q-meta"><span class="q-num">السؤال 5 من 5</span></div>
+                    <div class="q-text">عند سكب كمية من الرمل الدقيق في كأس ماء وتحريكه جيداً، يتشكل لدينا:</div>
+                    <div class="q-options">
+                        <button class="option-btn" onclick="checkAnswer(4, 0)">أ) خليط متجانس لأن الرمل دقيق جداً</button>
+                        <button class="option-btn" onclick="checkAnswer(4, 1)">ب) جسم نقي جديد</button>
+                        <button class="option-btn" onclick="checkAnswer(4, 2)">ج) خليط غير متجانس لترسب الرمل وإمكانية رؤيته بفصل واضح</button>
+                    </div>
+                    <div class="q-feedback"></div>
+                </div>
+            </div>
+
+            <div class="quiz-submit-wrap">
+                <button class="submit-quiz-btn" onclick="calculateQuizScore()">عرض النتيجة النهائية</button>
+            </div>
+
+            <div class="quiz-score" id="score-box">
+                <h4>🎉 نتيجتك الإجمالية المحصل عليها:</h4>
+                <div class="score-val" id="score-text">0 / 5</div>
+                <p style="color: var(--muted); margin-top:10px;" id="score-feedback-text"></p>
+            </div>
+        </div>
+
+        <!-- ==================== التبويب 4 — 📋 ملخص الكراس ==================== -->
+        <div id="summary-tab" class="tab-content">
+            <div class="summary-card">
+                <h2>📋 ملخص درس: الخلائط (1) في كراسي</h2>
+                <p style="color: var(--gold); font-weight: bold; margin-bottom: 15px;">الميدان: المادة وتحولاتها</p>
+                
+                <ul class="summary-list">
+                    <li><strong>تعريف الخليط:</strong> هو المزيج المتشكل من مادتين مختلفتين أو أكثر، حيث يحتفظ كل مكون بخصائصه الكيميائية الأساسية ويمكن الفصل بينهما بالوسائل الميكانيكية أو الفيزيائية المناسبة.</li>
+                    <li><strong>أنواع الخلائط حسب العين المجردة:</strong>
+                        <ul>
+                            <li><strong>الخليط غير المتجانس (Mélange hétérogène):</strong> خليط نستطيع فيه تمييز مكونين أو أكثر عيانياً نظراً لعدم الامتزاج الكلي للحبيبات (مثل: الماء والرمل، الماء والزيت).</li>
+                            <li><strong>الخليط المتجانس (Mélange homogène):</strong> خليط لا نستطيع التمييز بين مكوناته أبداً بالعين المجردة، وتظهر المادة كلحمة وكتلة سائلة أو صلبة واحدة (مثل: خل الطعام، ماء البحر، الماء المعدني).</li>
+                        </ul>
+                    </li>
+                    <li><strong>الجسم النقي مقابل الخليط:</strong> الجسم النقي يحتوي في نموذجه المجهري الحبيبي على مكونات وحبيبات متطابقة تماماً من نفس النوع (كالماء المقطر)، بينما الخليط يحتوي على تجمعات لحبيبات متباينة الأشكال أو الأوزان والأنواع.</li>
+                </ul>
+
+                <div class="print-btn-wrap">
+                    <button class="print-btn" onclick="window.print()">
+                        <span>🖨️ طباعة الملخص الورقي للكراس</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // نظام التبديل بين التبويبات الأربعة
+        function switchTab(tabId) {
+            // إخفاء كل المحتويات
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // إلغاء تفعيل أزرار التبويب
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // تفعيل التبويب المختار
+            document.getElementById(tabId).classList.add('active');
+            
+            // تفعيل الزر المقابل
+            const currentBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabId));
+            if (currentBtn) currentBtn.classList.add('active');
+
+            // إعادة تشغيل رسوم المحاكاة إذا انتقل لتبويب التجربة
+            if (tabId === 'sim-tab') {
+                initMicroSim();
+                initBeakerSim();
+            }
+        }
+
+        // ==================== برمجة المحاكاة 1 (النموذج الحبيبي) ====================
+        let microMode = 'pure';
+        let microCanvas, microCtx;
+        let particles = [];
+
+        function initMicroSim() {
+            microCanvas = document.getElementById('canvasMicroscope');
+            if (!microCanvas) return;
+            microCtx = microCanvas.getContext('2d');
+            
+            // توليد إحداثيات الجسيمات لمرة واحدة بشكل ثابت ومنظم
+            particles = [];
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    particles.push({
+                        x: 80 + i * 110 + (j % 2 * 20),
+                        y: 40 + j * 55,
+                        r: 14
+                    });
+                }
+            }
+            drawMicroSim();
+        }
+
+        function setMicroMode(mode) {
+            microMode = mode;
+            // تحديث الأزرار
+            document.getElementById('btn-pure').classList.remove('active');
+            document.getElementById('btn-homo').classList.remove('active');
+            document.getElementById('btn-hetero').classList.remove('active');
+            document.getElementById('btn-' + mode).classList.add('active');
+            
+            // تحديث الوصف الشارح والنموذج
+            const desc = document.getElementById('micro-desc');
+            if(mode === 'pure') {
+                desc.innerHTML = "<strong>الحالة الحالية (جسم نقي):</strong> يتكون من نوع واحد فقط من الحبيبات (الدوائر التيلية الممثلة لجزيئات الماء). متماثلة تماماً.";
+            } else if(mode === 'homo') {
+                desc.innerHTML = "<strong>الحالة الحالية (خليط متجانس):</strong> مادتان ممتزجتان بانتظام تام. نلاحظ تداخل حبيبات الملح (الدوائر الصفراء الصغيرة) بشكل متساوٍ بين حبيبات الماء.";
+            } else if(mode === 'hetero') {
+                desc.innerHTML = "<strong>الحالة الحالية (خليط غير متجانس):</strong> حبيبات المادتين منفصلة، حيث تتجمع حبيبات الرمل الكثيفة (الدوائر البنية) في الأسفل بينما تطفو حبيبات الماء فوقها متجمعة.";
+            }
+            drawMicroSim();
+        }
+
+        function drawMicroSim() {
+            if (!microCtx) return;
+            microCtx.clearRect(0, 0, microCanvas.width, microCanvas.height);
+            
+            // رسم إطار خارجي مجهري
+            microCtx.strokeStyle = 'rgba(255,255,255,0.1)';
+            microCtx.lineWidth = 2;
+            microCtx.strokeRect(5, 5, microCanvas.width - 10, microCanvas.height - 10);
+            
+            particles.forEach((p, index) => {
+                if (microMode === 'pure') {
+                    // لون موحد متجانس لجسم نقي
+                    microCtx.beginPath();
+                    microCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    microCtx.fillStyle = '#14b8a6';
+                    microCtx.fill();
+                } else if (microMode === 'homo') {
+                    // حبيبات ممتزجة بانتظام وبشكل دوري متساوٍ
+                    microCtx.beginPath();
+                    microCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    microCtx.fillStyle = '#14b8a6';
+                    microCtx.fill();
+                    
+                    // إضافة حبيبة الملح بجانبها مباشرة
+                    microCtx.beginPath();
+                    microCtx.arc(p.x + 25, p.y + 5, 6, 0, Math.PI * 2);
+                    microCtx.fillStyle = '#fbbf24';
+                    microCtx.fill();
+                } else if (microMode === 'hetero') {
+                    // انفصال الحبيبات: حبيبات الماء في النصف العلوي، والترسب السفلي للرمل
+                    if (p.y < 140) {
+                        microCtx.beginPath();
+                        microCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                        microCtx.fillStyle = '#14b8a6'; // جزيئات الماء فوق
+                        microCtx.fill();
+                    } else {
+                        microCtx.beginPath();
+                        microCtx.arc(p.x, p.y + 20, p.r + 2, 0, Math.PI * 2);
+                        microCtx.fillStyle = '#b45309'; // حبيبات الرمل المستقرة في القاع
+                        microCtx.fill();
+                    }
+                }
+            });
+        }
+
+
+        // ==================== برمجة المحاكاة 2 (كأس الخلط الافتراضي) ====================
+        let beakerSubstance = 'salt';
+        let mixFactor = 0;
+        let beakerCanvas, beakerCtx;
+
+        function initBeakerSim() {
+            beakerCanvas = document.getElementById('canvasBeaker');
+            if (!beakerCanvas) return;
+            beakerCtx = beakerCanvas.getContext('2d');
+            drawBeakerSim();
+        }
+
+        function setBeakerSubstance(sub) {
+            beakerSubstance = sub;
+            document.getElementById('add-salt').classList.remove('active');
+            document.getElementById('add-oil').classList.remove('active');
+            document.getElementById('add-sand').classList.remove('active');
+            document.getElementById('add-' + sub).classList.add('active');
+            
+            // إعادة ضبط منزلق الخلط عند تغيير المادة
+            mixFactor = 0;
+            document.getElementById('mixSlider').value = 0;
+            document.getElementById('slider-label').innerText = "2. تحريك وخض الخليط (نسبة الامتزاج): 0%";
+            
+            updateBeakerDescription();
+            drawBeakerSim();
+        }
+
+        function updateMixFactor(val) {
+            mixFactor = parseInt(val);
+            document.getElementById('slider-label').innerText = "2. تحريك وخض الخليط (نسبة الامتزاج): " + val + "%";
+            updateBeakerDescription();
+            drawBeakerSim();
+        }
+
+        function updateBeakerDescription() {
+            const desc = document.getElementById('beaker-desc');
+            if (beakerSubstance === 'salt') {
+                if (mixFactor < 30) {
+                    desc.innerHTML = "<strong>الوضعية:</strong> حبيبات الملح تترسب في أسفل الكأس. الخليط يظهر غير متجانس في هذه اللحظة البدئية قبل الخلط.";
+                } else if (mixFactor < 80) {
+                    desc.innerHTML = "<strong>الوضعية:</strong> جاري خلط وتحريك المحلول، الملح يختفي تدريجياً نتيجة تفكك بلوراته في الماء.";
+                } else {
+                    desc.innerHTML = "<strong>الوضعية النهائية للخلط:</strong> ذوبان تام وكامل للملح! حصلنا على <strong>خليط متجانس (محلول مائي)</strong> لا يمكن تمييز أجزائه بالعين.";
+                }
+            } else if (beakerSubstance === 'oil') {
+                if (mixFactor < 10) {
+                    desc.innerHTML = "<strong>الوضعية:</strong> الزيت يطفو فوق الماء مباشرة لأن كثافته أقل ولا يمتزج معه بالوضع الساكن.";
+                } else if (mixFactor < 90) {
+                    desc.innerHTML = "<strong>الوضعية:</strong> عند التحريك والرج الشديد، تظهر فقاعات زيتية معلقة مؤقتاً (مستحلب)، لكن سرعان ما تعود لتنفصل.";
+                } else {
+                    desc.innerHTML = "<strong>الوضعية النهائية للخلط:</strong> حتى مع استمرار التحريك الأقصى، يعود الزيت لينفصل في طبقة علوية مستقلة. الخليط <strong>غير متجانس</strong> تماماً.";
+                }
+            } else if (beakerSubstance === 'sand') {
+                desc.innerHTML = "<strong>الوضعية:</strong> الرمل مادة صلبة غير قابلة للذوبان في الماء. مهما بلغت قوة التحريك ونسبة الامتزاج (" + mixFactor + "% )، سيتعكر الماء مؤقتاً ثم يترسب الرمل كلياً في قاع البيشر. الخليط <strong>غير متجانس</strong> دائماً.";
+            }
+        }
+
+        function drawBeakerSim() {
+            if (!beakerCtx) return;
+            beakerCtx.clearRect(0, 0, beakerCanvas.width, beakerCanvas.height);
+            
+            const bx = 160, by = 60, bw = 180, bh = 160; // إحداثيات الكأس
+            
+            // رسم سائل الماء الأساسي في الكأس
+            beakerCtx.fillStyle = 'rgba(56, 189, 248, 0.4)'; // لون الماء الأزرق الشفاف
+            beakerCtx.fillRect(bx + 4, by + 50, bw - 8, bh - 54);
+            
+            // رسم التأثيرات الفيزيائية بناء على المادة والمنزلق
+            if (beakerSubstance === 'salt') {
+                if (mixFactor < 80) {
+                    // الملح غير الذائب في القاع
+                    let opacity = (100 - mixFactor) / 100;
+                    beakerCtx.fillStyle = `rgba(226, 232, 240, ${opacity})`;
+                    beakerCtx.fillRect(bx + 15, by + bh - 12, bw - 30, 8);
+                }
+                if (mixFactor > 30) {
+                    // تلون الماء الخفيف للدلالة على الذوبان والاتجاه للتجانس
+                    let alpha = (mixFactor * 0.3) / 100;
+                    beakerCtx.fillStyle = `rgba(20, 184, 166, ${alpha})`;
+                    beakerCtx.fillRect(bx + 4, by + 50, bw - 8, bh - 54);
+                }
+            } else if (beakerSubstance === 'oil') {
+                if (mixFactor < 80) {
+                    // طبقة زيت منفصلة بالأعلى
+                    beakerCtx.fillStyle = 'rgba(254, 240, 138, 0.85)'; // أصفر
+                    beakerCtx.fillRect(bx + 4, by + 45, bw - 8, 15);
+                } else {
+                    // تأثير الرج الشديد (توزع فقاعات صفراء ثم العودة للانفصال)
+                    beakerCtx.fillStyle = 'rgba(254, 240, 138, 0.5)';
+                    beakerCtx.fillRect(bx + 4, by + 40, bw - 8, 20);
+                    // رسم قطرات زيت مشتتة معلقة بالوسط
+                    beakerCtx.fillStyle = '#facc15';
+                    for(let k=0; k<12; k++) {
+                        beakerCtx.beginPath();
+                        beakerCtx.arc(bx + 30 + (k*12), by + 80 + (k%3 * 15), 5, 0, Math.PI*2);
+                        beakerCtx.fill();
+                    }
+                }
+            } else if (beakerSubstance === 'sand') {
+                // الرمل يترسب بشكل دائم في الأسفل بلون بني دافئ
+                beakerCtx.fillStyle = '#b45309';
+                beakerCtx.fillRect(bx + 8, by + bh - 15, bw - 16, 11);
+                
+                if (mixFactor > 20 && mixFactor < 85) {
+                    // تعكر الماء وجزيئات رمل عائمة أثناء الخلط
+                    beakerCtx.fillStyle = 'rgba(180, 83, 9, 0.25)';
+                    beakerCtx.fillRect(bx + 4, by + 50, bw - 8, bh - 65);
+                }
+            }
+            
+            // رسم الخطوط الزجاجية للبيشر المخبري فوق السوائل
+            beakerCtx.strokeStyle = '#475569';
+            beakerCtx.lineWidth = 4;
+            beakerCtx.beginPath();
+            beakerCtx.moveTo(bx, by);
+            beakerCtx.lineTo(bx, by + bh);
+            beakerCtx.lineTo(bx + bw, by + bh);
+            beakerCtx.lineTo(bx + bw, by);
+            microCtx.lineJoin = 'round';
+            beakerCtx.stroke();
+            
+            // رسم تدريجات مخبرية على زجاج الكأس
+            beakerCtx.strokeStyle = '#94a3b8';
+            beakerCtx.lineWidth = 2;
+            for (let m = 1; m <= 3; m++) {
+                beakerCtx.beginPath();
+                beakerCtx.moveTo(bx, by + bh - (m * 35));
+                beakerCtx.lineTo(bx + 15, by + bh - (m * 35));
+                beakerCtx.stroke();
+            }
+        }
+
+
+        // ==================== برمجة نظام التمارين والتصحيح التلقائي ====================
+        // الأجوبة الصحيحة النموذجية للأسئلة الخمسة
+        const correctAnswers = [1, 2, 1, 0, 2]; 
+        let userAnswers = [-1, -1, -1, -1, -1];
+
+        // شروحات وتغذية راجعة مفصلة لكل خيار صح أم خطأ
+        const feedbackTexts = [
+            {
+                correct: "أحسنت! الماء المقطر خال تماماً من أي جزيئات غريبة، لذا فهو يتألف من جزيئات ماء متطابقة فهو جسم نقي.",
+                wrong: "خطأ. تذكر أن الخليط يحتاج مادتين على الأقل، والماء المقطر منزوع الأملاح كلياً لذا فهو مادة واحدة وجسم نقي تماماً."
+            },
+            {
+                correct: "إجابة صحيحة وممتازة! الماء والزيت لا يمتزجان كلياً، وتتشكل طبقة منفصلة نراها بوضوح بالعين المجردة.",
+                wrong: "إجابة غير دقيقة. الخل وماء الحنفية يبدوان كعنصر سائل شفاف واحد، بينما الزيت والماء ينفصلان وتراهما عيناك بوضوح."
+            },
+            {
+                correct: "رائع! الماء المعدني صافٍ لكنه يحتوي بداخل بنيته غير المرئية على غازات وأملاح كالكالسيوم والمغنيسيوم فهو خليط متجانس.",
+                wrong: "للأسف الإجابة خاطئة. رغم صفاء مظهر الماء المعدني، إلا أنه غني بالأملاح المعدنية الذائبة، مما يجعله خليطاً متجانساً وليس جسماً نقياً."
+            },
+            {
+                correct: "صحيح! هذا هو الأساس المجهري للنموذج الحبيبي، التماثل التام يعبر عن النقاوة الفيزيائية للمادة.",
+                wrong: "خطأ. اختلاف الحبيبات وتنوعها هو الميزة الأساسية للأجسام والخلائط وليس الأجسام النقية."
+            },
+            {
+                correct: "أحسنت حقاً! الرمل لا يذوب في الماء مهما بلغت قوة الرّج والخلط، بل يترسب في القاع مشكلاً خليطاً غير متجانس.",
+                wrong: "الإجابة خاطئة. الرمل لا يذوب إطلاقاً في الماء، وتستطيع التمييز وفصل حبيبات الرمل المترسبة عيانياً وبسهولة."
+            }
+        ];
+
+        function checkAnswer(qIndex, optionIndex) {
+            userAnswers[qIndex] = optionIndex;
+            
+            // تحديد فئات الأزرار ضمن بطاقة السؤال المعني
+            const qCard = document.querySelector(`.q-card[data-q='${qIndex}']`);
+            const options = qCard.querySelectorAll('.option-btn');
+            
+            options.forEach((btn, idx) => {
+                btn.classList.add('disabled'); // قفل الاختيارات بعد الضغط الأول
+                if (idx === optionIndex) {
+                    if (optionIndex === correctAnswers[qIndex]) {
+                        btn.classList.add('selected-correct');
+                    } else {
+                        btn.classList.add('selected-wrong');
+                    }
+                }
+                // تلوين الخيار الصحيح الأصلي باللون الأخضر دائماً لإرشاد المتعلم
+                if (idx === correctAnswers[qIndex]) {
+                    btn.classList.add('selected-correct');
+                }
+            });
+
+            // إظهار التغذية الراجعة المناسبة حسب الاختيار والتصحيح
+            const feedbackBox = qCard.querySelector('.q-feedback');
+            if (optionIndex === correctAnswers[qIndex]) {
+                feedbackBox.className = "q-feedback show-correct";
+                feedbackBox.innerText = feedbackTexts[qIndex].correct;
+            } else {
+                feedbackBox.className = "q-feedback show-wrong";
+                feedbackBox.innerText = feedbackTexts[qIndex].wrong;
+            }
+        }
+
+        function calculateQuizScore() {
+            let score = 0;
+            let answeredCount = 0;
+            
+            userAnswers.forEach((ans, idx) => {
+                if (ans !== -1) answeredCount++;
+                if (ans === correctAnswers[idx]) score++;
+            });
+
+            if (answeredCount < 5) {
+                alert("من فضلك، قم بالإجابة على جميع الأسئلة الخمسة أولاً قبل عرض النتيجة!");
+                return;
+            }
+
+            const scoreBox = document.getElementById('score-box');
+            const scoreText = document.getElementById('score-text');
+            const scoreFeedback = document.getElementById('score-feedback-text');
+            
+            scoreText.innerText = score + " / 5";
+            scoreBox.style.display = 'block';
+
+            if (score >= 4) {
+                scoreFeedback.innerText = "ممتاز جداً! أنت مستعد تماماً لاجتياز فروض المقطع الثالث والمتابعة للدرس القادم لأساليب الفصل.";
+            } else if (score >= 3) {
+                scoreFeedback.innerText = "جيد! ركز جيداً في الفروقات العينية بين الخلائط وراجع النماذج الحبيبية لتحقيق العلامة الكاملة.";
+            } else {
+                scoreFeedback.innerText = "تحتاج إلى مراجعة محتوى تبويب الدرس وإعادة تطبيق محاكاة كأس الخلط الافتراضي لفهم أعمق.";
+            }
+
+            // التمرير السلس إلى صندوق النتيجة
+            scoreBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // تشغيل المحاكاة افتراضياً عند تحميل الصفحة لأول مرة
+        window.onload = function() {
+            initMicroSim();
+            initBeakerSim();
+        }
+    </script>
+</body>
+</html>

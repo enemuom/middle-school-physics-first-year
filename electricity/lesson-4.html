@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدرس 04: مصباح التوهج - فيزياء 1 متوسط</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap');
+
+        :root {
+            --dark: #0a0f1e;
+            --dark3: #1a2540;
+            --border: rgba(255,255,255,.08);
+            --card: rgba(255,255,255,.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #6366f1; /* لون المقطع: الظواهر الكهربائية */
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar & Tabs */
+        .navbar {
+            background-color: var(--dark3);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .breadcrumb {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid transparent;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--card);
+            color: var(--text);
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lesson-header h1 {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .lesson-header h1 em {
+            font-style: normal;
+            color: var(--text);
+            background: var(--card);
+            padding: 0.2rem 0.8rem;
+            border-radius: 4px;
+        }
+
+        .lesson-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Content Boxes */
+        .objectives-box {
+            background: var(--card);
+            border-right: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--text);
+        }
+
+        .sec-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border);
+            margin-right: 1rem;
+        }
+
+        .def-box {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .def-content {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .def-content p {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+        }
+
+        .formula-box {
+            background: var(--dark3);
+            text-align: center;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            font-size: 1.5rem;
+            font-family: 'Amiri', serif;
+            margin: 1.5rem 0;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Tables */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--dark3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th, .info-table td {
+            padding: 1rem;
+            text-align: right;
+            border: 1px solid var(--border);
+        }
+
+        .info-table th {
+            background: var(--card);
+            color: var(--accent);
+        }
+
+        /* SVG & Canvas Diagrams */
+        .lesson-diagram, .sim-diagram {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 1.5rem auto;
+            display: block;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        /* Simulation Tab */
+        .sim-wrap {
+            background: var(--dark3);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .sim-head {
+            margin-bottom: 1.5rem;
+        }
+
+        .sim-badge {
+            background: var(--warning);
+            color: #000;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        input[type="range"] {
+            accent-color: var(--accent);
+            direction: ltr;
+        }
+
+        /* Exercises Tab */
+        .q-card {
+            background: var(--dark3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .q-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-family: 'Amiri', serif;
+        }
+
+        .q-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .q-option {
+            background: var(--card);
+            padding: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: 0.2s;
+        }
+
+        .q-option:hover {
+            border-color: var(--accent);
+        }
+
+        .q-option.selected {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--accent);
+        }
+
+        .q-option.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .q-option.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .q-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-family: 'Cairo';
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 2rem auto;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Summary Tab */
+        .summary-card {
+            background: linear-gradient(145deg, var(--dark3), var(--card));
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--accent);
+        }
+
+        .summary-list {
+            list-style: none;
+        }
+
+        .summary-list li {
+            margin-bottom: 1rem;
+            padding-right: 1.5rem;
+            position: relative;
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+        }
+
+        .summary-list li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        @media (max-width: 640px) {
+            .lesson-diagram, .sim-diagram {
+                max-width: 100%;
+            }
+            .def-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media print {
+            body { background: #fff; color: #000; }
+            .navbar, .btn { display: none; }
+            .tab-content { display: block !important; margin: 0; }
+            .summary-card { border: 1px solid #000; background: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="breadcrumb">
+            <a href="../index.html">← الفهرس</a>
+            <span>› السنة الأولى متوسط</span>
+            <span>› المقطع 1: الظواهر الكهربائية</span>
+            <span>› الدرس 04</span>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('lesson', this)">📖 الدرس</button>
+            <button class="tab-btn" onclick="openTab('sim', this)">⚗️ تجربة ومحاكاة</button>
+            <button class="tab-btn" onclick="openTab('quiz', this)">✏️ تمارين</button>
+            <button class="tab-btn" onclick="openTab('summary', this)">📋 ملخص الكراس</button>
+        </div>
+    </nav>
+
+    <div id="lesson" class="tab-content active">
+        <header class="lesson-header">
+            <span class="lesson-badge">الظواهر الكهربائية</span>
+            <h1>الدرس 04: <em>مصباح التوهج</em></h1>
+        </header>
+
+        <div class="objectives-box">
+            <h3>🎯 الأهداف التعلمية:</h3>
+            <ul>
+                <li>التعرف على المكونات الأساسية لمصباح التوهج ودور كل منها.</li>
+                <li>التمييز بين مربطي المصباح وقطبي البطارية (المولد).</li>
+                <li>فهم أهمية توافق دلالة المصباح مع دلالة المولد للحصول على إضاءة عادية.</li>
+            </ul>
+        </div>
+
+        <h2 class="sec-title">1. مكونات مصباح التوهج</h2>
+        <div class="def-box">
+            <svg class="lesson-diagram" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="bulbGlass" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                        <stop offset="0%" style="stop-color:rgba(255,255,255,0.2);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgba(255,255,255,0);stop-opacity:1" />
+                    </radialGradient>
+                </defs>
+                <path d="M 150 250 C 100 150, 100 50, 200 50 C 300 50, 300 150, 250 250 L 230 320 L 170 320 Z" fill="url(#bulbGlass)" stroke="#e2e8f0" stroke-width="3"/>
+                <polyline points="180,220 190,190 200,210 210,190 220,220" fill="none" stroke="#f59e0b" stroke-width="3"/>
+                <line x1="180" y1="220" x2="180" y2="300" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="220" y1="220" x2="220" y2="300" stroke="#94a3b8" stroke-width="2"/>
+                <path d="M 180 300 L 175 350" stroke="#94a3b8" stroke-width="2"/>
+                <path d="M 220 300 L 200 400" stroke="#94a3b8" stroke-width="2"/>
+                <rect x="165" y="320" width="70" height="50" fill="#475569" stroke="#cbd5e1" stroke-width="2"/>
+                <line x1="165" y1="335" x2="235" y2="335" stroke="#cbd5e1" stroke-width="2"/>
+                <line x1="165" y1="350" x2="235" y2="350" stroke="#cbd5e1" stroke-width="2"/>
+                <line x1="165" y1="365" x2="235" y2="365" stroke="#cbd5e1" stroke-width="2"/>
+                <polygon points="170,370 230,370 215,395 185,395" fill="#1e293b"/>
+                <path d="M 185 395 Q 200 410 215 395 Z" fill="#94a3b8"/>
+                
+                <text x="350" y="100" font-family="Amiri" fill="#e2e8f0" font-size="16" text-anchor="end">حبابة زجاجية (Ampoule)</text>
+                <line x1="260" y1="100" x2="300" y2="100" stroke="#e2e8f0" stroke-dasharray="4"/>
+                
+                <text x="350" y="195" font-family="Amiri" fill="#e2e8f0" font-size="16" text-anchor="end">سلك التنغستين (Filament)</text>
+                <line x1="220" y1="195" x2="300" y2="195" stroke="#e2e8f0" stroke-dasharray="4"/>
+                
+                <text x="50" y="340" font-family="Amiri" fill="#e2e8f0" font-size="16" text-anchor="start">العقب (Culot)</text>
+                <line x1="100" y1="340" x2="165" y2="340" stroke="#e2e8f0" stroke-dasharray="4"/>
+                
+                <text x="50" y="405" font-family="Amiri" fill="#e2e8f0" font-size="16" text-anchor="start">القتير المركزي (Plot central)</text>
+                <line x1="130" y1="405" x2="190" y2="405" stroke="#e2e8f0" stroke-dasharray="4"/>
+            </svg>
+            <div class="def-content">
+                <p>يتكون مصباح التوهج أساساً من:</p>
+                <ul>
+                    <li><strong>حبابة زجاجية (Ampoule):</strong> تحتوي على غاز خامل يمنع احتراق السلك.</li>
+                    <li><strong>سلك التنغستين (Filament en tungstène):</strong> سلك رفيع يتوهج عند مرور التيار الكهربائي فيه.</li>
+                    <li><strong>مربطا المصباح:</strong> وهما <strong>العقب (Culot)</strong> و <strong>القتير المركزي (Plot central)</strong>، ويتصلان بسلك التنغستين من الداخل.</li>
+                    <li><strong>مادة عازلة:</strong> تفصل بين العقب والقتير المركزي لمنع حدوث دارة مستقصرة (Court-circuit).</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="sec-title">2. مربطا المصباح وقطبا البطارية</h2>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>وجه المقارنة</th>
+                    <th>مربطا المصباح</th>
+                    <th>قطبا البطارية (المولد)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>الأسماء</strong></td>
+                    <td>العقب والقتير المركزي</td>
+                    <td>القطب الموجب (+) والقطب السالب (-)</td>
+                </tr>
+                <tr>
+                    <td><strong>التماثل</strong></td>
+                    <td>متماثلان (لا يهم كيفية ربطهما، المصباح يضيء في كلتا الحالتين).</td>
+                    <td>غير متماثلين (أحدهما موجب والآخر سالب، وتغيير الربط يعكس جهة التيار).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="sec-title">3. الدلالة (La Tension Nominale)</h2>
+        <div class="def-box">
+            <div class="def-content">
+                <p>يحمل كل من المولد (البطارية) والمصباح تسجيلاً عبارة عن رقم متبوع بالحرف (V) يسمى <strong>الدلالة</strong> (التوتر الكهربائي).</p>
+                <p>لكي يضيء المصباح بشكل <strong>عادي</strong>، يجب أن تتوافق دلالته مع دلالة المولد، وفق القواعد التالية:</p>
+            </div>
+        </div>
+        
+        <div class="formula-box">
+            دلالة المصباح = دلالة المولد ➔ إضاءة عادية
+        </div>
+
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>الحالة</th>
+                    <th>النتيجة (حالة الإضاءة)</th>
+                    <th>الخطر</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>دلالة المولد <strong>تساوي أو تقارب</strong> دلالة المصباح (مثال: 4.5V مع 3.8V)</td>
+                    <td>إضاءة <strong>عادية</strong> وجيدة.</td>
+                    <td>لا يوجد خطر، عمر المصباح طويل.</td>
+                </tr>
+                <tr>
+                    <td>دلالة المولد <strong>أصغر بكثير</strong> من دلالة المصباح (مثال: 1.5V مع 6V)</td>
+                    <td>إضاءة <strong>ضعيفة</strong> جداً.</td>
+                    <td>لا يوجد.</td>
+                </tr>
+                <tr>
+                    <td>دلالة المولد <strong>أكبر بكثير</strong> من دلالة المصباح (مثال: 9V مع 3V)</td>
+                    <td>إضاءة <strong>قوية جداً</strong> (توهج شديد).</td>
+                    <td>انقطاع سلك التنغستين و<strong>تلف المصباح</strong>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="sim" class="tab-content">
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <span class="sim-badge">محاكاة تفاعلية</span>
+                <h2>تأثير دلالة المولد على إضاءة المصباح</h2>
+                <p style="color: var(--muted); margin-top: 0.5rem;">غيّر توتر البطارية ولاحظ تأثير ذلك على مصباح دلالته ثابتة (4.5V).</p>
+            </div>
+            
+            <svg class="sim-diagram" viewBox="0 0 500 400" id="circuitSim" style="max-width: 500px;">
+                <defs>
+                    <radialGradient id="simGlow" cx="50%" cy="50%" r="50%">
+                        <stop id="glowCenter" offset="0%" stop-color="#fef08a" stop-opacity="0" />
+                        <stop id="glowEdge" offset="100%" stop-color="#fef08a" stop-opacity="0" />
+                    </radialGradient>
+                    <filter id="blurGlow">
+                        <feGaussianBlur stdDeviation="15"/>
+                    </filter>
+                </defs>
+
+                <path d="M 150 300 L 150 150 L 320 150" fill="none" stroke="#cbd5e1" stroke-width="4"/>
+                <path d="M 250 300 L 250 250 L 350 250 L 350 190" fill="none" stroke="#cbd5e1" stroke-width="4"/>
+
+                <rect x="100" y="300" width="200" height="60" fill="#1e293b" stroke="#6366f1" stroke-width="3" rx="5"/>
+                <rect x="120" y="290" width="20" height="10" fill="#6366f1"/> <text x="130" y="340" fill="#fff" font-family="Amiri" font-size="24" text-anchor="middle">+</text>
+                <text x="270" y="340" fill="#fff" font-family="Amiri" font-size="24" text-anchor="middle">-</text>
+                <text id="batteryLabel" x="200" y="340" fill="#f59e0b" font-family="Cairo" font-weight="bold" font-size="20" text-anchor="middle">1.5V</text>
+
+                <rect x="320" y="150" width="30" height="40" fill="#475569" stroke="#cbd5e1" stroke-width="2"/>
+                <path d="M 325 190 Q 335 200 345 190 Z" fill="#94a3b8"/> <circle cx="335" cy="110" r="60" fill="url(#simGlow)" filter="url(#blurGlow)"/>
+                
+                <circle cx="335" cy="110" r="30" fill="rgba(255,255,255,0.1)" stroke="#e2e8f0" stroke-width="2"/>
+                
+                <text x="335" y="60" fill="#e2e8f0" font-family="Cairo" font-size="14" text-anchor="middle">المصباح: 4.5V</text>
+
+                <path id="simFilament" d="M 325 140 L 330 110 L 340 110 L 345 140" fill="none" stroke="#475569" stroke-width="2"/>
+                
+                <rect x="50" y="20" width="200" height="40" fill="var(--dark3)" rx="5" stroke="var(--border)"/>
+                <text id="simStatus" x="150" y="45" fill="#fff" font-family="Amiri" font-size="18" text-anchor="middle">إضاءة ضعيفة جداً</text>
+            </svg>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="voltageSlider" style="font-weight: bold;">اختر دلالة البطارية (المولد):</label>
+                    <input type="range" id="voltageSlider" min="1" max="4" value="1" step="1" oninput="updateSimulation()">
+                    <span id="sliderValue" style="color: var(--accent); font-weight:bold;">1.5V</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz" class="tab-content">
+        <div class="objectives-box" style="border-right-color: var(--warning);">
+            <h3>اختبر معلوماتك</h3>
+            <p>أجب عن الأسئلة التالية للتحقق من فهمك للدرس. (اختر الإجابة الصحيحة)</p>
+        </div>
+
+        <div id="quiz-container">
+            <div class="q-card" data-correct="2">
+                <div class="q-text">1. ما هما مربطا مصباح التوهج؟</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">القطب الموجب والقطب السالب</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">الحبابة الزجاجية وسلك التنغستين</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">العقب والقتير المركزي</div>
+                </div>
+                <div class="q-feedback">إجابة صحيحة! العقب والقتير المركزي هما مربطا المصباح اللذان يوصلان بالدارة.</div>
+                <div class="q-feedback wrong">إجابة خاطئة. تذكر أن المصباح لا يملك أقطاباً موجبة وسالبة، بل له العقب والقتير المركزي.</div>
+            </div>
+
+            <div class="q-card" data-correct="1">
+                <div class="q-text">2. هل مربطا المصباح متماثلان؟</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">لا، غير متماثلين</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">نعم، متماثلان</div>
+                </div>
+                <div class="q-feedback">أحسنت! مربطا المصباح متماثلان، ولهذا يضيء المصباح بغض النظر عن اتجاه ربط أسلاكه بالبطارية.</div>
+                <div class="q-feedback wrong">خطأ. قطبا البطارية هما الغير متماثلين، أما مربطا المصباح فهما متماثلان.</div>
+            </div>
+
+            <div class="q-card" data-correct="2">
+                <div class="q-text">3. لدينا مصباح دلالته (3.8V)، ربطناه ببطارية دلالتها (9V). ماذا يحدث؟</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">يضيء إضاءة ضعيفة</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">يضيء إضاءة عادية</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">يتوهج بشدة ثم يتلف (يحترق)</div>
+                </div>
+                <div class="q-feedback">صحيح! لأن دلالة المولد أكبر بكثير من دلالة المصباح مما يؤدي لانقطاع سلك التنغستين.</div>
+                <div class="q-feedback wrong">خطأ. راجع العلاقة بين دلالة المولد والمصباح في الملخص.</div>
+            </div>
+
+            <div class="q-card" data-correct="0">
+                <div class="q-text">4. المادة التي يصنع منها السلك المتوهج داخل المصباح هي:</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">التنغستين (Tungstène)</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">النحاس (Cuivre)</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">البلاستيك</div>
+                </div>
+                <div class="q-feedback">إجابة صحيحة! سلك التنغستين هو الذي يتوهج عند مرور التيار.</div>
+                <div class="q-feedback wrong">خطأ. النحاس يستخدم في أسلاك التوصيل وليس السلك المتوهج الداخلي.</div>
+            </div>
+
+            <div class="q-card" data-correct="1">
+                <div class="q-text">5. للحصول على إضاءة عادية، يجب أن تكون:</div>
+                <div class="q-options">
+                    <div class="q-option" onclick="selectOption(this, 0)">دلالة المولد أصغر من دلالة المصباح</div>
+                    <div class="q-option" onclick="selectOption(this, 1)">دلالة المولد مساوية أو قريبة من دلالة المصباح</div>
+                    <div class="q-option" onclick="selectOption(this, 2)">دلالة المولد أكبر بكثير من دلالة المصباح</div>
+                </div>
+                <div class="q-feedback">ممتاز! التوافق في الدلالتين شرط أساسي للحصول على إضاءة عادية.</div>
+                <div class="q-feedback wrong">خطأ. التوافق (التساوي أو التقارب) هو شرط الإضاءة العادية.</div>
+            </div>
+
+            <button class="btn" onclick="checkAnswers()">عرض النتيجة 🏆</button>
+            <div id="quiz-score" class="formula-box" style="display:none; margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <div id="summary" class="tab-content">
+        <div class="summary-card">
+            <h2 class="sec-title" style="margin-top:0;">📋 ملخص الكراس: مصباح التوهج</h2>
+            <ul class="summary-list">
+                <li><strong>مصباح التوهج:</strong> عنصر كهربائي يحول الطاقة الكهربائية إلى طاقة ضوئية وحرارية.</li>
+                <li><strong>مكوناته الأساسية:</strong> حبابة زجاجية (بها غاز خامل)، سلك التنغستين، مادة عازلة، ومربطان هما: العقب والقتير المركزي.</li>
+                <li><strong>مربطا المصباح:</strong> متماثلان (لا يوجد قطب موجب أو سالب للمصباح).</li>
+                <li><strong>قطبا المولد (البطارية):</strong> غير متماثلين (+ و -).</li>
+                <li><strong>الدلالة:</strong> قيمة التوتر المسجلة على العنصر الكهربائي (وحدتها الفولط V).</li>
+                <li><strong>قاعدة الإضاءة العادية:</strong> لكي يضيء المصباح بشكل عادي ويحافظ على سلامته، يجب أن تكون دلالته <strong>مساوية أو مقاربة</strong> لدلالة المولد.</li>
+                <li>إذا كانت دلالة المولد <strong>أكبر بكثير</strong>: يتلف المصباح.</li>
+                <li>إذا كانت دلالة المولد <strong>أصغر بكثير</strong>: الإضاءة ضعيفة.</li>
+            </ul>
+        </div>
+        <button class="btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </div>
+
+    <script>
+        // 1. Tab Switching Logic
+        function openTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // 2. Simulation Logic
+        const voltages = [1.5, 3.0, 4.5, 9.0];
+        
+        function updateSimulation() {
+            const slider = document.getElementById('voltageSlider');
+            const valIndex = parseInt(slider.value) - 1;
+            const currentVoltage = voltages[valIndex];
+            
+            // Update Labels
+            document.getElementById('sliderValue').innerText = currentVoltage + 'V';
+            document.getElementById('batteryLabel').innerText = currentVoltage + 'V';
+            
+            const glowCenter = document.getElementById('glowCenter');
+            const glowEdge = document.getElementById('glowEdge');
+            const filament = document.getElementById('simFilament');
+            const statusTxt = document.getElementById('simStatus');
+            const simStatusBox = statusTxt.previousElementSibling;
+            
+            // Fixed bulb voltage is 4.5V
+            if (currentVoltage === 1.5 || currentVoltage === 3.0) {
+                // Weak
+                glowCenter.setAttribute('stop-opacity', '0.3');
+                glowCenter.setAttribute('stop-color', '#fef08a');
+                glowEdge.setAttribute('stop-opacity', '0');
+                filament.setAttribute('stroke', '#f59e0b');
+                filament.setAttribute('stroke-dasharray', 'none');
+                statusTxt.textContent = currentVoltage === 1.5 ? 'إضاءة ضعيفة جداً' : 'إضاءة ضعيفة';
+                simStatusBox.setAttribute('fill', '#475569');
+            } else if (currentVoltage === 4.5) {
+                // Normal
+                glowCenter.setAttribute('stop-opacity', '0.9');
+                glowCenter.setAttribute('stop-color', '#fde047');
+                glowEdge.setAttribute('stop-opacity', '0.4');
+                glowEdge.setAttribute('stop-color', '#fde047');
+                filament.setAttribute('stroke', '#fff');
+                filament.setAttribute('stroke-dasharray', 'none');
+                statusTxt.textContent = 'إضاءة عادية ومثالية ✔️';
+                simStatusBox.setAttribute('fill', '#10b981');
+            } else if (currentVoltage === 9.0) {
+                // Burned / Danger
+                glowCenter.setAttribute('stop-opacity', '0');
+                glowEdge.setAttribute('stop-opacity', '0');
+                // Break the filament
+                filament.setAttribute('stroke', '#333');
+                filament.setAttribute('stroke-dasharray', '5,5');
+                statusTxt.textContent = 'توهج شديد... تلف المصباح! ❌';
+                simStatusBox.setAttribute('fill', '#ef4444');
+            }
+        }
+        // Initialize Sim
+        updateSimulation();
+
+        // 3. Quiz Logic
+        function selectOption(el, index) {
+            const card = el.closest('.q-card');
+            if(card.classList.contains('answered')) return; // Prevent changing answer
+            
+            card.querySelectorAll('.q-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            card.dataset.selected = index;
+        }
+
+        function checkAnswers() {
+            const cards = document.querySelectorAll('.q-card');
+            let score = 0;
+            let allAnswered = true;
+
+            cards.forEach(card => {
+                if(!card.hasAttribute('data-selected')) {
+                    allAnswered = false;
+                }
+            });
+
+            if(!allAnswered) {
+                alert("الرجاء الإجابة على جميع الأسئلة قبل عرض النتيجة.");
+                return;
+            }
+
+            cards.forEach(card => {
+                card.classList.add('answered');
+                const correctIdx = card.getAttribute('data-correct');
+                const selectedIdx = card.getAttribute('data-selected');
+                const options = card.querySelectorAll('.q-option');
+                const feedbackCorrect = card.querySelector('.q-feedback:not(.wrong)');
+                const feedbackWrong = card.querySelector('.q-feedback.wrong');
+
+                // Reset visuals
+                options.forEach(opt => opt.style.pointerEvents = 'none');
+                feedbackCorrect.style.display = 'none';
+                feedbackWrong.style.display = 'none';
+
+                if(correctIdx === selectedIdx) {
+                    options[selectedIdx].classList.add('correct');
+                    feedbackCorrect.style.display = 'block';
+                    score++;
+                } else {
+                    options[selectedIdx].classList.add('wrong');
+                    options[correctIdx].classList.add('correct');
+                    feedbackWrong.style.display = 'block';
+                }
+            });
+
+            const scoreBox = document.getElementById('quiz-score');
+            scoreBox.style.display = 'block';
+            scoreBox.innerHTML = `نتيجتك: ${score} من 5 <br> ${score >= 3 ? '🎉 عمل ممتاز!' : '📚 راجع الدرس وحاول مرة أخرى.'}`;
+            
+            // Hide submit button
+            document.querySelector('.btn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس حالات المادة - الأولى متوسط</title>
+    <style>
+        /* استيراد الخطوط من جوجل فونتس مباشرة */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&display=swap');
+
+        :root {
+            --dark: #0a0f1e;      /* خلفية رئيسية */
+            --dark3: #1a2540;     /* خلفية البطاقات */
+            --border: rgba(255,255,255,.08);
+            --card: rgba(255,255,255,.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #14b8a6;    /* لون المقطع: المادة وتحولاتها (Teal) */
+            --gold: #fbbf24;      /* لون الذهب للتعاريف والتنبيهات */
+            --success: #10b981;   /* أخضر للإجابة الصحيحة */
+            --danger: #ef4444;    /* أحمر للإجابة الخاطئة */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        /* الهيكل العلوي وروابط التنقل */
+        .top-nav {
+            background-color: rgba(26, 37, 64, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .breadcrumb span {
+            color: var(--accent);
+        }
+
+        /* الهيدر الرئيسي للمستند */
+        .main-header {
+            max-width: 1000px;
+            margin: 30px auto 20px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .lesson-badge {
+            background-color: rgba(20, 184, 166, 0.15);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .main-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .main-header h1 em {
+            font-family: 'Amiri', serif;
+            font-style: normal;
+            color: var(--accent);
+            border-bottom: 2px dashed var(--accent);
+            padding-bottom: 2px;
+        }
+
+        .meta-info {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        /* نظام التبويبات */
+        .tabs-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 25px;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .tabs-nav::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            padding: 12px 20px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+            background-color: var(--card);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background-color: rgba(20, 184, 166, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* صندوق الأهداف التعلمية */
+        .objectives-box {
+            background: linear-gradient(135deg, var(--dark3), rgba(26,37,64,0.6));
+            border-right: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 4px 8px 8px 4px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .objectives-box h3 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .objectives-box ul {
+            list-style-type: none;
+            padding-right: 15px;
+        }
+
+        .objectives-box ul li {
+            position: relative;
+            margin-bottom: 6px;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .objectives-box ul li::before {
+            content: "✦";
+            position: absolute;
+            right: -18px;
+            color: var(--accent);
+        }
+
+        /* العناوين والأقسام النظرية */
+        .sec-title {
+            margin: 35px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-title .icon-wrap {
+            background-color: rgba(20, 184, 166, 0.1);
+            color: var(--accent);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 1px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .sec-title h2 {
+            font-size: 1.4rem;
+            color: #fff;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .sec-title h2::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            margin-top: 4px;
+            border-radius: 2px;
+        }
+
+        .paragraph {
+            color: var(--text);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* صناديق التعريفات */
+        .def-box {
+            background-color: var(--dark3);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .def-box h3 {
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .def-content {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .def-text {
+            flex: 1;
+            font-size: 1.05rem;
+        }
+
+        .def-text strong {
+            color: #fff;
+        }
+
+        .def-illustration {
+            width: 140px;
+            height: 140px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* صناديق القوانين والمعادلات */
+        .formula-section {
+            background-color: rgba(26, 37, 64, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .law-diagram {
+            width: 220px;
+            height: 150px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .formula-box {
+            flex: 1;
+        }
+
+        .formula-box h4 {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--accent);
+            background: rgba(20, 184, 166, 0.08);
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            direction: ltr;
+            margin: 5px 0;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* الجداول التوضيحية */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95rem;
+            background-color: var(--dark3);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .info-table th, .info-table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-table th {
+            background-color: rgba(20, 184, 166, 0.15);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table tr:nth-child(even) {
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        /* صناديق التمييز والملاحظات المحددة */
+        .highlight-box {
+            background: rgba(251, 191, 36, 0.06);
+            border-right: 4px solid var(--gold);
+            padding: 15px 20px;
+            border-radius: 4px 8px 8px 4px;
+            margin: 20px 0;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        /* التبويب 2 - التجربة التفاعلية والمحاكاة */
+        .sim-wrap {
+            background-color: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .sim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .sim-head h3 {
+            color: #fff;
+            font-size: 1.25rem;
+        }
+
+        .sim-badge {
+            background-color: #3b82f6;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .sim-container {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .sim-display {
+            background-color: #0d1326;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            width: 320px;
+            height: 240px;
+            position: relative;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .sim-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .sim-controls {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 0.95rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sim-btn {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .sim-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .sim-btn.active {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(20, 184, 166, 0.3);
+        }
+
+        .sim-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+            accent-color: var(--accent);
+        }
+
+        .sim-result-box {
+            background-color: rgba(255,255,255,0.02);
+            border: 1px dashed var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .sim-result-box h4 {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .sim-result-box p {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        /* التبويب 3 - التمارين */
+        .quiz-intro {
+            background-color: var(--dark3);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .q-card {
+            background-color: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .q-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .q-num {
+            background-color: rgba(255,255,255,0.06);
+            color: var(--muted);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .q-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .opt-label {
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.98rem;
+            transition: all 0.2s;
+        }
+
+        .opt-label:hover {
+            background-color: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .opt-label input {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* حالات الإجابة الملونة */
+        .opt-label.correct {
+            background-color: rgba(16, 185, 129, 0.1) !important;
+            border-color: var(--success) !important;
+            color: #fff;
+        }
+
+        .opt-label.incorrect {
+            background-color: rgba(239, 68, 68, 0.1) !important;
+            border-color: var(--danger) !important;
+        }
+
+        .q-feedback {
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            display: none;
+            border-right: 4px solid transparent;
+        }
+
+        .q-feedback.show-correct {
+            display: block;
+            background-color: rgba(16, 185, 129, 0.05);
+            border-right-color: var(--success);
+            color: #e2e8f0;
+        }
+
+        .q-feedback.show-incorrect {
+            display: block;
+            background-color: rgba(239, 68, 68, 0.05);
+            border-right-color: var(--danger);
+            color: #e2e8f0;
+        }
+
+        .quiz-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            background-color: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .quiz-score {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* التبويب 4 - ملخص الكراس والطباعة */
+        .summary-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .summary-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to left, var(--accent), var(--gold));
+            border-radius: 12px 12px 0 0;
+        }
+
+        .summary-title {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-list {
+            list-style: none;
+        }
+
+        .summary-item {
+            margin-bottom: 20px;
+            padding-right: 25px;
+            position: relative;
+        }
+
+        .summary-item .sum-icon {
+            position: absolute;
+            right: 0;
+            top: 4px;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .summary-item h4 {
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .summary-item p {
+            color: var(--text);
+            font-size: 0.98rem;
+        }
+
+        .print-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .print-btn {
+            background-color: transparent;
+            color: var(--text);
+            border: 1px solid var(--muted);
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: #fff;
+            border-color: #fff;
+        }
+
+        /* التصميم المتجاوب للهواتف والحواسب */
+        @media (max-width: 768px) {
+            .main-header h1 { font-size: 1.8rem; }
+            .sim-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .sim-display {
+                width: 100%;
+                max-width: 340px;
+                height: 220px;
+            }
+            .def-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .formula-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .law-diagram {
+                width: 100%;
+                max-width: 280px;
+                height: 140px;
+            }
+        }
+
+        /* إعدادات الطباعة الاحترافية */
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                padding: 0;
+            }
+            .top-nav, .tabs-nav, .quiz-actions, .print-section, .objectives-box, .sim-wrap, .q-card, .quiz-intro {
+                display: none !important;
+            }
+            .tab-content {
+                display: none !important;
+            }
+            #tab-summary {
+                display: block !important;
+            }
+            .summary-card {
+                background: #fff !important;
+                color: #000 !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+            .summary-title {
+                color: #000 !important;
+                border-bottom: 2px solid #000 !important;
+            }
+            .summary-item h4 {
+                color: #111 !important;
+            }
+            .summary-item p {
+                color: #333 !important;
+            }
+            .summary-card::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل والموقع -->
+    <nav class="top-nav">
+        <a href="../index.html" class="back-link">← الفهرس الرئيسي</a>
+        <div class="breadcrumb">السنة الأولى متوسط › المقطع 3: المادة وتحولاتها › <span>الدرس 01</span></div>
+    </nav>
+
+    <!-- الهيدر الرئيسي للدرس -->
+    <header class="main-header">
+        <span class="lesson-badge">الدرس 01 — مادة العلوم الفيزيائية</span>
+        <h1>حالات المادة و <em>خصائصها الفيزيائية</em></h1>
+        <div class="meta-info">المرحلة المتوسطة الجزائرية — منهاج الجيل الثاني الأساسي</div>
+    </header>
+
+    <!-- حاوية التبويبات -->
+    <main class="tabs-container">
+        
+        <!-- أزرار التبديل بين التبويبات -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('tab-lesson')">📖 الدرس النظري</button>
+            <button class="tab-btn" onclick="switchTab('tab-sim')">⚗️ تجارب ومحاكاة تفاعلية</button>
+            <button class="tab-btn" onclick="switchTab('tab-exercises')">✏️ تمارين وتقييم فوري</button>
+            <button class="tab-btn" onclick="switchTab('tab-summary')">📋 ملخص الكراس للطباعة</button>
+        </nav>
+
+        <!-- التبويب 1: محتوى الدرس النظري -->
+        <section id="tab-lesson" class="tab-content active">
+            
+            <!-- صندوق الأهداف التعلمية -->
+            <div class="objectives-box">
+                <h3>🎯 الأهداف التعلمية المستهدفة:</h3>
+                <ul>
+                    <li>التمييز المباشر بين حالات المادة الثلاث في الشروط العادية والتعرف على تغيراتها.</li>
+                    <li>تحديد الخصائص الفيزيائية لكل حالة من حيث ثبات أو تغير الشكل والحجم.</li>
+                    <li>تمثيل وتفسير الحالات الفيزيائية المختلفة للمادة بدقة باستخدام النموذج الحبيبي.</li>
+                </ul>
+            </div>
+
+            <!-- المحور الأول -->
+            <div class="sec-title">
+                <div class="icon-wrap">🌐</div>
+                <h2>أولاً: حالات المادة في الشروط العادية وغير العادية</h2>
+            </div>
+            <p class="paragraph">
+                تتواجد المادة في محيطنا الطبيعي (البيئة الجزائرية كمثال: مياه سد بني هارون، صخور جبال جرجرة، أو غاز البوتان المستعمل في المنازل) في ثلاث حالات فيزيائية رئيسية عندما تكون في الشروط العادية من درجة حرارة وضغط. لكن عند تغير هذه الشروط (كالتسخين الشديد أو التبريد التجميدي)، يمكن للمادة أن تتحول من حالة إلى أخرى.
+            </p>
+
+            <!-- صندوق تعريف الحالة الصلبة ومعه رسم SVG مدمج -->
+            <div class="def-box">
+                <h3>📌 الحالة الصلبة (État solide)</h3>
+                <div class="def-content">
+                    <svg class="def-illustration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- مكعب يمثل مادة صلبة متماسكة -->
+                        <polygon points="20,40 50,20 80,40 50,60" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+                        <polygon points="20,40 20,70 50,90 50,60" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+                        <polygon points="80,40 80,70 50,90 50,60" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+                        <text x="50" y="53" font-family='Cairo' font-size="10" fill="#fff" text-anchor="middle">جسم صلب</text>
+                    </svg>
+                    <div class="def-text">
+                        <strong>الجسم الصلب:</strong> هو كل مادة تتميز بالتماسك والصلابة النسبيين. ينقسم الجسم الصلب إلى قسمين: صلب متماسك (قاسي مثل قطعة حديد أو حجر) وصلب مجزأ أو غير متماسك (مثل الرمل، الدقيق، أو السكر المسحوق).
+                    </div>
+                </div>
+            </div>
+
+            <!-- صندوق تعريف الحالة السائلة ومعه رسم SVG مدمج -->
+            <div class="def-box">
+                <h3>📌 الحالة السائلة (État liquide)</h3>
+                <div class="def-content">
+                    <svg class="def-illustration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- مخبار مخروطي يحتوي سائل بسطح أفقي -->
+                        <path d="M35,20 L45,40 L25,85 L75,85 L55,40 L65,20" fill="none" stroke="#14b8a6" stroke-width="2.5"/>
+                        <path d="M29,80 L71,80 L62,60 L38,60 Z" fill="rgba(20,184,166,0.2)" stroke="#14b8a6" stroke-width="1.5"/>
+                        <line x1="38" y1="60" x2="62" y2="60" stroke="#fff" stroke-width="2"/>
+                    </svg>
+                    <div class="def-text">
+                        <strong>الجسم السائل:</strong> هو مادة تتميز بخاصية الجريان أو السكب، ولا يمكن إمساكها بأصابع اليد ككتلة واحدة. يتميز السائل في حالة السكون التام بامتلاك <strong>سطح حر مستو وأفقي</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <!-- صندوق تعريف الحالة الغازية ومعه رسم SVG مدمج -->
+            <div class="def-box">
+                <h3>📌 الحالة الغازية (État gazeux)</h3>
+                <div class="def-content">
+                    <svg class="def-illustration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- قارورة ينطلق منها غاز منتشر -->
+                        <rect x="42" y="20" width="16" height="20" rx="3" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                        <path d="M42,40 C30,50 30,85 30,85 L70,85 C70,85 70,50 58,40 Z" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                        <circle cx="40" cy="55" r="2" fill="#14b8a6"/>
+                        <circle cx="60" cy="60" r="3" fill="#14b8a6"/>
+                        <circle cx="48" cy="70" r="2" fill="#14b8a6"/>
+                        <circle cx="52" cy="48" r="1.5" fill="#14b8a6"/>
+                        <!-- أسهم انتشار عشوائي -->
+                        <path d="M50,15 L50,5 M42,12 L36,8 M58,12 L64,8" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <div class="def-text">
+                        <strong>الجسم الغازي:</strong> هو مادة سريعة الانتشار والتمدد، ليس لها شكل خاص ولا حجم ثابت، وتتميز بقابليتها الكبيرة للانضغاط والانعصار (مثل الهواء، وبخار الماء).
+                    </div>
+                </div>
+            </div>
+
+            <!-- المحور الثاني -->
+            <div class="sec-title">
+                <div class="icon-wrap">📏</div>
+                <h2>ثانياً: الخصائص الفيزيائية (الشكل والحجم)</h2>
+            </div>
+            <p class="paragraph">
+                لتحديد الفروق الجوهرية الدقيقة بين الحالات الثلاث، نقوم بدراسة سلوك المادة من حيث ثبات شكلها الخارجي وثبات الحجم الذي تشغله في الفراغ:
+            </p>
+
+            <!-- جدول المقارنة والخصائص -->
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>الحالة الفيزيائية</th>
+                        <th>الشكل (Forme)</th>
+                        <th>الحجم (Volume)</th>
+                        <th>الانضغاطية والسكب</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color:var(--gold); font-weight:bold;">الصلبة متماسكة</td>
+                        <td><strong>ثابت ومحدد</strong> (لا يتغير بتغير الإناء)</td>
+                        <td><strong>ثابت</strong></td>
+                        <td>غير قابلة للسكب أو الانضغاط</td>
+                    </tr>
+                    <tr>
+                        <td style="color:var(--accent); font-weight:bold;">السائلة</td>
+                        <td><strong>متغير</strong> (تأخذ شكل الإناء المحتوي لها)</td>
+                        <td><strong>ثابت</strong></td>
+                        <td>قابلة للجريان والسكب، غير قابلة للانضغاط</td>
+                    </tr>
+                    <tr>
+                        <td style="color:#94a3b8; font-weight:bold;">الغازية</td>
+                        <td><strong>متغير</strong> (تشغل كل الإناء المتاح)</td>
+                        <td><strong>متغير</strong> (تتمدد وتنضغط)</td>
+                        <td>تتميز بخاصية الانضغاط والتوسع السريع</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- المحور الثالث: النموذج الحبيبي ومعه رسم توضيحي للقانون -->
+            <div class="sec-title">
+                <div class="icon-wrap">🔬</div>
+                <h2>ثالثاً: النموذج الحبيبي لحالات المادة الثلاث</h2>
+            </div>
+            <p class="paragraph">
+                لتفسير هذه الخصائص الفيزيائية مجهرياً، نعتمد على <strong>النموذج الحبيبي (Modèle granulaire)</strong>، حيث نفترض أن المادة تتكون من حبيبات مجهرية متماثلة للمادة الواحدة، لا ترى بالعين المجردة، ويفسر ترتيبها وحركتها الحالة الفيزيائية:
+            </p>
+
+            <!-- قسم رسم تعليل القوانين والنموذج الحبيبي الثابت كمرجع -->
+            <div class="formula-section">
+                <svg class="law-diagram" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- نموذج صلب -->
+                    <rect x="10" y="20" width="70" height="70" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+                    <text x="45" y="105" font-family="Cairo" font-size="11" fill="#fff" text-anchor="middle">صلب (متراص)</text>
+                    <!-- حبيبات مصفوفة بانتظام -->
+                    <circle cx="25" cy="35" r="4" fill="var(--accent)"/><circle cx="37" cy="35" r="4" fill="var(--accent)"/><circle cx="49" cy="35" r="4" fill="var(--accent)"/><circle cx="61" cy="35" r="4" fill="var(--accent)"/>
+                    <circle cx="25" cy="47" r="4" fill="var(--accent)"/><circle cx="37" cy="47" r="4" fill="var(--accent)"/><circle cx="49" cy="47" r="4" fill="var(--accent)"/><circle cx="61" cy="47" r="4" fill="var(--accent)"/>
+                    <circle cx="25" cy="59" r="4" fill="var(--accent)"/><circle cx="37" cy="59" r="4" fill="var(--accent)"/><circle cx="49" cy="59" r="4" fill="var(--accent)"/><circle cx="61" cy="59" r="4" fill="var(--accent)"/>
+                    
+                    <!-- نموذج سائل -->
+                    <rect x="110" y="20" width="70" height="70" fill="none" stroke="#14b8a6" stroke-width="1.5"/>
+                    <text x="145" y="105" font-family="Cairo" font-size="11" fill="#fff" text-anchor="middle">سائل (قريب ومضطرب)</text>
+                    <!-- حبيبات قريبة غير منتظمة في الأسفل -->
+                    <circle cx="125" cy="65" r="4" fill="var(--accent)"/><circle cx="138" cy="60" r="4" fill="var(--accent)"/><circle cx="152" cy="66" r="4" fill="var(--accent)"/><circle cx="166" cy="62" r="4" fill="var(--accent)"/>
+                    <circle cx="130" cy="76" r="4" fill="var(--accent)"/><circle cx="144" cy="74" r="4" fill="var(--accent)"/><circle cx="158" cy="77" r="4" fill="var(--accent)"/><circle cx="168" cy="73" r="4" fill="var(--accent)"/>
+                    <circle cx="136" cy="84" r="4" fill="var(--accent)"/><circle cx="150" cy="85" r="4" fill="var(--accent)"/><circle cx="162" cy="85" r="4" fill="var(--accent)"/>
+
+                    <!-- نموذج غازي -->
+                    <rect x="210" y="20" width="70" height="70" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+                    <text x="245" y="105" font-family="Cairo" font-size="11" fill="#fff" text-anchor="middle">غاز (متباعد ومتحرك)</text>
+                    <!-- حبيبات متباعدة جداً -->
+                    <circle cx="225" cy="35" r="4" fill="var(--accent)"/>
+                    <circle cx="265" cy="45" r="4" fill="var(--accent)"/>
+                    <circle cx="235" cy="75" r="4" fill="var(--accent)"/>
+                    <circle cx="255" cy="60" r="4" fill="var(--accent)"/>
+                </svg>
+
+                <div class="formula-box">
+                    <h4>قاعدة التفسير المجهري للحالات الثلاث:</h4>
+                    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:6px;">ترتبط الخصائص العيانية بترتيب الحبيبات وحريتها:</p>
+                    <div class="math-expr">État = f(Arrangement + Mouvement)</div>
+                    <p style="font-size:0.9rem; margin-top:5px;">حيث التراص التام والانتظام يمنح المادة شكلاً ثابتاً، والتباعد والحركة العشوائية تمنحها ميزة الانضغاط وشغل كامل المساحة المتوفرة.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>💡 تنبيه منهاجي مهم:</strong> حبيبات المادة الواحدة متماثلة تماماً وثابتة الأبعاد (لا تتسع الحبيبة نفسها ولا تتقلص عند التسخين أو التبريد)، وإنما الفراغات والمسافات الفاصلة بين الحبيبات وسرعة حركتها هي التي تتغير وتتأثر بالعوامل الخارجية.
+            </div>
+
+        </section>
+
+        <!-- التبويب 2: تجارب ومحاكاة تفاعلية (تحتوي محاكاتين منفصلتين تعتمدان على الكانفاس) -->
+        <section id="tab-sim" class="tab-content">
+            
+            <!-- المحاكاة الأولى: النموذج الحبيبي التفاعلي المباشر -->
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h3>1️⃣ محاكاة حركة الحبيبات المجهرية (Modèle Granulaire Dynamique)</h3>
+                    <span class="sim-badge">تحديث حي عبر Canvas</span>
+                </div>
+                <div class="sim-container">
+                    <div class="sim-display">
+                        <canvas id="canvasParticles" class="sim-canvas" width="320" height="240"></canvas>
+                    </div>
+                    <div class="sim-controls">
+                        <div class="control-group">
+                            <label>اختر الحالة الفيزيائية للمادة:</label>
+                            <div class="btn-group">
+                                <button id="btnSolid" class="sim-btn active" onclick="setSimState('solid')">صلبة (Solide)</button>
+                                <button id="btnLiquid" class="sim-btn" onclick="setSimState('liquid')">سائلة (Liquide)</button>
+                                <button id="btnGas" class="sim-btn" onclick="setSimState('gas')">غازية (Gazeux)</button>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label id="lblTemp">درجة الحرارة (التأثير الحراري على الحركة): العادية</label>
+                            <input type="range" id="sliderTemp" class="sim-slider" min="1" max="3" value="1" oninput="updateSimTemperature(this.value)">
+                        </div>
+                        <div class="sim-result-box">
+                            <h4>📋 الملاحظة المجهرية الفورية:</h4>
+                            <p id="sim1Text">الحبيبات متراصة جداً، منظمة ومصطفة بانتظام وثبات، وتكتفي بالاهتزاز الخفيف حول مواضع استقرارها، مما يمنح الجسم الصلب شكلاً وحجماً ثابتين.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المحاكاة الثانية: محاكاة أخذ شكل الإناء والسطح الحر للسوائل -->
+            <div class="sim-wrap">
+                <div class="sim-head">
+                    <h3>2️⃣ محاكاة ملاءمة الشكل والسطح الحر (Adaptation de Forme)</h3>
+                    <span class="sim-badge">تفاعلية SVG/CSS</span>
+                </div>
+                <div class="sim-container">
+                    <div class="sim-display" style="background-color: #0d1326; display: flex; align-items: center; justify-content: center;">
+                        <!-- رسم تفاعلي يتغير مع الإناء المختار والتحريك -->
+                        <svg id="svgContainerSim" width="260" height="200" viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- الإناء الافتراضي: كأس مخبري بيشر -->
+                            <path id="vesselOutline" d="M70,40 L70,170 L190,170 L190,40" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+                            <!-- السائل المتواجد بالداخل -->
+                            <path id="liquidMass" d="M72,110 L188,110 L188,168 L72,168 Z" fill="rgba(20, 184, 166, 0.4)" stroke="var(--accent)" stroke-width="2"/>
+                            <!-- خط السطح الحر الأفقي -->
+                            <line id="freeSurface" x1="72" y1="110" x2="188" y2="110" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="4"/>
+                            <text id="lblSurface" x="130" y="100" font-family="Cairo" font-size="11" fill="#fff" text-anchor="middle">سطح حر مستو وأفقي</text>
+                        </svg>
+                    </div>
+                    <div class="sim-controls">
+                        <div class="control-group">
+                            <label>غير شكل الإناء لملاحظة تغير شكل السائل وثبات سطحه:</label>
+                            <div class="btn-group">
+                                <button id="btnBeaker" class="sim-btn active" onclick="changeVessel('beaker')">كأس بيشر واسع</button>
+                                <button id="btnFlask" class="sim-btn" onclick="changeVessel('flask')">مخبار ضيق وطويل</button>
+                                <button id="btnTilt" class="sim-btn" onclick="changeVessel('tilt')">إناء مائل 📐</button>
+                            </div>
+                        </div>
+                        <div class="sim-result-box">
+                            <h4>📋 الاستنتاج الفيزيائي:</h4>
+                            <p id="sim2Text">يأخذ السائل شكل الإناء الجديد المتغير فوراً، لكن حجمه الإجمالي يبقى ثابتاً، ويبقى سطحه الحر العلوي المواجه للجو مستوياً وأفقياً تماماً حتى عند إمالة الكأس.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- التبويب 3: تمارين التقييم الذاتي الفوري (5 أسئلة MCQ ملونة ومتكاملة التغذية) -->
+        <section id="tab-exercises" class="tab-content">
+            
+            <div class="quiz-intro">
+                <div>
+                    <h3 style="color:#fff;">✏️ قيم معارفك فورياً</h3>
+                    <p style="color:var(--muted); font-size:0.9rem;">أجب عن الأسئلة التالية المصممة وفق منهاج الجيل الثاني بدقة لتأكيد استيعابك.</p>
+                </div>
+                <div style="background-color:rgba(255,255,255,0.05); padding:8px 15px; border-radius:6px; font-weight:700; color:var(--accent);">5 أسئلة إجبارية</div>
+            </div>
+
+            <!-- السؤال 1 -->
+            <div class="q-card" data-correct="1">
+                <div class="q-header">
+                    <span class="q-num">1</span>
+                    <h3 class="q-text">تتميز المادة في الحالة الصلبة المتماسكة بأن لها:</h3>
+                </div>
+                <div class="q-options">
+                    <label class="opt-label"><input type="radio" name="q1" value="1"> شكلاً ثابتاً وحجماً ثابتاً.</label>
+                    <label class="opt-label"><input type="radio" name="q1" value="2"> شكلاً متغيراً وحجماً ثابتاً.</label>
+                    <label class="opt-label"><input type="radio" name="q1" value="3"> شكلاً متغيراً وحجماً متغيراً تعبئ به المكان.</label>
+                </div>
+                <div class="q-feedback"></div>
+            </div>
+
+            <!-- السؤال 2 -->
+            <div class="q-card" data-correct="3">
+                <div class="q-header">
+                    <span class="q-num">2</span>
+                    <h3 class="q-text">عند سكون جسم سائل تماماً، يتميز سطحه الحر العلوي بأنه يكون دائماً:</h3>
+                </div>
+                <div class="q-options">
+                    <label class="opt-label"><input type="radio" name="q2" value="1"> مائلاً وموازياً لقاع الإناء.</label>
+                    <label class="opt-label"><input type="radio" name="q2" value="2"> منحنياً ومقعراً من الأطراف فقط.</label>
+                    <label class="opt-label"><input type="radio" name="q2" value="3"> مستوياً وأفقياً تماماً.</label>
+                </div>
+                <div class="q-feedback"></div>
+            </div>
+
+            <!-- السؤال 3 -->
+            <div class="q-card" data-correct="2">
+                <div class="q-header">
+                    <span class="q-num">3</span>
+                    <h3 class="q-text">حبيبات المادة في الحالة الغازية تكون حسب النموذج الحبيبي:</h3>
+                </div>
+                <div class="q-options">
+                    <label class="opt-label"><input type="radio" name="q3" value="1"> متراصة جداً ومنظمة في صفوف ثابتة.</label>
+                    <label class="opt-label"><input type="radio" name="q3" value="2"> متباعدة جداً وتتحرك عشوائياً وبسرعة في كل الاتجاهات.</label>
+                    <label class="opt-label"><input type="radio" name="q3" value="3"> قريبة من بعضها وتنزلق وتتبادل المواضع ببطء.</label>
+                </div>
+                <div class="q-feedback"></div>
+            </div>
+
+            <!-- السؤال 4 -->
+            <div class="q-card" data-correct="1">
+                <div class="q-header">
+                    <span class="q-num">4</span>
+                    <h3 class="q-text">أي من الخصائص التالية ينفرد بها الغاز عن بقية الحالات الفيزيائية الأخرى؟</h3>
+                </div>
+                <div class="q-options">
+                    <label class="opt-label"><input type="radio" name="q4" value="1"> قابليته للانضغاط والتوسع (تغير حجمه).</label>
+                    <label class="opt-label"><input type="radio" name="q4" value="2"> المحافظة على الحجم الثابت عند تغيير الإناء.</label>
+                    <label class="opt-label"><input type="radio" name="q4" value="3"> إمكانية سكبه وجريانه بسهولة في الأنابيب.</label>
+                </div>
+                <div class="q-feedback"></div>
+            </div>
+
+            <!-- السؤال 5 -->
+            <div class="q-card" data-correct="2">
+                <div class="q-header">
+                    <span class="q-num">5</span>
+                    <h3 class="q-text">عند تحويل الغاز من إناء صغير مغلق إلى قارورة كبيرة مفرغة، فإن حبيبات الغاز:</h3>
+                </div>
+                <div class="q-options">
+                    <label class="opt-label"><input type="radio" name="q5" value="1"> تلتصق ببعضها في قاع القارورة الكبيرة وتتجمّع.</label>
+                    <label class="opt-label"><input type="radio" name="q5" value="2"> تتباعد أكثر وتنتشر لتشغل كامل حجم القارورة الكبيرة الجديدة.</label>
+                    <label class="opt-label"><input type="radio" name="q5" value="3"> يزداد حجم الحبيبة الواحدة وتكبر أبعادها الهندسية.</label>
+                </div>
+                <div class="q-feedback"></div>
+            </div>
+
+            <!-- زر عرض النتيجة الإجمالية -->
+            <div class="quiz-actions">
+                <button class="action-btn" onclick="checkQuizAnswers()">عرض النتيجة وتقييم الإجابات</button>
+                <div id="quizScoreDisplay" class="quiz-score"></div>
+            </div>
+
+        </section>
+
+        <!-- التبويب 4: ملخص الكراس المخصص للطباعة والمراجعة -->
+        <section id="tab-summary" class="tab-content">
+            
+            <div class="summary-card">
+                <h3 class="summary-title">📋 ملخص كراس التلميذ المتكامل: حالات المادة</h3>
+                
+                <div class="summary-list">
+                    
+                    <div class="summary-item">
+                        <span class="sum-icon">🔹</span>
+                        <h4>1. الحالات الفيزيائية الثلاث:</h4>
+                        <p>توجد المادة في الطبيعة على ثلاث حالات متميزة عياناً: صلبة (مثل الحديد والخشب)، سائلة (مثل الماء والزيت)، وغازية (مثل الهواء وثنائي أوكسيد الكربون).</p>
+                    </div>
+
+                    <div class="summary-item">
+                        <span class="sum-icon">🔹</span>
+                        <h4>2. المميزات والخصائص الفيزيائية النموذجية:</h4>
+                        <p>الأجسام الصلبة لها حجم وشكل ثابتان وتتميز بالتماسك. الأجسام السائلة لها حجم ثابت وشكل متغير يأخذ قالب الإناء المضيف ويتميز سطحها الحر بالسكون والاستواء والأفقية. الأجسام الغازية ليس لها شكل ولا حجم ثابت بل تقبل الانضغاط والتوسع لشغل أي فضاء متاح.</p>
+                    </div>
+
+                    <div class="summary-item">
+                        <span class="sum-icon">🔹</span>
+                        <h4>3. التفسير المجهري (النموذج الحبيبي الأساسي):</h4>
+                        <p>تتكون المادة من حبيبات صغيرة جداً ومتماثلة. في الحالة الصلبة تكون الحبيبات متراصة ومنظمة وقليلة الحركة. وفي الحالة السائلة تكون قريبة ومضطربة وقابلة للحركة والإنزلاق. وفي الحالة الغازية تكون متباعدة جداً وتتحرك بسرعة كبيرة وعشوائياً في جميع الاتجاهات المتاحة لها.</p>
+                    </div>
+
+                </div>
+
+                <!-- قسم زر الطباعة الهيدروليكي القياسي -->
+                <div class="print-section">
+                    <button class="print-btn" onclick="window.print()">
+                        🖨️ طباعة الملخص الورقي أو الحفظ بصيغة PDF كراس
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- البرمجيات التفاعلية وإدارة المحاكاة والامتحانات بالكامل -->
+    <script>
+        // التبديل النظيف والتفاعلي بين التبويبات الاربعة
+        function switchTab(tabId) {
+            // إخفاء كافة التبويبات أولاً
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // إلغاء تفعيل كافة الأزرار
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // تفعيل التبويب المختار وزره المتوافق
+            document.getElementById(tabId).classList.add('active');
+            
+            // العثور على الزر الذي استدعى التبويب واضافه الصف النشط له
+            const eventTarget = window.event ? window.event.currentTarget : null;
+            if (eventTarget && eventTarget.classList) {
+                eventTarget.classList.add('active');
+            } else {
+                // تفعيل افتراضي في حال عدم وجود حدث خارجي مباشر
+                const indexMap = {'tab-lesson': 0, 'tab-sim': 1, 'tab-exercises': 2, 'tab-summary': 3};
+                buttons[indexMap[tabId]].classList.add('active');
+            }
+
+            // تفعيل وتحديث أبعاد الكانفاس فوراً عند الانتقال لتبويب المحاكاة لضمان العرض السليم
+            if(tabId === 'tab-sim') {
+                initCanvasSimulation();
+            }
+        }
+
+        /* ------------------ المحاكاة الأولى: النموذج الحبيبي الديناميكي ------------------ */
+        let currentSimState = 'solid';
+        let currentTemperature = 1; // 1 = عادية، 2 = متوسطة، 3 = غليان/هيجان عالي
+        let animationFrameId = null;
+        let particlesArray = [];
+        const canvas = document.getElementById('canvasParticles');
+        const ctx = canvas.getContext('2d');
+
+        class Particle {
+            constructor(x, y, targetX, targetY) {
+                this.x = x;
+                this.y = y;
+                this.targetX = targetX; // للمواضع الثابتة في الحالة الصلبة
+                this.targetY = targetY;
+                // سرعات الحركة العشوائية للحالات السائلة والغازية
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = 5;
+            }
+
+            update() {
+                let speedMultiplier = currentTemperature === 1 ? 1 : currentTemperature === 2 ? 2.2 : 4;
+
+                if (currentSimState === 'solid') {
+                    // اهتزاز موضعي خفيف حول النقطة المركزية المستهدفة
+                    let jitter = 0.4 * speedMultiplier;
+                    this.x = this.targetX + (Math.random() - 0.5) * jitter;
+                    this.y = this.targetY + (Math.random() - 0.5) * jitter;
+                } 
+                else if (currentSimState === 'liquid') {
+                    // حركة مرنة ومقيدة في النصف السفلي للوعاء الكانفاس
+                    this.x += this.vx * (speedMultiplier * 0.4);
+                    this.y += this.vy * (speedMultiplier * 0.4);
+
+                    // ارتداد من الجدران وحدود السائل السفلية
+                    if (this.x < this.radius + 10) { this.x = this.radius + 10; this.vx *= -1; }
+                    if (this.x > canvas.width - this.radius - 10) { this.x = canvas.width - this.radius - 10; this.vx *= -1; }
+                    if (this.y < canvas.height - 90) { this.y = canvas.height - 90; this.vy *= -1; }
+                    if (this.y > canvas.height - this.radius - 10) { this.y = canvas.height - this.radius - 10; this.vy *= -1; }
+                } 
+                else if (currentSimState === 'gas') {
+                    // حركة سريعة وحرة ومترامية الأطراف في كل الفضاء المتوفر
+                    this.x += this.vx * speedMultiplier;
+                    this.y += this.vy * speedMultiplier;
+
+                    if (this.x < this.radius + 5) { this.x = this.radius + 5; this.vx *= -1; }
+                    if (this.x > canvas.width - this.radius - 5) { this.x = canvas.width - this.radius - 5; this.vx *= -1; }
+                    if (this.y < this.radius + 5) { this.y = this.radius + 5; this.vy *= -1; }
+                    if (this.y > canvas.height - this.radius - 5) { this.y = canvas.height - this.radius - 5; this.vy *= -1; }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#14b8a6'; // لون الحبيبة موحد ومتناسق مع لون المقطع
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+                ctx.stroke();
+            }
+        }
+
+        function createParticles() {
+            particlesArray = [];
+            if (currentSimState === 'solid') {
+                // إنشاء شبكة متراصة ومنتظمة جداً للحبيبات الصلبة في قلب الكانفاس
+                let startX = 110;
+                let startY = 80;
+                let rows = 6;
+                let cols = 8;
+                let spacing = 13;
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        let tx = startX + c * spacing;
+                        let ty = startY + r * spacing;
+                        particlesArray.push(new Particle(tx, ty, tx, ty));
+                    }
+                }
+            } 
+            else if (currentSimState === 'liquid') {
+                // حبيبات متجمعة ومتقاربة نوعاً ما في قاع الوعاء ومضطربة
+                for (let i = 0; i < 55; i++) {
+                    let rx = Math.random() * (canvas.width - 40) + 20;
+                    let ry = Math.random() * (70) + (canvas.height - 85);
+                    particlesArray.push(new Particle(rx, ry, 0, 0));
+                }
+            } 
+            else if (currentSimState === 'gas') {
+                // عدد أقل من الحبيبات متباعدة وتتحرك بحرية مطلقة في كامل الحاوية
+                for (let i = 0; i < 18; i++) {
+                    let rx = Math.random() * (canvas.width - 20) + 10;
+                    let ry = Math.random() * (canvas.height - 20) + 10;
+                    particlesArray.push(new Particle(rx, ry, 0, 0));
+                }
+            }
+        }
+
+        function setSimState(state) {
+            currentSimState = state;
+            
+            // إدارة الأزرار وتنشيط المختار
+            document.getElementById('btnSolid').classList.remove('active');
+            document.getElementById('btnLiquid').classList.remove('active');
+            document.getElementById('btnGas').classList.remove('active');
+            
+            if(state === 'solid') {
+                document.getElementById('btnSolid').classList.add('active');
+                document.getElementById('sim1Text').innerText = "الحبيبات متراصة جداً، منظمة ومصطفة بانتظام وثبات، وتكتفي بالاهتزاز الخفيف حول مواضع استقرارها، مما يمنح الجسم الصلب شكلاً وحجماً ثابتين.";
+            } else if(state === 'liquid') {
+                document.getElementById('btnLiquid').classList.add('active');
+                document.getElementById('sim1Text').innerText = "الحبيبات قريبة من بعضها البعض لكنها غير منظمة (مضطربة)، وتستطيع الانزلاق وتبادل الأماكن بحرية، وهو ما يفسر قابلية السائل للجريان وأخذه شكل الإناء المضيف مع الحفاظ على ثبات الحجم.";
+            } else if(state === 'gas') {
+                document.getElementById('btnGas').classList.add('active');
+                document.getElementById('sim1Text').innerText = "الحبيبات متباعدة جداً وتفصل بينها مسافات هائلة، وهي في حالة حركة سريعة وعشوائية في جميع الاتجاهات وتتصادم باستمرار، مما يفسر التوسع السريع للغاز وقابليته للانضغاط الكلي.";
+            }
+            createParticles();
+        }
+
+        function updateSimTemperature(val) {
+            currentTemperature = parseInt(val);
+            const lbl = document.getElementById('lblTemp');
+            if(currentTemperature === 1) lbl.innerText = "درجة الحرارة (التأثير الحراري على الحركة): العادية";
+            if(currentTemperature === 2) lbl.innerText = "درجة الحرارة (التأثير الحراري على الحركة): متوسطة (تسخين)";
+            if(currentTemperature === 3) lbl.innerText = "درجة الحرارة (التأثير الحراري على الحركة): مرتفعة جداً (غليان وهيجان)";
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // رسم حدود الوعاء الخارجي الافتراضي للمحاكاة مجهرياً
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(5, 5, canvas.width - 10, canvas.height - 10);
+            
+            particlesArray.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            animationFrameId = requestAnimationFrame(animateParticles);
+        }
+
+        function initCanvasSimulation() {
+            if(animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            createParticles();
+            animateParticles();
+        }
+
+
+        /* ------------------ المحاكاة الثانية: ملاءمة الشكل والسطح الحر لـ SVG ------------------ */
+        function changeVessel(type) {
+            document.getElementById('btnBeaker').classList.remove('active');
+            document.getElementById('btnFlask').classList.remove('active');
+            document.getElementById('btnTilt').classList.remove('active');
+            
+            const outline = document.getElementById('vesselOutline');
+            const liquid = document.getElementById('liquidMass');
+            const surface = document.getElementById('freeSurface');
+            const lbl = document.getElementById('lblSurface');
+            const txt = document.getElementById('sim2Text');
+
+            if(type === 'beaker') {
+                document.getElementById('btnBeaker').classList.add('active');
+                outline.setAttribute('d', 'M70,40 L70,170 L190,170 L190,40');
+                liquid.setAttribute('d', 'M72,110 L188,110 L188,168 L72,168 Z');
+                surface.setAttribute('x1', '72'); surface.setAttribute('y1', '110');
+                surface.setAttribute('x2', '188'); surface.setAttribute('y2', '110');
+                lbl.setAttribute('x', '130'); lbl.setAttribute('y', '100');
+                lbl.setAttribute('transform', 'rotate(0)');
+                txt.innerText = "يأخذ السائل شكل الإناء الجديد المتغير فوراً، لكن حجمه الإجمالي يبقى ثابتاً، ويبقى سطحه الحر العلوي المواجه للجو مستوياً وأفقياً تماماً حتى عند إمالة الكأس.";
+            } 
+            else if(type === 'flask') {
+                document.getElementById('btnFlask').classList.add('active');
+                // مخبار ضيق وطويل يرتفع فيه منسوب السائل تلقائياً لإبراز ثبات الحجم وتغير الشكل الارتفاعي
+                outline.setAttribute('d', 'M100,20 L100,170 L160,170 L160,20');
+                liquid.setAttribute('d', 'M102,70 L158,70 L158,168 L102,168 Z');
+                surface.setAttribute('x1', '102'); surface.setAttribute('y1', '70');
+                surface.setAttribute('x2', '158'); surface.setAttribute('y2', '70');
+                lbl.setAttribute('x', '130'); lbl.setAttribute('y', '60');
+                lbl.setAttribute('transform', 'rotate(0)');
+                txt.innerText = "في المخبار الضيق، تلاحظ أن السائل اتخذ شكلاً عمودياً ضيقاً وارتفع منسوبه للأعلى، مما يؤكد مجدداً أن السائل ليس له شكل محدد بل يتكيف كلياً مع أبعاد الإناء.";
+            } 
+            else if(type === 'tilt') {
+                document.getElementById('btnTilt').classList.add('active');
+                // رسم إناء مائل بزاوية حادة مع بقاء خط السائل مستو وأفقي موازي لخط الأرض تماماً
+                outline.setAttribute('d', 'M50,70 L80,180 L190,150 L160,40');
+                liquid.setAttribute('d', 'M68,135 L178,135 L182,152 L83,179 Z');
+                surface.setAttribute('x1', '68'); surface.setAttribute('y1', '135');
+                surface.setAttribute('x2', '178'); surface.setAttribute('y2', '135');
+                lbl.setAttribute('x', '125'); lbl.setAttribute('y', '125');
+                txt.innerText = "شاهد بدقة! بالرغم من إمالة جدران وقاع الإناء بزاوية واضحة، إلا أن السطح الحر للسائل يرفض الميلان ويبقى محافظاً على استوائه وأفقيته التامة (موازياً لسطح البحر والأرض دائماً).";
+            }
+        }
+
+
+        /* ------------------ نظام التقييم والتمارين MCQ ------------------ */
+        function checkQuizAnswers() {
+            const cards = document.querySelectorAll('.q-card');
+            let score = 0;
+            let total = cards.length;
+
+            cards.forEach(card => {
+                const correctAnswer = card.getAttribute('data-correct');
+                const qName = card.querySelector('input[type="radio"]').getAttribute('name');
+                const selectedOption = card.querySelector(`input[name="${qName}"]:checked`);
+                const feedbackDiv = card.querySelector('.q-feedback');
+                const allLabels = card.querySelectorAll('.opt-label');
+
+                // إعادة تصفير الألوان السابقة أولاً
+                allLabels.forEach(lbl => {
+                    lbl.classList.remove('correct', 'incorrect');
+                });
+
+                if(selectedOption) {
+                    const userVal = selectedOption.value;
+
+                    // تلوين خيار المستخدم بناءً على الصحة والخطأ
+                    if(userVal === correctAnswer) {
+                        score++;
+                        selectedOption.parentElement.classList.add('correct');
+                        feedbackDiv.className = "q-feedback show-correct";
+                        feedbackDiv.innerText = "✓ إجابة ممتازة وصحيحة ومتوافقة مع معايير منهاج الجيل الثاني.";
+                    } else {
+                        selectedOption.parentElement.classList.add('incorrect');
+                        // تلوين الخيار الصحيح أيضاً باللون الأخضر ليتعلم منه التلميذ فوراً
+                        allLabels[parseInt(correctAnswer) - 1].classList.add('correct');
+                        feedbackDiv.className = "q-feedback show-incorrect";
+                        feedbackDiv.innerText = "❌ إجابة غير دقيقة. الخيار المظلل بالأخضر هو التفسير العلمي السليم.";
+                    }
+                } else {
+                    // في حال عدم اختيار أي إجابة للسؤال
+                    feedbackDiv.className = "q-feedback show-incorrect";
+                    feedbackDiv.innerText = "⚠️ تنبيه: يرجى تحديد خيار للإجابة قبل طلب تقييم النتيجة.";
+                    allLabels[parseInt(correctAnswer) - 1].classList.add('correct');
+                }
+            });
+
+            // عرض لوحة الدرجات النهائية الملونة
+            const scoreDisplay = document.getElementById('quizScoreDisplay');
+            scoreDisplay.style.display = "block";
+            scoreDisplay.innerHTML = `نتيجتك المحصل عليها هي: <span style="color:#fff; background-color:var(--accent); padding:2px 10px; border-radius:4px;">${score} من ${total}</span> — ` + 
+                (score >= 4 ? "ممتاز! أنت مستعد تماماً لاجتياز فروض المقطع." : "ننصحك بإعادة قراءة الدرس النظري ومتابعة المحاكاة بدقة أكبر.");
+        }
+
+        // تفعيل أولي وتلقائي عند بدء التشغيل للكانفاس للحالة الصلبة
+        window.onload = function() {
+            // بقاء التبويب الأول هو النشط افتراضياً عند تحميل الصفحة
+        };
+    </script>
+</body>
+</html>

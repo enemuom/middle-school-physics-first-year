@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حماية الدارة الكهربائية وقواعد الأمن الكهربائي - العلوم الفيزيائية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap');
+
+        :root {
+            --dark: #0a0f1e;
+            --dark3: #1a2540;
+            --border: rgba(255, 255, 255, 0.08);
+            --card: rgba(255, 255, 255, 0.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #6366f1;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--dark3);
+            padding: 2rem 1rem;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .lesson-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--dark3);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .objectives-box {
+            background: var(--card);
+            border-right: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .objectives-box h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--accent);
+        }
+
+        .def-box {
+            background: var(--card);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-right: 4px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .def-content {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .def-illustration {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+
+        .highlight {
+            background: rgba(99, 102, 241, 0.1);
+            color: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 3px solid var(--accent);
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th, .info-table td {
+            padding: 1rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .info-table th {
+            background: var(--dark3);
+            color: var(--accent);
+        }
+
+        .lesson-diagram {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 1.5rem auto;
+            display: block;
+            border-radius: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+        }
+
+        .svg-text {
+            font-family: 'Amiri', serif;
+            fill: var(--text);
+            font-size: 16px;
+        }
+
+        .sim-wrap {
+            background: var(--dark3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .sim-controls {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--accent);
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: var(--accent); color: #fff; }
+        .btn-danger { border-color: var(--danger); color: var(--danger); }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
+
+        .q-card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .q-options label {
+            display: block;
+            background: var(--dark3);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+
+        .q-options label:hover { border-color: var(--accent); }
+        .q-options input { margin-left: 10px; }
+        
+        .q-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+        }
+        .feedback-correct { background: rgba(34, 197, 94, 0.1); border-right: 3px solid var(--success); }
+        .feedback-wrong { background: rgba(239, 68, 68, 0.1); border-right: 3px solid var(--danger); }
+
+        .summary-card {
+            background: linear-gradient(145deg, var(--dark3), var(--dark));
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .summary-list {
+            list-style: none;
+        }
+
+        .summary-list li {
+            position: relative;
+            padding-right: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-list li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .print-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 2rem auto 0;
+            font-family: 'Cairo';
+        }
+
+        @media print {
+            body { background: #fff; color: #000; }
+            .tabs-nav, .print-btn, header .breadcrumb { display: none; }
+            .tab-content { display: block !important; }
+            .summary-card { background: none; border: 1px solid #000; }
+            .svg-text { fill: #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="breadcrumb">
+            <a href="../index.html" style="color: var(--accent); text-decoration: none;">&larr; الفهرس</a>
+            <span>›</span> 1AM (السنة الأولى متوسط)
+            <span>›</span> المقطع 1: الظواهر الكهربائية
+        </div>
+        <span class="lesson-badge">الدرس 08</span>
+        <h1>حماية الدارة الكهربائية <em>وقواعد الأمن الكهربائي</em></h1>
+    </header>
+
+    <nav class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab('lesson')">📖 الدرس</button>
+        <button class="tab-btn" onclick="openTab('simulation')">⚗️ محاكاة تفاعلية</button>
+        <button class="tab-btn" onclick="openTab('quiz')">✏️ تمارين</button>
+        <button class="tab-btn" onclick="openTab('summary')">📋 ملخص الكراس</button>
+    </nav>
+
+    <main>
+        <div id="lesson" class="tab-content active">
+            <div class="objectives-box">
+                <h3>الأهداف التعلمية</h3>
+                <ul>
+                    <li>معرفة مفهوم الدارة المستقصرة وعواقبها (Court-circuit).</li>
+                    <li>إدراك أهمية المادة العازلة في حماية الأسلاك.</li>
+                    <li>التعرف على الرموز النظامية وفهم دور المنصهرة (Fusible) والقاطع التفاضلي (Disjoncteur) في حماية الأجهزة والأشخاص.</li>
+                </ul>
+            </div>
+
+            <h2 class="sec-title">1. استقصار الدارة الكهربائية (Court-circuit)</h2>
+            <div class="def-box">
+                <svg class="def-illustration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20,50 Q40,20 60,50 T90,50" fill="none" stroke="var(--text)" stroke-width="4"/>
+                    <path d="M20,60 Q40,90 60,60 T90,60" fill="none" stroke="var(--danger)" stroke-width="4"/>
+                    <circle cx="60" cy="55" r="10" fill="#f59e0b" opacity="0.8"/>
+                    <polygon points="60,40 65,50 75,45 65,55 70,65 55,55 50,65 55,50 45,45 55,45" fill="#fff"/>
+                </svg>
+                <div class="def-content">
+                    <h3>تعريف الدارة المستقصرة</h3>
+                    <p>يحدث <strong>الاستقصار</strong> عندما يتلامس سلكان عاريان (غير معزولين) في الدارة الكهربائية، مما يوفر للتيار مساراً أسهل (مقاومة شبه معدومة). يؤدي ذلك إلى مرور تيار قوي جداً يسخن الأسلاك وقد يسبب حريقاً.</p>
+                </div>
+            </div>
+            
+            <p class="highlight">⚠️ <strong>خطر:</strong> التيار الكهربائي يفضل دائماً المرور في المسار الأسهل (السلك الناقل المباشر) متجاهلاً الأجهزة (كالمصباح)، مما يؤدي إلى انقطاع عملها وارتفاع حرارة المولد والأسلاك.</p>
+
+            <h2 class="sec-title">2. قواعد الأمن وحماية الدارة (الرموز النظامية)</h2>
+            
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>وسيلة الحماية</th>
+                        <th>دورها في الدارة</th>
+                        <th>الرمز النظامي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>عزل الأسلاك</strong><br><small>(Isolation des fils)</small></td>
+                        <td>تغليف الأسلاك النحاسية بمادة عازلة (بلاستيك) لمنع تلامسها وحدوث استقصار.</td>
+                        <td>
+                            <svg width="80" height="40" viewBox="0 0 80 40">
+                                <rect x="0" y="10" width="80" height="20" fill="var(--accent)" rx="5"/>
+                                <rect x="60" y="15" width="30" height="10" fill="#fbbf24"/>
+                            </svg>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>المنصهرة</strong><br><small>(Fusible)</small></td>
+                        <td>تحتوي على سلك شعيري ينصهر (يذوب) ويقطع الدارة إذا تجاوز التيار الحد المسموح به.</td>
+                        <td>
+                            <svg width="80" height="40" viewBox="0 0 80 40">
+                                <rect x="15" y="10" width="50" height="20" fill="transparent" stroke="var(--text)" stroke-width="2"/>
+                                <line x1="5" y1="20" x2="75" y2="20" stroke="var(--text)" stroke-width="2"/>
+                            </svg>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>القاطع التفاضلي</strong><br><small>(Disjoncteur)</small></td>
+                        <td>يقطع التيار آلياً عن كامل المنزل عند حدوث استقصار أو حمولة زائدة.</td>
+                        <td>
+                            <svg width="80" height="40" viewBox="0 0 80 40">
+                                <rect x="10" y="5" width="60" height="30" fill="transparent" stroke="var(--text)" stroke-width="2"/>
+                                <line x1="20" y1="20" x2="35" y2="20" stroke="var(--text)" stroke-width="2"/>
+                                <line x1="35" y1="20" x2="50" y2="10" stroke="var(--text)" stroke-width="2"/>
+                                <line x1="50" y1="20" x2="60" y2="20" stroke="var(--text)" stroke-width="2"/>
+                                <text x="15" y="15" font-family="Arial" font-size="10" fill="var(--muted)">D</text>
+                            </svg>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <svg class="lesson-diagram" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                <text x="300" y="30" class="svg-text" text-anchor="middle" font-weight="bold" fill="var(--accent)">مخطط نظامي لدارة كهربائية مزودة بمنصهرة</text>
+                
+                <g stroke="var(--text)" stroke-width="2">
+                    <line x1="60" y1="80" x2="60" y2="120" stroke-width="3"/>
+                    <line x1="40" y1="120" x2="80" y2="120" stroke-width="2"/>
+                    <text x="25" y="115" class="svg-text" fill="var(--danger)">+</text>
+                    
+                    <line x1="50" y1="135" x2="70" y2="135" stroke-width="6"/>
+                    <text x="30" y="145" class="svg-text" fill="#3b82f6">-</text>
+                    <line x1="60" y1="135" x2="60" y2="250" stroke-width="3"/>
+                </g>
+                <text x="90" y="132" class="svg-text" fill="var(--text)">بطارية</text>
+                
+                <path d="M 60 250 L 500 250 L 500 180" fill="none" stroke="var(--text)" stroke-width="3"/>
+                <path d="M 60 80 L 150 80" fill="none" stroke="var(--text)" stroke-width="3"/>
+                <path d="M 230 80 L 500 80 L 500 120" fill="none" stroke="var(--text)" stroke-width="3"/>
+                
+                <g transform="translate(150, 65)">
+                    <rect x="0" y="0" width="80" height="30" fill="transparent" stroke="var(--accent)" stroke-width="2"/>
+                    <line x1="-10" y1="15" x2="90" y2="15" stroke="var(--danger)" stroke-width="2"/>
+                </g>
+                <text x="190" y="50" class="svg-text" text-anchor="middle">منصهرة (Fusible)</text>
+                
+                <circle cx="500" cy="150" r="30" fill="none" stroke="var(--text)" stroke-width="3"/>
+                <line x1="478" y1="128" x2="522" y2="172" stroke="var(--text)" stroke-width="3"/>
+                <line x1="478" y1="172" x2="522" y2="128" stroke="var(--text)" stroke-width="3"/>
+                <text x="500" y="210" class="svg-text" text-anchor="middle">مصباح</text>
+            </svg>
+
+        </div>
+
+        <div id="simulation" class="tab-content">
+            <div class="sim-wrap">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">محاكاة أثر الاستقصار وعمل المنصهرة</h3>
+                <p style="color: var(--muted); margin-bottom: 2rem;">اكتشف ماذا يحدث عند إحداث استقصار للمصباح في وجود المنصهرة.</p>
+                
+                <svg id="simSvg" viewBox="0 0 600 350" style="width:100%; max-width:600px; background:var(--dark); border-radius:8px; border:2px solid #334155;">
+                    <path d="M 100 170 L 100 50 L 200 50" fill="none" stroke="#64748b" stroke-width="6" id="wire1"/>
+                    <path d="M 280 50 L 450 50 L 450 150" fill="none" stroke="#64748b" stroke-width="6" id="wire2"/>
+                    <path d="M 450 210 L 450 300 L 100 300 L 100 205" fill="none" stroke="#64748b" stroke-width="6" id="wire3"/>
+                    
+                    <path d="M 350 50 L 350 300" fill="none" stroke="#ef4444" stroke-width="6" stroke-dasharray="10,5" id="shortWire" style="opacity: 0;"/>
+
+                    <g stroke="#cbd5e1">
+                        <line x1="75" y1="170" x2="125" y2="170" stroke-width="3" id="batPlusLine"/>
+                        <line x1="85" y1="205" x2="115" y2="205" stroke-width="8" id="batMinusLine"/>
+                    </g>
+                    <text x="145" y="175" fill="#ef4444" font-size="24" font-weight="bold">+</text>
+                    <text x="145" y="215" fill="#3b82f6" font-size="24" font-weight="bold">-</text>
+
+                    <rect x="200" y="30" width="80" height="40" fill="transparent" stroke="#cbd5e1" stroke-width="3"/>
+                    <line x1="190" y1="50" x2="290" y2="50" stroke="#f59e0b" stroke-width="4" id="fuseWire"/>
+                    <text x="240" y="20" fill="#cbd5e1" font-family="Amiri" font-size="16" text-anchor="middle">منصهرة</text>
+
+                    <circle cx="450" cy="180" r="30" fill="#1e293b" stroke="#cbd5e1" stroke-width="4" id="lamp"/>
+                    <path d="M 430 160 L 470 200 M 430 200 L 470 160" stroke="#cbd5e1" stroke-width="4"/>
+                    
+                    <g id="spark" style="opacity: 0;" transform="translate(350, 175)">
+                        <polygon points="0,-20 10,-5 25,-5 15,10 20,25 0,15 -20,25 -15,10 -25,-5 -10,-5" fill="#f59e0b"/>
+                        <circle cx="0" cy="0" r="10" fill="#ef4444"/>
+                    </g>
+                    
+                    <text x="300" y="330" fill="#ef4444" font-family="Cairo" font-size="18" font-weight="bold" text-anchor="middle" id="simAlert" style="opacity:0;">انصهر السلك الشعيري! المنصهرة حمت الدارة</text>
+                </svg>
+
+                <div class="sim-controls">
+                    <button class="btn" id="btnCircuit" onclick="toggleCircuit()">أغلق القاطعة</button>
+                    <button class="btn btn-danger" id="btnShort" onclick="triggerShortCircuit()" disabled>أحدث استقصار!</button>
+                    <button class="btn" onclick="resetSim()">إعادة الضبط</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz" class="tab-content">
+            <div id="quizContainer">
+                <div class="q-card">
+                    <div class="q-num">السؤال 1 من 5</div>
+                    <div class="q-text">حسب المنهاج الجزائري، ما هو الرمز النظامي للمنصهرة؟</div>
+                    <div class="q-options">
+                        <label><input type="radio" name="q1" value="wrong"> دائرة بداخلها حرف M.</label>
+                        <label><input type="radio" name="q1" value="correct"> مستطيل يقطعه خط مستقيم (يمثل السلك الشعيري).</label>
+                        <label><input type="radio" name="q1" value="wrong"> خطان متوازيان أحدهما طويل والآخر قصير.</label>
+                    </div>
+                    <div class="q-feedback" id="fb1"></div>
+                </div>
+                
+                <div class="q-card">
+                    <div class="q-num">السؤال 2 من 5</div>
+                    <div class="q-text">ما هو دور المنصهرة (Fusible) في الدارة الكهربائية؟</div>
+                    <div class="q-options">
+                        <label><input type="radio" name="q2" value="wrong"> زيادة شدة إضاءة المصباح.</label>
+                        <label><input type="radio" name="q2" value="wrong"> توليد الكهرباء عند انقطاع التيار.</label>
+                        <label><input type="radio" name="q2" value="correct"> حماية الأجهزة بالانصهار وقطع التيار عند زيادته بشكل خطير.</label>
+                    </div>
+                    <div class="q-feedback" id="fb2"></div>
+                </div>
+
+                <div class="q-card">
+                    <div class="q-num">السؤال 3 من 5</div>
+                    <div class="q-text">لتفادي استقصار الدارة، كيف يجب أن تكون الأسلاك المستعملة؟</div>
+                    <div class="q-options">
+                        <label><input type="radio" name="q3" value="correct"> مغلفة بمادة عازلة كالبلاستيك.</label>
+                        <label><input type="radio" name="q3" value="wrong"> عارية تماماً ليسهل مرور التيار.</label>
+                        <label><input type="radio" name="q3" value="wrong"> مبللة بالماء لتبريدها.</label>
+                    </div>
+                    <div class="q-feedback" id="fb3"></div>
+                </div>
+
+                <div class="q-card">
+                    <div class="q-num">السؤال 4 من 5</div>
+                    <div class="q-text">ما هو الجهاز الذي يركب لحماية كامل المنزل ويقطع التيار آلياً؟</div>
+                    <div class="q-options">
+                        <label><input type="radio" name="q4" value="wrong"> المولد الكهربائي.</label>
+                        <label><input type="radio" name="q4" value="correct"> القاطع التفاضلي (Disjoncteur).</label>
+                        <label><input type="radio" name="q4" value="wrong"> المصباح الفلوري.</label>
+                    </div>
+                    <div class="q-feedback" id="fb4"></div>
+                </div>
+
+                <div class="q-card">
+                    <div class="q-num">السؤال 5 من 5</div>
+                    <div class="q-text">عند حدوث استقصار لمصباح في دارة التسلسل، ماذا يحدث؟</div>
+                    <div class="q-options">
+                        <label><input type="radio" name="q5" value="correct"> ينطفئ المصباح المستقصر، ويزداد توهج المصابيح الأخرى وتسخن الأسلاك.</label>
+                        <label><input type="radio" name="q5" value="wrong"> يتوهج المصباح المستقصر بقوة شديدة.</label>
+                        <label><input type="radio" name="q5" value="wrong"> لا يحدث أي تغيير في الدارة.</label>
+                    </div>
+                    <div class="q-feedback" id="fb5"></div>
+                </div>
+
+                <button class="btn print-btn" onclick="checkQuiz()">عرض النتيجة</button>
+                <div id="quiz-score" style="margin-top: 1rem; text-align: center; font-size: 1.5rem; font-weight: bold; color: var(--accent);"></div>
+            </div>
+        </div>
+
+        <div id="summary" class="tab-content">
+            <div class="summary-card">
+                <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center;">الخلاصة: حماية الدارة والأمن الكهربائي</h2>
+                <ul class="summary-list">
+                    <li><strong>الدارة المستقصرة:</strong> تحدث نتيجة تلامس سلكين غير معزولين، فيسلك التيار أقصر طريق متجاهلاً الأجهزة، مما يؤدي إلى ارتفاع شديد في التيار وحرارة الأسلاك (خطر الحريق).</li>
+                    <li><strong>العزل الكهربائي:</strong> تُغلف الأسلاك النحاسية بمادة بلاستيكية عازلة لمنع التلامس المباشر وتجنب الاستقصار والصدمات الكهربائية.</li>
+                    <li><strong>المنصهرة (Fusible):</strong> عنصر حماية يُربط على التسلسل، يحتوي سلكاً رفيعاً ينصهر ويقطع الدارة إذا مر به تيار يفوق دلالته، لحماية الأجهزة من التلف. الرمز النظامي: مستطيل يمر عبره خط مستقيم.</li>
+                    <li><strong>القاطع التفاضلي (Disjoncteur):</strong> قاطع آلي يوضع في بداية الشبكة المنزلية، يقطع التيار عن البيت كلياً في حال حدوث استقصار أو حمولة زائدة لحماية الأشخاص والممتلكات.</li>
+                </ul>
+                <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Tab Navigation Logic
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Simulation Logic
+        let isCircuitClosed = false;
+        let isShortCircuited = false;
+        let fuseBroken = false;
+
+        const wires = [document.getElementById('wire1'), document.getElementById('wire2'), document.getElementById('wire3')];
+        const lamp = document.getElementById('lamp');
+        const fuseWire = document.getElementById('fuseWire');
+        const shortWire = document.getElementById('shortWire');
+        const spark = document.getElementById('spark');
+        const simAlert = document.getElementById('simAlert');
+        const btnCircuit = document.getElementById('btnCircuit');
+        const btnShort = document.getElementById('btnShort');
+
+        function toggleCircuit() {
+            if (fuseBroken) return; // Cannot close if fuse is melted
+
+            isCircuitClosed = !isCircuitClosed;
+            btnCircuit.textContent = isCircuitClosed ? "افتح القاطعة" : "أغلق القاطعة";
+            btnShort.disabled = !isCircuitClosed;
+
+            if (isCircuitClosed && !isShortCircuited) {
+                // Normal operation
+                wires.forEach(w => w.setAttribute('stroke', '#eab308')); 
+                lamp.setAttribute('fill', '#fef08a'); 
+                lamp.setAttribute('stroke', '#eab308');
+            } else {
+                // Circuit open
+                wires.forEach(w => w.setAttribute('stroke', '#64748b'));
+                lamp.setAttribute('fill', '#1e293b');
+                lamp.setAttribute('stroke', '#cbd5e1');
+            }
+        }
+
+        function triggerShortCircuit() {
+            if (!isCircuitClosed || fuseBroken) return;
+            
+            isShortCircuited = true;
+            btnShort.disabled = true;
+
+            // Show short circuit wire
+            shortWire.style.opacity = 1;
+            
+            // Current bypasses lamp
+            document.getElementById('wire3').setAttribute('stroke', '#64748b');
+            lamp.setAttribute('fill', '#1e293b');
+            lamp.setAttribute('stroke', '#cbd5e1');
+
+            // High current on short path
+            document.getElementById('wire1').setAttribute('stroke', '#ef4444');
+            document.getElementById('wire2').setAttribute('stroke', '#ef4444');
+            shortWire.setAttribute('stroke', '#ef4444');
+            
+            // Spark effect
+            spark.style.opacity = 1;
+
+            // Fuse melts after 1 second
+            setTimeout(() => {
+                fuseBroken = true;
+                fuseWire.setAttribute('stroke', 'transparent'); // break fuse
+                
+                // Cut power
+                document.getElementById('wire1').setAttribute('stroke', '#64748b');
+                document.getElementById('wire2').setAttribute('stroke', '#64748b');
+                shortWire.setAttribute('stroke', '#64748b');
+                spark.style.opacity = 0;
+
+                simAlert.style.opacity = 1;
+                btnCircuit.disabled = true;
+            }, 1000);
+        }
+
+        function resetSim() {
+            isCircuitClosed = false;
+            isShortCircuited = false;
+            fuseBroken = false;
+
+            btnCircuit.textContent = "أغلق القاطعة";
+            btnCircuit.disabled = false;
+            btnShort.disabled = true;
+
+            wires.forEach(w => w.setAttribute('stroke', '#64748b'));
+            lamp.setAttribute('fill', '#1e293b');
+            lamp.setAttribute('stroke', '#cbd5e1');
+            fuseWire.setAttribute('stroke', '#f59e0b');
+            shortWire.style.opacity = 0;
+            spark.style.opacity = 0;
+            simAlert.style.opacity = 0;
+        }
+
+        // Quiz Logic
+        function checkQuiz() {
+            let score = 0;
+            const total = 5;
+
+            for (let i = 1; i <= total; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const fb = document.getElementById(`fb${i}`);
+                
+                if (selected) {
+                    fb.style.display = 'block';
+                    if (selected.value === 'correct') {
+                        score++;
+                        fb.className = 'q-feedback feedback-correct';
+                        fb.innerHTML = '✅ إجابة صحيحة!';
+                    } else {
+                        fb.className = 'q-feedback feedback-wrong';
+                        fb.innerHTML = '❌ إجابة خاطئة. راجع الدرس.';
+                    }
+                } else {
+                    fb.style.display = 'block';
+                    fb.className = 'q-feedback feedback-wrong';
+                    fb.innerHTML = '⚠️ الرجاء اختيار إجابة.';
+                }
+            }
+
+            const scoreDisplay = document.getElementById('quiz-score');
+            scoreDisplay.innerHTML = `النتيجة: ${score} من ${total}`;
+            if (score === total) {
+                scoreDisplay.style.color = 'var(--success)';
+                scoreDisplay.innerHTML += ' 🌟 ممتاز!';
+            }
+        }
+    </script>
+</body>
+</html>

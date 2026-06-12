@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدرس 03: التيار الكهربائي - العلوم الفيزيائية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;800&display=swap');
+
+        :root {
+            --dark: #0a0f1e;
+            --dark3: #1a2540;
+            --border: rgba(255,255,255,.08);
+            --card: rgba(255,255,255,.04);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #6366f1; /* لون المقطع: الظواهر الكهربائية */
+            --success: #22c55e;
+            --danger: #ef4444;
+            --gold: #fbbf24;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+        }
+
+        .amiri {
+            font-family: 'Amiri', serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header & Breadcrumb */
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .lesson-header {
+            background: linear-gradient(135deg, var(--dark3), var(--dark));
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--accent);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .lesson-badge {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--accent);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .lesson-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .lesson-header h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+        .tab-btn {
+            background: transparent;
+            color: var(--muted);
+            border: none;
+            padding: 1rem 1.5rem;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            color: var(--text);
+            background: var(--card);
+        }
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background: var(--card);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lesson Content Styles */
+        .objectives-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--success);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .objectives-box h3 {
+            color: var(--success);
+            margin-bottom: 0.8rem;
+        }
+        .objectives-box ul {
+            list-style-position: inside;
+            color: var(--muted);
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--accent);
+        }
+
+        .def-box {
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .def-box h3 {
+            color: var(--gold);
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        .def-content {
+            flex: 1;
+            min-width: 250px;
+        }
+        .def-illustration {
+            width: 150px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .highlight {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--text);
+            padding: 1rem;
+            border-radius: 6px;
+            border-right: 3px solid var(--accent);
+            margin: 1rem 0;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .info-table th, .info-table td {
+            padding: 1rem;
+            text-align: right;
+            border: 1px solid var(--border);
+        }
+        .info-table th {
+            background: var(--dark3);
+            color: var(--accent);
+        }
+
+        /* SVG Diagrams */
+        .lesson-diagram {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            aspect-ratio: 3/2;
+            margin: 1.5rem auto;
+            border-radius: 8px;
+            background: #ffffff; /* خلفية بيضاء للوضوح */
+            border: 1px solid var(--border);
+            display: block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Simulations Tab */
+        .sim-wrap {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .sim-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .sim-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .sim-controls {
+            background: var(--card);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .sim-controls label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .sim-controls select, .sim-controls button {
+            padding: 0.5rem 1rem;
+            background: var(--dark);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* Quiz Tab */
+        .q-card {
+            background: var(--dark3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .q-num {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .q-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .q-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .q-option {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .q-option:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .q-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: var(--success);
+        }
+        .q-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+        }
+        .q-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            display: none;
+            background: var(--dark);
+            border-right: 4px solid var(--accent);
+        }
+        .quiz-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            display: block;
+            width: 100%;
+            margin-top: 2rem;
+        }
+        .quiz-score {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+            color: var(--gold);
+        }
+
+        /* Summary Tab */
+        .summary-card {
+            background: linear-gradient(to bottom right, var(--dark3), var(--dark));
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        .summary-list {
+            list-style: none;
+        }
+        .summary-list li {
+            margin-bottom: 1rem;
+            padding-right: 1.5rem;
+            position: relative;
+        }
+        .summary-list li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .print-btn {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .tabs-nav, .breadcrumb, .print-btn { display: none; }
+            .tab-content { display: block !important; }
+            .lesson-header, .objectives-box, .def-box, .q-card, .sim-wrap { 
+                border: 1px solid #ccc; background: white; color: black; page-break-inside: avoid;
+            }
+            .lesson-diagram { background: white !important; border: 1px solid #ccc; }
+        }
+
+        /* Utility animations for SVG */
+        .flow-path {
+            stroke-dasharray: 10;
+            animation: dash 1s linear infinite;
+        }
+        .flow-path-reverse {
+            stroke-dasharray: 10;
+            animation: dash-reverse 1s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -20; }
+        }
+        @keyframes dash-reverse {
+            to { stroke-dashoffset: 20; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../index.html">← الفهرس</a> › 
+        <span>السنة الأولى متوسط (1AM)</span> › 
+        <span>المقطع 1: الظواهر الكهربائية</span> › 
+        <span>الدرس 03</span>
+    </div>
+
+    <header class="lesson-header">
+        <span class="lesson-badge">المقطع 1</span>
+        <h1>الدرس 3: <em>التيار الكهربائي</em></h1>
+        <p style="color: var(--muted)">دور البطارية، اتجاه التيار الاصطلاحي وحركة الدقائق المادية، النواقل والعوازل.</p>
+    </header>
+
+    <nav class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'lesson')">📖 الدرس</button>
+        <button class="tab-btn" onclick="openTab(event, 'simulation')">⚗️ محاكاة وتجارب</button>
+        <button class="tab-btn" onclick="openTab(event, 'quiz')">✏️ تمارين تفاعلية</button>
+        <button class="tab-btn" onclick="openTab(event, 'summary')">📋 ملخص الكراس</button>
+    </nav>
+
+    <main id="lesson" class="tab-content active">
+        <div class="objectives-box">
+            <h3>🎯 الأهداف التعلمية</h3>
+            <ul>
+                <li>أن يتعرف التلميذ على دور المولد (البطارية) في الدارة الكهربائية.</li>
+                <li>أن يفهم مفهوم التيار الكهربائي وحركة الدقائق المادية.</li>
+                <li>أن يميز بين الاتجاه الاصطلاحي للتيار واتجاه حركة الدقائق المادية.</li>
+                <li>أن يصنف المواد إلى نواقل وعوازل كهربائية.</li>
+            </ul>
+        </div>
+
+        <h2 class="sec-title">🔌 1. دور المولد (البطارية)</h2>
+        <p>لا يمكن للتيار الكهربائي أن يمر في دارة كهربائية دون وجود مولد (مثل البطارية). فما هو دورها؟</p>
+        
+        <div class="def-box">
+            <h3>المولد الكهربائي (Générateur)</h3>
+            <div class="def-content">
+                <p>يلعب المولد دور <strong>المضخة</strong>؛ فهو لا ينتج الدقائق المادية (الكهرباء) بل يقوم بدفعها وتحريكها بانتظام في الدارة الكهربائية المغلقة.</p>
+            </div>
+            <svg class="def-illustration" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+                <rect x="35" y="40" width="80" height="90" rx="10" fill="#cbd5e1" stroke="#333" stroke-width="4"/>
+                <rect x="55" y="20" width="40" height="20" rx="4" fill="#64748b" stroke="#333" stroke-width="4"/>
+                <text x="75" y="70" font-family="Arial" font-size="24" font-weight="bold" fill="#333" text-anchor="middle">+</text>
+                <text x="75" y="110" font-family="Arial" font-size="30" font-weight="bold" fill="#333" text-anchor="middle">-</text>
+                <path d="M 10 90 Q 30 110 35 90" stroke="#ef4444" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+            </svg>
+        </div>
+
+        <h2 class="sec-title">⚡ 2. مفهوم التيار الكهربائي</h2>
+        <p>تحتوي أسلاك التوصيل والأجهزة الكهربائية على دقائق مادية صغيرة جداً (إلكترونات). عند غلق القاطعة، يقوم المولد بتحريك هذه الدقائق.</p>
+        
+        <div class="def-box">
+            <h3>التيار الكهربائي (Courant Électrique)</h3>
+            <div class="def-content">
+                <p>هو <strong>الحركة الإجمالية الموجهة للدقائق المادية</strong> في دارة كهربائية مغلقة، نتيجة دفع المولد لها.</p>
+            </div>
+        </div>
+        <div class="highlight">
+            ⚠️ <strong>ملاحظة هامة:</strong> الدقائق المادية موجودة مسبقاً في النواقل الكهربائية، والبطارية فقط تجبرها على الحركة في اتجاه واحد.
+        </div>
+
+        <h2 class="sec-title">🔄 3. اتجاه التيار الكهربائي</h2>
+        <p>هناك فرق بين حركة الدقائق المادية فعلياً، وبين ما اتفق عليه العلماء قديماً (الاتجاه الاصطلاحي).</p>
+        
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>وجه المقارنة</th>
+                    <th>الاتجاه الاصطلاحي للتيار (الأسهم الحمراء)</th>
+                    <th>اتجاه حركة الدقائق (الأسهم الزرقاء)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>خارج المولد (في الأسلاك)</strong></td>
+                    <td>من القطب <strong>الموجب (+)</strong> نحو القطب <strong>السالب (-)</strong></td>
+                    <td>من القطب <strong>السالب (-)</strong> نحو القطب <strong>الموجب (+)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>الرمز</strong></td>
+                    <td><span class="amiri" style="color: #ef4444; font-size:1.5rem;">I →</span></td>
+                    <td><span class="amiri" style="color: #3b82f6; font-size:1.5rem;">e⁻ ←</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <svg class="lesson-diagram" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="400" fill="#f8fafc" />
+            <rect x="150" y="100" width="300" height="200" fill="none" stroke="#333" stroke-width="4"/>
+            <rect x="120" y="160" width="60" height="80" rx="5" fill="#cbd5e1" stroke="#333" stroke-width="3"/>
+            <rect x="120" y="160" width="60" height="40" rx="5" fill="#ef4444" stroke="#333" stroke-width="3"/>
+            <text x="150" y="185" font-family="Arial" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">+</text>
+            <text x="150" y="225" font-family="Arial" font-size="24" font-weight="bold" fill="#333" text-anchor="middle">-</text>
+            <circle cx="450" cy="200" r="25" fill="#fef08a" stroke="#333" stroke-width="3"/>
+            <path d="M 435 185 L 465 215 M 465 185 L 435 215" stroke="#333" stroke-width="2"/>
+            
+            <path d="M 180 80 L 250 80" stroke="#ef4444" stroke-width="4" fill="none" marker-end="url(#arrowRed)"/>
+            <text x="215" y="70" font-family="Cairo" font-size="14" fill="#ef4444" text-anchor="middle">التيار الاصطلاحي</text>
+            
+            <path d="M 250 120 L 180 120" stroke="#3b82f6" stroke-width="4" fill="none" marker-end="url(#arrowBlue)"/>
+            <text x="215" y="140" font-family="Cairo" font-size="14" fill="#3b82f6" text-anchor="middle">حركة الدقائق</text>
+
+            <defs>
+                <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+                </marker>
+                <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+                </marker>
+            </defs>
+        </svg>
+
+        <h2 class="sec-title">🔗 4. النواقل والعوازل</h2>
+        <div class="def-box">
+            <h3>النواقل (Conducteurs)</h3>
+            <div class="def-content">
+                <p>هي المواد التي تسمح بمرور التيار الكهربائي عبرها (تسمح للدقائق المادية بالحركة بحرية). مثل: المعادن (النحاس، الحديد، الذهب)، الغرافيت، جسم الإنسان، والماء المالح.</p>
+            </div>
+        </div>
+        <div class="def-box">
+            <h3>العوازل (Isolants)</h3>
+            <div class="def-content">
+                <p>هي المواد التي لا تسمح بمرور التيار الكهربائي عبرها (تعيق حركة الدقائق المادية). مثل: البلاستيك، الخشب الجاف، الزجاج، والماء النقي.</p>
+            </div>
+        </div>
+    </main>
+
+    <main id="simulation" class="tab-content">
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <h2>محاكاة 1: اتجاه التيار وحركة الدقائق</h2>
+                <span class="sim-badge">تفاعلي</span>
+            </div>
+            <p>أغلق القاطعة ولاحظ الفرق بين الاتجاه الاصطلاحي وحركة الدقائق المادية.</p>
+            
+            <svg id="sim1-svg" class="lesson-diagram" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                <rect width="600" height="400" fill="#1e293b" />
+                
+                <rect x="150" y="100" width="300" height="200" fill="none" stroke="#64748b" stroke-width="6"/>
+                
+                <circle id="sim1-lamp" cx="450" cy="200" r="30" fill="#334155" stroke="#94a3b8" stroke-width="4"/>
+                <path d="M 435 185 L 465 215 M 465 185 L 435 215" stroke="#94a3b8" stroke-width="3"/>
+                
+                <rect x="120" y="150" width="60" height="100" rx="5" fill="#475569" stroke="#94a3b8" stroke-width="3"/>
+                <rect x="120" y="150" width="60" height="40" rx="5" fill="#ef4444" stroke="#94a3b8" stroke-width="3"/>
+                <text x="150" y="175" font-family="Arial" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">+</text>
+                <text x="150" y="240" font-family="Arial" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">-</text>
+
+                <line x1="250" y1="100" x2="350" y2="100" stroke="#1e293b" stroke-width="8"/> <circle cx="250" cy="100" r="6" fill="#cbd5e1"/>
+                <circle cx="350" cy="100" r="6" fill="#cbd5e1"/>
+                <line id="sim1-switch" x1="250" y1="100" x2="340" y2="70" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round" style="transition: all 0.3s; transform-origin: 250px 100px;"/>
+
+                <path id="path-conv" d="M 150 140 L 150 100 L 450 100 L 450 170" fill="none" stroke="#ef4444" stroke-width="6" class="" opacity="0"/>
+                <path id="path-conv2" d="M 450 230 L 450 300 L 150 300 L 150 260" fill="none" stroke="#ef4444" stroke-width="6" class="" opacity="0"/>
+                
+                <path id="path-part" d="M 150 260 L 150 300 L 450 300 L 450 230" fill="none" stroke="#3b82f6" stroke-width="6" class="" opacity="0"/>
+                <path id="path-part2" d="M 450 170 L 450 100 L 150 100 L 150 140" fill="none" stroke="#3b82f6" stroke-width="6" class="" opacity="0"/>
+            </svg>
+
+            <div class="sim-controls">
+                <button id="btn-switch" onclick="toggleSwitch()">🔌 غلق القاطعة</button>
+                <label>
+                    <input type="checkbox" id="chk-conv" onchange="updateSim1()" disabled> 
+                    عرض التيار الاصطلاحي (أحمر)
+                </label>
+                <label>
+                    <input type="checkbox" id="chk-part" onchange="updateSim1()" disabled> 
+                    عرض حركة الدقائق (أزرق)
+                </label>
+            </div>
+        </div>
+
+        <div class="sim-wrap">
+            <div class="sim-head">
+                <h2>محاكاة 2: اختبار النواقل والعوازل</h2>
+                <span class="sim-badge">تفاعلي</span>
+            </div>
+            <p>اختر المادة وضعها بين الدبوسين (A و B) لاختبار ناقليتها.</p>
+
+            <svg id="sim2-svg" class="lesson-diagram" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                <rect width="600" height="400" fill="#1e293b" />
+                <path d="M 150 200 L 150 300 L 450 300 L 450 100 L 350 100" fill="none" stroke="#64748b" stroke-width="6"/>
+                <path d="M 150 200 L 150 100 L 250 100" fill="none" stroke="#64748b" stroke-width="6"/>
+                
+                <circle cx="250" cy="100" r="8" fill="#e2e8f0"/>
+                <text x="250" y="80" fill="#e2e8f0" font-family="Arial" font-weight="bold" text-anchor="middle">A</text>
+                <circle cx="350" cy="100" r="8" fill="#e2e8f0"/>
+                <text x="350" y="80" fill="#e2e8f0" font-family="Arial" font-weight="bold" text-anchor="middle">B</text>
+
+                <circle id="sim2-lamp" cx="300" cy="300" r="30" fill="#334155" stroke="#94a3b8" stroke-width="4"/>
+                <path d="M 285 285 L 315 315 M 315 285 L 285 315" stroke="#94a3b8" stroke-width="3"/>
+
+                <rect x="120" y="160" width="60" height="80" rx="5" fill="#475569" stroke="#94a3b8" stroke-width="3"/>
+                <rect x="120" y="160" width="60" height="30" rx="5" fill="#ef4444" stroke="#94a3b8" stroke-width="3"/>
+                
+                <rect id="sim2-material" x="260" y="90" width="80" height="20" rx="4" fill="transparent" stroke="none" />
+                <text id="sim2-mat-text" x="300" y="105" font-family="Cairo" font-size="14" fill="#1e293b" text-anchor="middle"></text>
+            </svg>
+
+            <div class="sim-controls">
+                <label for="material-select">اختر المادة:</label>
+                <select id="material-select" onchange="testMaterial()">
+                    <option value="none">-- اختر --</option>
+                    <option value="copper" data-type="conductor" data-color="#b45309">مسمار نحاسي</option>
+                    <option value="wood" data-type="insulator" data-color="#854d0e">مسطرة خشبية</option>
+                    <option value="plastic" data-type="insulator" data-color="#0284c7">قطعة بلاستيك</option>
+                    <option value="graphite" data-type="conductor" data-color="#334155">قلم رصاص (غرافيت)</option>
+                    <option value="glass" data-type="insulator" data-color="#93c5fd">قطعة زجاج</option>
+                </select>
+                <span id="sim2-result" style="font-weight: bold; margin-right: 1rem;"></span>
+            </div>
+        </div>
+    </main>
+
+    <main id="quiz" class="tab-content">
+        <div id="quiz-container">
+            </div>
+        <button class="quiz-btn" onclick="checkAnswers()">عرض النتيجة</button>
+        <div id="quiz-score" class="quiz-score"></div>
+    </main>
+
+    <main id="summary" class="tab-content">
+        <div class="summary-card">
+            <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center;">ملخص درس التيار الكهربائي</h2>
+            <ul class="summary-list">
+                <li><strong>المولد الكهربائي (البطارية):</strong> يعتبر المضخة التي تحرك الدقائق المادية في الدارة، وهو مصدر التيار.</li>
+                <li><strong>التيار الكهربائي:</strong> هو الحركة الإجمالية الموجهة للدقائق المادية في دارة مغلقة.</li>
+                <li><strong>الدارة المفتوحة:</strong> لا يمر فيها تيار كهربائي لأن مسار الدقائق مقطوع.</li>
+                <li><strong>الاتجاه الاصطلاحي:</strong> اتفق العلماء أن التيار يمر من القطب الموجب (+) إلى القطب السالب (-) خارج المولد.</li>
+                <li><strong>حركة الدقائق المادية:</strong> تتحرك فعلياً من القطب السالب (-) نحو القطب الموجب (+).</li>
+                <li><strong>النواقل:</strong> مواد تسمح بمرور التيار (تحرك الدقائق)، مثل المعادن والماء المالح.</li>
+                <li><strong>العوازل:</strong> مواد لا تسمح بمرور التيار، مثل الخشب والبلاستيك والزجاج.</li>
+            </ul>
+        </div>
+        <button class="print-btn" onclick="window.print()">🖨️ طباعة الملخص</button>
+    </main>
+
+</div>
+
+<script>
+    // Tab switching logic
+    function openTab(evt, tabName) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Simulation 1 Logic
+    let isCircuitClosed = false;
+
+    function toggleSwitch() {
+        const sw = document.getElementById('sim1-switch');
+        const btn = document.getElementById('btn-switch');
+        const chkConv = document.getElementById('chk-conv');
+        const chkPart = document.getElementById('chk-part');
+
+        isCircuitClosed = !isCircuitClosed;
+
+        if (isCircuitClosed) {
+            sw.style.transform = "rotate(0deg)";
+            btn.innerHTML = "🔌 فتح القاطعة";
+            chkConv.disabled = false;
+            chkPart.disabled = false;
+            updateSim1();
+        } else {
+            sw.style.transform = "rotate(-25deg)";
+            btn.innerHTML = "🔌 غلق القاطعة";
+            chkConv.disabled = true;
+            chkPart.disabled = true;
+            resetSim1();
+        }
+    }
+
+    function updateSim1() {
+        if (!isCircuitClosed) return;
+        
+        const chkConv = document.getElementById('chk-conv').checked;
+        const chkPart = document.getElementById('chk-part').checked;
+        const lamp = document.getElementById('sim1-lamp');
+        
+        // Turn on lamp
+        lamp.setAttribute('fill', '#fef08a');
+        lamp.setAttribute('stroke', '#eab308');
+
+        // Update Conv Paths
+        document.getElementById('path-conv').style.opacity = chkConv ? "1" : "0";
+        document.getElementById('path-conv2').style.opacity = chkConv ? "1" : "0";
+        if (chkConv) {
+            document.getElementById('path-conv').classList.add('flow-path');
+            document.getElementById('path-conv2').classList.add('flow-path');
+        } else {
+            document.getElementById('path-conv').classList.remove('flow-path');
+            document.getElementById('path-conv2').classList.remove('flow-path');
+        }
+
+        // Update Part Paths
+        document.getElementById('path-part').style.opacity = chkPart ? "1" : "0";
+        document.getElementById('path-part2').style.opacity = chkPart ? "1" : "0";
+        if (chkPart) {
+            document.getElementById('path-part').classList.add('flow-path-reverse');
+            document.getElementById('path-part2').classList.add('flow-path-reverse');
+        } else {
+            document.getElementById('path-part').classList.remove('flow-path-reverse');
+            document.getElementById('path-part2').classList.remove('flow-path-reverse');
+        }
+    }
+
+    function resetSim1() {
+        const lamp = document.getElementById('sim1-lamp');
+        lamp.setAttribute('fill', '#334155');
+        lamp.setAttribute('stroke', '#94a3b8');
+
+        document.getElementById('path-conv').style.opacity = "0";
+        document.getElementById('path-conv2').style.opacity = "0";
+        document.getElementById('path-part').style.opacity = "0";
+        document.getElementById('path-part2').style.opacity = "0";
+    }
+
+    // Simulation 2 Logic
+    function testMaterial() {
+        const select = document.getElementById('material-select');
+        const selected = select.options[select.selectedIndex];
+        
+        const rect = document.getElementById('sim2-material');
+        const text = document.getElementById('sim2-mat-text');
+        const lamp = document.getElementById('sim2-lamp');
+        const resultLabel = document.getElementById('sim2-result');
+
+        if (select.value === "none") {
+            rect.setAttribute('fill', 'transparent');
+            text.textContent = "";
+            lamp.setAttribute('fill', '#334155');
+            lamp.setAttribute('stroke', '#94a3b8');
+            resultLabel.textContent = "";
+            return;
+        }
+
+        const type = selected.getAttribute('data-type');
+        const color = selected.getAttribute('data-color');
+        const matName = selected.textContent;
+
+        rect.setAttribute('fill', color);
+        text.textContent = matName;
+        text.setAttribute('fill', type === 'conductor' ? '#fff' : '#fff');
+
+        if (type === 'conductor') {
+            lamp.setAttribute('fill', '#fef08a');
+            lamp.setAttribute('stroke', '#eab308');
+            resultLabel.textContent = "المصباح يضيء (مادة ناقلة) ✔️";
+            resultLabel.style.color = "var(--success)";
+        } else {
+            lamp.setAttribute('fill', '#334155');
+            lamp.setAttribute('stroke', '#94a3b8');
+            resultLabel.textContent = "المصباح لا يضيء (مادة عازلة) ❌";
+            resultLabel.style.color = "var(--danger)";
+        }
+    }
+
+    // Quiz Logic
+    const questions = [
+        {
+            q: "ما هو الدور الرئيسي للمولد الكهربائي (البطارية) في الدارة؟",
+            options: ["إنتاج وتصنيع الدقائق المادية", "دفع وتحريك الدقائق المادية بانتظام", "استهلاك التيار الكهربائي"],
+            answer: 1,
+            feedback: "المولد يعمل كمضخة، فهو لا يصنع الدقائق المادية بل يحركها."
+        },
+        {
+            q: "ما هو الاتجاه الاصطلاحي للتيار الكهربائي خارج المولد؟",
+            options: ["من القطب الموجب (+) إلى السالب (-)", "من القطب السالب (-) إلى الموجب (+)", "يتحرك في اتجاهات عشوائية"],
+            answer: 0,
+            feedback: "حسب الاتفاق العلمي، التيار الاصطلاحي يخرج من الموجب ليعود إلى السالب."
+        },
+        {
+            q: "كيف تتحرك الدقائق المادية (الإلكترونات) فعلياً في الدارة؟",
+            options: ["من القطب الموجب (+) إلى السالب (-)", "من القطب السالب (-) إلى الموجب (+)", "نفس الاتجاه الاصطلاحي للتيار"],
+            answer: 1,
+            feedback: "حركة الدقائق المادية تكون دائماً عكس الاتجاه الاصطلاحي للتيار."
+        },
+        {
+            q: "أي من المواد التالية تعتبر ناقلة للتيار الكهربائي؟",
+            options: ["الخشب الجاف", "البلاستيك", "الماء المالح"],
+            answer: 2,
+            feedback: "الماء المالح يحتوي على أملاح ذائبة تسمح بمرور التيار الكهربائي."
+        },
+        {
+            q: "ما هو شرط مرور التيار الكهربائي في الدارة؟",
+            options: ["أن تكون الدارة مفتوحة", "أن تكون الدارة مغلقة وتحتوي على مولد", "وجود مصباح فقط دون بطارية"],
+            answer: 1,
+            feedback: "لا يمر التيار إلا إذا كانت الدارة مغلقة (حلقة متصلة) وتحتوي على مصدر للطاقة (مولد)."
+        }
+    ];
+
+    function buildQuiz() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((qObj, index) => {
+            let html = `
+                <div class="q-card" id="qcard-${index}">
+                    <span class="q-num">السؤال ${index + 1} من 5</span>
+                    <div class="q-text">${qObj.q}</div>
+                    <div class="q-options">
+            `;
+            qObj.options.forEach((opt, optIndex) => {
+                html += `
+                    <label class="q-option">
+                        <input type="radio" name="q${index}" value="${optIndex}">
+                        ${opt}
+                    </label>
+                `;
+            });
+            html += `
+                    </div>
+                    <div class="q-feedback" id="feedback-${index}"></div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        questions.forEach((qObj, index) => {
+            const options = document.getElementsByName(`q${index}`);
+            let selectedValue = -1;
+            let selectedLabel = null;
+
+            options.forEach(opt => {
+                if (opt.checked) {
+                    selectedValue = parseInt(opt.value);
+                    selectedLabel = opt.parentElement;
+                }
+                opt.disabled = true; // Disable after check
+            });
+
+            const feedbackDiv = document.getElementById(`feedback-${index}`);
+            feedbackDiv.style.display = "block";
+
+            if (selectedValue === qObj.answer) {
+                score++;
+                selectedLabel.classList.add("correct");
+                feedbackDiv.innerHTML = `✔️ <strong>إجابة صحيحة:</strong> ${qObj.feedback}`;
+                feedbackDiv.style.borderColor = "var(--success)";
+            } else {
+                if(selectedLabel) selectedLabel.classList.add("incorrect");
+                feedbackDiv.innerHTML = `❌ <strong>إجابة خاطئة:</strong> ${qObj.feedback}`;
+                feedbackDiv.style.borderColor = "var(--danger)";
+                // Highlight correct
+                options.forEach(opt => {
+                    if (parseInt(opt.value) === qObj.answer) {
+                        opt.parentElement.classList.add("correct");
+                    }
+                });
+            }
+        });
+
+        const scoreDiv = document.getElementById('quiz-score');
+        scoreDiv.style.display = "block";
+        scoreDiv.innerHTML = `النتيجة النهائية: ${score} / 5`;
+    }
+
+    // Init
+    buildQuiz();
+</script>
+
+</body>
+</html>
