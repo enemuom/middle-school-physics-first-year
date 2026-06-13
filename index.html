@@ -2,6 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00BFFF">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة الفيزياء التفاعلية - السنة الأولى متوسط</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
@@ -13,7 +15,13 @@
             --card-bg: #ffffff;
             --text-color: #333333;
         }
-
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('PWA ready'))
+      .catch(err => console.log('SW error:', err));
+  }
+</script>
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-color);
