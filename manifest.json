@@ -1,0 +1,29 @@
+{
+  "name": "بوابة الفيزياء التفاعلية - السنة الأولى متوسط",
+  "short_name": "فيزياء 1 م",
+  "description": "دروس تفاعلية في الفيزياء لتلاميذ السنة الأولى متوسط",
+  "start_url": "/middle-school-physics-first-year/",
+  "scope": "/middle-school-physics-first-year/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B0F1A",
+  "theme_color": "#00BFFF",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education"],
+  "screenshots": []
+}
